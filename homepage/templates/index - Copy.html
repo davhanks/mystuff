@@ -1,0 +1,43 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - Home</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+<%block name="center">
+  <div class = "centerBlock">
+    <p>This is the homepage and centerblock area</p>
+
+    <table class="table table-striped">
+    	<thead>
+    		<tr>
+    			<th>ID</th>
+    			<th>Question Text</th>
+    			<th>Actions</th>
+    		</tr>
+    		<tr>
+    			<td>1</td>
+    			<td>This is question 1</td>
+    			<td></td>
+    		</tr>
+    		<tr>
+    			<td>2</td>
+    			<td>This is question 2</td>
+    			<td></td>
+    		</tr>
+    		<tr>
+    			<td>3</td>
+    			<td>This is question 3</td>
+    			<td></td>
+    		</tr>
+    	</thead>
+    </table>
+  </div>
+  
+</%block>  

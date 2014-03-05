@@ -1,0 +1,114 @@
+## this is the skeleton of all pages on our site - it defines the basic structure with our menus, sidebars, etc.
+## by naming this file with .htm, it can't be viewed directly (urls.py only allows full .html)
+
+## set up a StaticRenderer object to enable the CSS/JS automatic inclusion magic.
+<%! from base_app import static_files %>
+<%  static_renderer = static_files.StaticRenderer(self) %>
+
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <head>
+    <%block name="title">
+      <title>MyStuff</title>
+    </%block>
+
+  	<link rel="stylesheet" href="/static/base_app/styles/bootstrap.css">
+    <link rel="stylesheet" href="/static/base_app/styles/base_template.css">
+
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+    <link rel="icon" type="image/png" href="/static/base_app/images/favicon.ico">
+    <%block name="css">
+
+    </%block>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	  <script src="/static/base_app/scripts/bootstrap.js"></script>
+    <script src="/static/base_app/scripts/jquery.form.js"></script>
+    <script src="/static/base_app/scripts/confirmation.js"></script>
+    <script src="/static/base_app/scripts/test.js"></script>
+    <script src="/static/base_app/scripts/jquery.loadmodal.js"></script>
+  
+    ## render the css
+    ${ static_renderer.get_template_css(request, context)  }
+  
+  </head>
+  <body>
+  
+    <header>
+      <%block name="header">
+        <div class="divBackground space">
+          <div class="row">
+            <div class="col-md-1">
+              <img src="${ STATIC_URL }base_app/images/rsz_camera.png"/>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="menuBtns">
+                <a href="/index" class="btn btn-primary">Home</a>
+                <a href="/about" class="btn btn-success">About Us</a>
+                <a href="/contact" class="btn btn-warning">Contact</a>
+                <a href="/terms" class="btn btn-danger">Terms</a>
+              </div>
+            </div>
+
+            <div class="col-md-2 col-md-offset-5">
+                
+                %if request.user.is_authenticated():
+                  <div>
+                    <a href="/account/accountDashboard/" id="account_button" class="btn btn-success titleFont cartButton"><span class="glyphicon glyphicon-user"></span> Account</a>
+                  </div>
+                %else:
+                  <div>
+                    <a href="" id="login_button" class="btn btn-danger titleFont cartButton"><span class="glyphicon glyphicon-arrow-right"></span> Login</a>
+                  </div>
+                %endif
+            </div> 
+          </div>
+        </div>
+      </%block>
+    </header>
+  
+	
+  
+	<div class="row">
+		<div class="col-md-2">
+      <%block name="left_side">
+        
+          left side content
+        
+      </%block>
+    </div>
+		<div class="col-md-10">
+      <%block name="center">
+        center
+      </%block> 
+    </div>
+	</div>
+
+  <footer>
+    <div class="divBackground addHeight">
+      <div class="row">
+        <div class="col-md-1">
+          <div class="titleFont">
+            <span class="label label-danger titleFont footLabel">
+              <span class="glyphicon glyphicon-camera"></span> MyStuff
+            </span>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <%block name="footer">
+            footer
+          </%block>
+        </div>
+      </div>
+    </div>
+  </footer>
+	  
+	
+     
+  
+    ## render the JS for this page (placed here at the end because browsers apparently load faster when JS is at the end)
+    ${ static_renderer.get_template_js(request, context)  }
+  
+  </body>
+</html>

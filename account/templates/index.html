@@ -1,0 +1,30 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - Home</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+<%block name="center">
+  <div class = "centerBlock">
+    <p>This is the homepage and centerblock area</p>
+
+    <div id= "server_time">
+    	<p>Stuff</p>
+  	</div>
+  </div>
+
+  	%if request.user.is_authenticated():
+	  <div>
+	  	<a id="login_button" class="btn btn-success">Login</a>
+
+	  </div>
+	%else:
+		<a id="account_button" class="btn btn-success"> Account</a>
+  	%endif
+</%block>  

@@ -1,0 +1,15 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base_ajax_template.htm" />
+
+
+
+
+<%block name="content">
+
+    ${ form.as_full(id='login_form', action='/account/login/') }
+
+    <div>
+    	link to create account
+    </div>
+  
+</%block>
