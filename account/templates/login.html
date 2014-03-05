@@ -5,9 +5,14 @@
 
 
 <%block name="content">
-
-    ${ form.as_full(id='login_form', action='/account/login/') }
-
+	<form method="POST" action="/account/login/">
+		<table>
+			<tbody>
+		    	${ form }
+		    </tbody>
+	    <table>
+	    <input class="btn btn-primary" type="submit" value="Login" />
+    </form>
     <div>
     	link to create account
     </div>

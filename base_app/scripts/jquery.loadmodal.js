@@ -88,6 +88,8 @@
     // create our own success responder for the ajax
     var orig_success = options.ajax.success;
     options.ajax.success = function(data, status, xhr) {
+      console.log(0);
+
       // create the modal html
       var div = $([
         '<div id="' + options.id + '" class="modal fade">',
@@ -103,10 +105,16 @@
         '    </div>',
         '  </div>',
       ].join('\n'));
+
+      console.log(1);
       
       // add the new modal div to the element and show it!
       elem.after(div);
+      console.log(1.5);
+      console.log(data);
       div.find('.modal-body').html(data);
+      console.log(1.6);
+
       div.modal();
       div.find('.modal-dialog').css('width', options.width);
 
@@ -114,11 +122,15 @@
       div.on('hidden.bs.modal', function (e) {
         div.remove();
       });
+      console.log(2);
 
       // run the user success function, if there is one
       if (orig_success) {
         orig_success(data, status, xhr);
       }//if
+
+
+      console.log('done success');
       
     }//success
     
