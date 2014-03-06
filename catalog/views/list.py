@@ -17,7 +17,38 @@ def process_request(request):
 
     template_vars = {
         'products': products,
+    }
 
+    return templater.render_to_response(request, 'list.html', template_vars)
+
+
+
+def process_request__search(request):
+    try:
+        products = mmod.CatalogInventory.objects.filter(product_category__icontains=request.POST.get('search', ''))
+    except CatalogInventory.DoesNotExist:
+        products = mmod.CatalogInventory.ojects.none()
+
+    if len(products)==0:
+        try:
+            products = mmod.CatalogInventory.objects.filter(product_name__icontains=request.POST.get('search',''))
+        except CatalogInventory.DoesNotExist:
+            products = mmod.CatalogInventory.objects.none()
+
+    if len(products)==0:
+        try:
+            products = mmod.CatalogInventory.objects.filter(manufacturer__icontains=request.POST.get('search',''))
+        except CatalogInventory.DoesNotExist:
+            products = mmod.CatalogInventory.objects.none()
+
+    if len(products)==0:
+        try:
+            products = mmod.CatalogInventory.objects.filter(description__icontains=request.POST.get('search',''))
+        except CatalogInventory.DoesNotExist:
+            products = mmod.CatalogInventory.objects.none()
+
+    template_vars = {
+        'products': products,
     }
 
     return templater.render_to_response(request, 'list.html', template_vars)

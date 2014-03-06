@@ -29,6 +29,7 @@ def process_request(request):
         'description': cp.description,
         'manufacturer': cp.manufacturer,
         'average_cost': cp.average_cost,
+        'sale_price' : cp.sale_price,
         'commission_rate': cp.commission_rate,
         'product_category': cp.product_category,
         'sku': cp.sku,
@@ -41,6 +42,7 @@ def process_request(request):
             cp.description = form.cleaned_data['description']
             cp.manufacturer = form.cleaned_data['manufacturer']
             cp.average_cost = form.cleaned_data['average_cost']
+            cp.sale_price = form.cleaned_data['sale_price']
             cp.commission_rate = form.cleaned_data['commission_rate']
             cp.product_category = form.cleaned_data['product_category']
             cp.sku = form.cleaned_data['sku']
@@ -62,6 +64,7 @@ class CatProductForm(forms.Form):
     description = forms.CharField()
     manufacturer = forms.CharField()
     average_cost = forms.DecimalField()
+    sale_price = forms.DecimalField()
     commission_rate = forms.DecimalField()
     product_category = forms.CharField()
     sku = forms.IntegerField()
