@@ -6,4 +6,4 @@ import base_app.controller
 ###   here once and then use it throughout the views
 ###   within this app because we only need one.
 
-templater = base_app.controller.MakoTemplateRenderer('homepage')
+templater = base_app.controller.MakoTemplateRenderer('catalog')

@@ -12,7 +12,7 @@ $(function() {
 			width: '400px',
 			
 
-		});//loadmodals
+		});//loadmodal
 		
 
 	});//click

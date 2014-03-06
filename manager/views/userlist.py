@@ -13,7 +13,7 @@ def process_request(request):
     if not request.user.is_staff:
         return HttpResponseRedirect('/manager/dashboard')
         
-    users = mmod.User.objects.filter(active=True)
+    users = mmod.User.objects.filter(is_active=True)
     #print(">>>>>>>>>>>>>>", stores)
 
     template_vars = {

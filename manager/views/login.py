@@ -27,7 +27,7 @@ def process_request(request):
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             if user is not None:
                 # the password verified for the user
-                if user.active:
+                if user.is_active:
                     print(">>>>>>>>>>>>>>>>>>>>>>User is valid, active and authenticated")
                     login(request, user)
                     if user.is_staff:

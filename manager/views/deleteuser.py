@@ -15,7 +15,7 @@ def process_request(request):
     # Get BO
     
     u = mmod.User.objects.get(id=request.urlparams[0])
-    u.active=False
+    u.is_active=False
     u.save()
 
     return HttpResponseRedirect('/manager/userlist/')

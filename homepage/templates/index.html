@@ -3,7 +3,7 @@
 
 
 <%block name="title">
-	<title>MyStuff - Home</title>
+	<title>MyStuff - List</title>
 </%block>
 
 <%block name="css">
@@ -11,8 +11,21 @@
 </%block>
 
 <%block name="center">
-  <div class = "centerBlock">
+  <div class = "centerBlockWhite">
     <p>This is the homepage and centerblock area</p>
+
+    <div class="row">
+    	<div class="col-md-4">
+    		<img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ prods[0].image }"/>
+    	</div>
+    	<div class="col-md-4">
+    		<img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ prods[0].image }"/>
+    	</div>
+    	<div class="col-md-4">
+    		<img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ prods[0].image }"/>
+    	</div>
+    </div>
+    
   </div>
   
 </%block>  

@@ -125,6 +125,26 @@ header {
 	border-top-left-radius:5px 5px;
 }
 
+.centerBlockWhite {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	margin-bottom: auto;
+
+	padding-bottom: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+
+	background-color:rgba(255,255,255,0.6);
+	color: black;
+	float: left;
+	border-bottom-right-radius:100px 25px;
+	border-bottom-left-radius:100px 25px;
+	border-top-right-radius:5px 5px;
+	border-top-left-radius:5px 5px;
+}
+
 .userInfo {
 	margin-top: 5px;
 	margin-bottom: auto;
@@ -191,4 +211,9 @@ a:hover {color:blue;}  /* mouse over link */
 
 .floatRight {
 	float: right;
+}
+
+.catalog_tile {
+	width: 300px;
+	height: 200px;
 }

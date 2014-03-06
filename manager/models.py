@@ -47,9 +47,8 @@ class CatalogInventory(models.Model):
     product_category = models.CharField(max_length=200,blank=True, null=True)
     sku = models.IntegerField(max_length=10,blank=True, null=True)
     active = models.NullBooleanField(blank=True, null=True)
+    sale_price = models.DecimalField(max_length=200,max_digits=10, decimal_places=2, blank=True, null=True)
     image = models.CharField(max_length=200, blank=True, null=True)
-
-
 
 class Product(models.Model):
     '''This is the physical product class'''
@@ -60,3 +59,22 @@ class Product(models.Model):
     purchase_date = models.DateField(blank=True,null=True)
     is_rental = models.NullBooleanField(blank=True, null=True)
     active = models.NullBooleanField(blank=True, null=True)
+
+class Sale(models.Model):
+    '''The Sale (Transaction) class'''
+    employee = models.ForeignKey('Employee')
+    date = models.DateTimeField(auto_now_add=True)
+    sub_total = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    shipping_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    tax_ammount = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
+
+class SaleItem(models.Model):
+    '''An item in a sale'''
+    sale = models.ForeignKey('Sale')
+    product = models.ForeignKey('Product')
+
+class Commission(models.Model):
+    employee = models.ForeignKey('Employee')
+    sale = models.OneToOneField('Sale')
+    amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    date = models.DateTimeField(auto_now_add=True)

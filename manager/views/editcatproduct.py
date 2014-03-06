@@ -32,6 +32,7 @@ def process_request(request):
         'commission_rate': cp.commission_rate,
         'product_category': cp.product_category,
         'sku': cp.sku,
+        'image_name': cp.image,
     })
     if request.method == 'POST':
         form = CatProductForm(request.POST)
@@ -43,6 +44,7 @@ def process_request(request):
             cp.commission_rate = form.cleaned_data['commission_rate']
             cp.product_category = form.cleaned_data['product_category']
             cp.sku = form.cleaned_data['sku']
+            cp.image = form.cleaned_data['image_name']
             cp.save()
             return HttpResponseRedirect('/manager/productlist/')
 
@@ -63,3 +65,4 @@ class CatProductForm(forms.Form):
     commission_rate = forms.DecimalField()
     product_category = forms.CharField()
     sku = forms.IntegerField()
+    image_name = forms.CharField()

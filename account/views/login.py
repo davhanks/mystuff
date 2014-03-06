@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 
 
 def process_request(request):
-    '''Show all objects in the db'''
+    '''Login form'''
 
     form = LoginForm(initial = {
 
@@ -23,11 +23,11 @@ def process_request(request):
             user = authenticate(username= form.cleaned_data['username'], password=form.cleaned_data['password'])
             if user is not None:
                 # the password verified for the user
-                if user.active:
+                if user.is_active:
                     print(">>>>>>>>>>>>>>>>>>>>>>User is valid, active and authenticated")
                     login(request, user)
                     if user.is_staff:
-                        return HttpResponse('<script>window.location.href="/manager/dashboard"; </script>')
+                        return HttpResponse('<script>window.location.href="/manager/dashboard/"; </script>')
                     else:
                         return HttpResponse('<script>window.location.href="/account/"; </script>')
 
@@ -40,7 +40,6 @@ def process_request(request):
 
     template_vars = {
         'form' : form,
-
     }
 
     return templater.render_to_response(request, 'login.html', template_vars)
@@ -50,6 +49,9 @@ class LoginForm(forms.Form):
     username = forms.CharField(label="Username", required=True)
     password = forms.CharField(label="Password", required=True, widget=forms.PasswordInput())
 
-    # def clean(self):
-    #   if len(self.errors) ==0:
+    def clean(self):
+        user = authenticate(username=self.cleaned_data.get('username'), password=self.cleaned_data.get('password'))
+        if user == None:
+            raise forms.ValidationError('Incorrect username or password')
+        return self.cleaned_data
 
