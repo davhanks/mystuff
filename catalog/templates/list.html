@@ -14,20 +14,23 @@
     <div class = "centerBlockWhite">
     <br>
         %for p in products:
-
+            %if len(products) > 2: 
                 <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ p.image }" />
+            %elif len(products) > 1:
+                <div class="col-md-6">
+            %endif
+                <div class="thumbnail">
+                    <img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ p.image }" />
 
-                    <div>
-                        <h3>${ p.product_name }</h3>
-                        <h4>${ p.sale_price }</h4>
-                        <a class="btn btn-danger"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a> <a href="/catalog/description/${ p.id }" class="btn btn-primary" >Description</a>
-                    </div>
-
-                    </div>
-                    
+                <div>
+                    <h3>${ p.product_name }</h3>
+                    <h4>${ p.sale_price }</h4>
+                    <a class="btn btn-danger"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a> <a href="/catalog/description/${ p.id }" class="btn btn-primary" >Description</a>
                 </div>
+
+                </div>
+                
+            </div>
 
         %endfor
     </div> 
