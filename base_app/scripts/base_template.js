@@ -17,4 +17,21 @@ $(function() {
 
 	});//click
 
+
+	$('#cart_button').click( function() {
+
+		console.log('hey')
+
+		$('#cart_button').loadmodal({
+			id: 'cart_modal',
+			title: 'MyCart',
+			url: '/catalog/cart/',
+			width: '600px',
+			
+
+		});//loadmodal
+		
+
+	});//click
+
 });//ready

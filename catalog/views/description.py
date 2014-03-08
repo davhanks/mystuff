@@ -10,13 +10,16 @@ def process_request(request):
     '''Get products from the DB'''
     if request.urlparams[0]:
         product = mmod.CatalogInventory.objects.get(id=request.urlparams[0])
+        physicalProd = mmod.Product.objects.filter(catalog_inventory_id=request.urlparams[0])
     else:
         return HttpResponseRedirect('/catalog/list/all/')
 
+    amount = len(physicalProd)
 
 
     template_vars = {
         'product': product,
+        'amount' : amount,
     }
 
     return templater.render_to_response(request, 'description.html', template_vars)

@@ -1,0 +1,25 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base_ajax_template.htm" />
+
+<%block name="content">
+    <div>
+        
+
+
+        <table>
+            <thead>
+                <th>Product Name</th>
+                <th>Sale Price</th>
+            </thead>
+            <tbody>
+                %for p in products:
+                    <tr>
+                        <td>${ p.product_name }</td>
+                        <td>${ p.sale_price }</td>
+                        <td><a class="delete_button btn btn-danger" data-id="${ p.id }"><span class="glyphicon glyphicon-trash"></span> Remove Items</a></td>
+                    </tr>
+                %endfor
+            </tbody>
+        <table>
+    </div>
+</%block>

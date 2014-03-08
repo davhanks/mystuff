@@ -9,7 +9,7 @@ from . import templater
 def process_request(request):
     '''Get products from the DB'''
     if request.urlparams[0] == 'all':
-        products = mmod.CatalogInventory.objects.all()
+        products = mmod.CatalogInventory.objects.filter(active=True)
     else:
         products = mmod.CatalogInventory.objects.filter(product_category=request.urlparams[0])
 
