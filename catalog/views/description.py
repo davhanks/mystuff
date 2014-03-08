@@ -10,7 +10,7 @@ def process_request(request):
     '''Get products from the DB'''
     if request.urlparams[0]:
         product = mmod.CatalogInventory.objects.get(id=request.urlparams[0])
-        physicalProd = mmod.Product.objects.filter(catalog_inventory_id=request.urlparams[0])
+        physicalProd = mmod.Product.objects.filter(catalog_inventory_id=request.urlparams[0]).filter(active=True)
     else:
         return HttpResponseRedirect('/catalog/list/all/')
 

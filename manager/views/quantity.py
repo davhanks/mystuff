@@ -56,6 +56,7 @@ def process_request(request):
         u.shelf_location = 'Storage Room'
         u.purchase_date = datetime.now().date()
         u.serial_number = random.randrange(1000,99999)
+        u.active = True
         u.save()
 
     return HttpResponseRedirect('/manager/productlist/')

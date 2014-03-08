@@ -14,11 +14,20 @@ html {
 body {
 	background-color:rgba(44,53,57,0);
 	overflow-x: hidden; 
+	overflow-y: scroll;
 
 }
 
 header {
   text-align: center;
+}
+
+.modal {
+ overflow-y: auto;
+}
+
+.modal-open {
+ overflow: auto;
 }
 
 #confirmation {
@@ -199,7 +208,7 @@ header {
 
 a:link {color:white;}      /* unvisited link */
 a:visited {color:white;}  /* visited link */
-a:hover {color:blue;}  /* mouse over link */
+a:hover {color:grey;}  /* mouse over link */
 
 .width {
 	margin-top: 5px;

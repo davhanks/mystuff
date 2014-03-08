@@ -3,23 +3,40 @@
 
 <%block name="content">
     <div>
-        
+        %for p in products:
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="img_container">
+                    <img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ p.image }" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <p>Product: ${ p.product_name }</p>
+                </div>
+                <div class="col-md-2">
+                    <p>Description: ${ p.description }</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Quantity: ${cart[str(p.id)]}</p>
+                </div>
+                <div class="col-md-2">
+                    <p>Price: ${ p.sale_price }</p>
+                </div>
+                <div class="col-md-1">
+                    <a class="delete_button btn btn-danger" data-id="${ p.id }"><span class="glyphicon glyphicon-trash"></span></a>
+                </div>
+            </div>
 
-
-        <table>
-            <thead>
-                <th>Product Name</th>
-                <th>Sale Price</th>
-            </thead>
-            <tbody>
-                %for p in products:
-                    <tr>
-                        <td>${ p.product_name }</td>
-                        <td>${ p.sale_price }</td>
-                        <td><a class="delete_button btn btn-danger" data-id="${ p.id }"><span class="glyphicon glyphicon-trash"></span> Remove Items</a></td>
-                    </tr>
-                %endfor
-            </tbody>
-        <table>
+            <hr>
+        %endfor
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <p>Subtotal: ${ subtotal }</p>
+                </div>
+            </div>
     </div>
 </%block>

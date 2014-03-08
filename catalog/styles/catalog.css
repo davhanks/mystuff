@@ -1,6 +1,5 @@
-.thumbnail img {
-	height: 296px;
-	width: 269px;
+.thumbnail > img {
+
 	max-width:269px;
     max-height:296px;
     width: auto;

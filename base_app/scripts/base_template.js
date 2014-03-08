@@ -26,7 +26,7 @@ $(function() {
 			id: 'cart_modal',
 			title: 'MyCart',
 			url: '/catalog/cart/',
-			width: '600px',
+			width: '1000px',
 			
 
 		});//loadmodal
