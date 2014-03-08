@@ -62,11 +62,32 @@ class Product(models.Model):
 
 class Sale(models.Model):
     '''The Sale (Transaction) class'''
-    employee = models.ForeignKey('Employee')
+    user = models.ForeignKey('User')
     date = models.DateTimeField(auto_now_add=True)
     sub_total = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     shipping_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     tax_ammount = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
+
+    ship_first = models.CharField(max_length=200, blank=True, null=True)
+    ship_last = models.CharField(max_length=200, blank=True, null=True)
+    ship_street = models.CharField(max_length=30, blank=True, null=True)
+    ship_city = models.CharField(max_length=50, blank=True, null=True)
+    ship_state = models.CharField(max_length=30, blank=True, null=True)
+    ship_zipCode = models.CharField(max_length=20, blank=True, null=True)
+
+    bill_street = models.CharField(max_length=30, blank=True, null=True)
+    bill_city = models.CharField(max_length=50, blank=True, null=True)
+    bill_state = models.CharField(max_length=30, blank=True, null=True)
+    bill_zipCode = models.CharField(max_length=20, blank=True, null=True)
+
+    creditCardNum = models.CharField(max_length=16, blank=True, null=True)
+    cvn = models.CharField(max_length=3, blank=True, null=True)
+    card_first = models.CharField(max_length=50, blank=True, null=True)
+    card_last = models.CharField(max_length=50, blank=True, null=True)
+    expDate = models.DateField(blank=True, null=True)
+
+    receipt_number = models.CharField(max_length=200, blank=True, null=True)
+
 
 class SaleItem(models.Model):
     '''An item in a sale'''

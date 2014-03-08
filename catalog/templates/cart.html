@@ -4,7 +4,7 @@
 <%block name="content">
     <div>
         %for p in products:
-            <div class="row">
+            <div class="row shade">
                 <div class="col-md-2">
                     <div class="img_container">
                     <img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ p.image }" />
@@ -20,7 +20,7 @@
                     <p>Quantity: ${cart[str(p.id)]}</p>
                 </div>
                 <div class="col-md-2">
-                    <p>Price: ${ p.sale_price }</p>
+                    <p>Price: $${ p.sale_price }</p>
                 </div>
                 <div class="col-md-1">
                     <a class="delete_button btn btn-danger" data-id="${ p.id }"><span class="glyphicon glyphicon-trash"></span></a>
@@ -31,8 +31,10 @@
         %endfor
             <div class="row">
                 <div class="col-md-4">
+
                 </div>
                 <div class="col-md-4">
+                    <a href="/catalog/checkout/" class="btn btn-danger"> Checkout</a>
                 </div>
                 <div class="col-md-4">
                     <p>Subtotal: ${ subtotal }</p>

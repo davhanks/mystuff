@@ -8,4 +8,13 @@ $(function() {
 		})
 
 	});// click
+
+
+	$(".shade").hover(function() {
+		$(this).css({"background-color":"rgba(0,0,0,0.1)"});
+	},function(){
+		$(this).css({"background-color":"rgba(255,255,255,1)"});
+	}); //hover function
+
+
 });//ready

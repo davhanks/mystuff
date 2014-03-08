@@ -9,19 +9,20 @@ from . import templater
 def process_request(request):
     
 
-    u = request.user
+    uid = request.user.id
+    u = mmod.User.objects.get(id=uid)
 
     form = EditAccountForm(initial = {
 
-        'first_name': '',
-        'last_name': '',
-        'email': '',
-        'street': '',
-        'street2': '',
-        'city': '',
-        'state': '',
-        'zipCode': '',
-        'phone': '',
+        'first_name': u.first_name,
+        'last_name': u.last_name,
+        'email': u.email,
+        'street': u.street,
+        'street2': u.street2,
+        'city': u.city,
+        'state': u.state,
+        'zipCode': u.zipCode,
+        'phone': u.phone,
         'is_Staff': True,
 
         })
@@ -56,7 +57,6 @@ def process_request(request):
 class EditAccountForm(forms.Form):
 
 
-    retype = forms.CharField(widget=forms.PasswordInput())
     first_name = forms.CharField()
     last_name = forms.CharField()
     email = forms.EmailField()
