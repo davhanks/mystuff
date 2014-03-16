@@ -39,6 +39,8 @@ def process_request(request):
 
 
 
+
+
     for key in cart:
         prod = mmod.CatalogInventory.objects.get(id__in=key)
         products.append(prod)
@@ -161,42 +163,19 @@ def process_request(request):
             print('>>>>>>>>>>>>>>>>>>' + prod.product_name)
             quantity = cart[str(prod.id)]
             print('quantity = ' + str(quantity))
+
+            pp = mmod.Product.objects.filter(catalog_inventory_id = prod.id).filter(active=True)
             for i in range(0,quantity):
                 print('This is product ' + str(i) )
 
-                for pp in physicalProducts:
-                    if pp.catalog_inventory_id == prod.id:
-                        print("Its a match!!!!!!!!!!!!!!!!!!!!!!")
-                        saleItem = mmod.SaleItem()
-                        saleItem.sale_id = sale.id
-                        saleItem.product_id = pp.id
-                        saleItem.save()
-                        break
 
-        # for key in cart:
-        #     quantity = cart[key]
-        #     for prod in products:
-        #         physicalProducts =  mmod.Product.objects.filter(catalog_inventory_id=prod.id)
-        #         for i in range(0,quantity):
-        #             print(i)
+            # if physicalProducts[i].catalog_inventory_id == prod.id:
+                # print("Its a match!!!!!!!!!!!!!!!!!!!!!!")
+                saleItem = mmod.SaleItem()
+                saleItem.sale_id = sale.id
+                saleItem.product_id = pp[i].id
+                saleItem.save()
 
-
-
-                # for pp in physicalProducts:
-                #     print (pp.serial_number + '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-                #     print (quantity)
-
-
-
-
-
-
-
-                # if prod.id == key:
-                #     for i in range(0,quantity):
-                #         si = mmod.SaleItem()
-                #         si.sale_id = sale.id
-                #         si.prodcut_id = prod.id
 
 
         return HttpResponseRedirect('/catalog/receipt/')
