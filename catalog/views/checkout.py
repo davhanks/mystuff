@@ -122,37 +122,38 @@ def process_request(request):
 
 
         # Create the sale object and all related B.O.s and confirm the order
-        # sale = mmod.Sale()
-        # if commission:
-        #     sale.user = u.id
-        # sale.date = datetime.now()
-        # sale.subtotal = subtotal
-        # sale.shipping_cost = 0
-        # # total = subtotal + shipping_charge
+        sale = mmod.Sale()
+        if commission:
+            sale.user_id = u.id
+            # print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+        sale.date = datetime.now()
+        sale.subtotal = subtotal
+        sale.shipping_cost = 0
+        # total = subtotal + shipping_charge
 
 
-        # sale.tax_ammount = 0
+        sale.tax_ammount = 0
 
-        # sale.ship_first = ship_first
-        # sale.ship_last = ship_last
-        # sale.ship_street = ship_street
-        # sale.ship_city = ship_city
-        # sale.ship_state = ship_state
-        # sale.ship_zipCode = ship_zipCode
+        sale.ship_first = ship_first
+        sale.ship_last = ship_last
+        sale.ship_street = ship_street
+        sale.ship_city = ship_city
+        sale.ship_state = ship_state
+        sale.ship_zipCode = ship_zipCode
 
-        # sale.bill_street = bill_street
-        # sale.bill_city = bill_city
-        # sale.bill_state = bill_state
-        # sale.bill_zipCode = bill_zipCode
+        sale.bill_street = bill_street
+        sale.bill_city = bill_city
+        sale.bill_state = bill_state
+        sale.bill_zipCode = bill_zipCode
 
-        # sale.creditCardNum = card_cc_num
-        # sale.cvn = card_cvn
-        # sale.card_first = card_first
-        # sale.card_last = card_last
-        # sale.expDate = card_exp_date
+        sale.creditCardNum = card_cc_num
+        sale.cvn = card_cvn
+        sale.card_first = card_first
+        sale.card_last = card_last
+        sale.expDate = card_exp_date
 
-        # sale.receipt_number = 1234
-        # sale.save()
+        sale.receipt_number = 1234
+        sale.save()
         return HttpResponseRedirect('/catalog/receipt/')
 
             
