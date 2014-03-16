@@ -14,15 +14,7 @@ def process_request(request):
         return HttpResponseRedirect('/homepage/')
     if request.user.is_staff:
         commission = True
-    # Get BO
-    # if request.urlparams[0] == 'new':
-    #     s = mmod.Store()
-    #     s.name = 'New Store'
-    #     s.active = True
-    #     s.save()
-    #     return HttpResponseRedirect('/manager/editstore/' + str(s.id))
-    # else:
-    #     s = mmod.Store.objects.get(id=request.urlparams[0])
+
 
     # run the form
     uid = request.user.id
@@ -34,13 +26,10 @@ def process_request(request):
     # Flat rate shipping and a var for storing the subtotal
     subtotal = 0
     shipping_charge = 10.00
+    com_amount = 0
 
 
-
-
-
-
-
+    # gets the products from the cart
     for key in cart:
         prod = mmod.CatalogInventory.objects.get(id__in=key)
         products.append(prod)
@@ -49,7 +38,7 @@ def process_request(request):
 
     form1 = ShipForm(initial={
 
-        'Ship_first' : u.first_name,
+        'Ship_first' : 'stupid face',
         'Ship_last' : '',
         'street': '',
         'city': '',
@@ -125,8 +114,8 @@ def process_request(request):
 
         # Create the sale object and all related B.O.s and confirm the order
         sale = mmod.Sale()
-        if commission:
-            sale.user_id = u.id
+        sale.user_id = u.id
+        
             # print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
         sale.date = datetime.now()
         sale.sub_total = subtotal
@@ -157,24 +146,32 @@ def process_request(request):
         sale.receipt_number = 1234
         sale.save()
 
-        physicalProducts =  mmod.Product.objects.filter(active=True) #filter(catalog_inventory_id=prod.id)
+        
 
+        # makes a saleitem for every conceptual item in the cart
         for prod in products:
-            print('>>>>>>>>>>>>>>>>>>' + prod.product_name)
+            # gets the quantity of the current item
             quantity = cart[str(prod.id)]
-            print('quantity = ' + str(quantity))
+            prod_com = prod.commission_rate * prod.sale_price * quantity
+            com_amount += prod_com
 
+            # gets the list of all physical items that have not been sold that match the current
+            # conceptual inv item and creates a sale item
             pp = mmod.Product.objects.filter(catalog_inventory_id = prod.id).filter(active=True)
             for i in range(0,quantity):
-                print('This is product ' + str(i) )
-
-
-            # if physicalProducts[i].catalog_inventory_id == prod.id:
-                # print("Its a match!!!!!!!!!!!!!!!!!!!!!!")
                 saleItem = mmod.SaleItem()
                 saleItem.sale_id = sale.id
                 saleItem.product_id = pp[i].id
                 saleItem.save()
+
+
+        if commission:
+            com = mmod.Commission()
+            com.employee_id = u.id
+            com.sale_id = sale.id
+            com.date = datetime.now()
+            com.amount = com_amount
+            com.save()
 
 
 
