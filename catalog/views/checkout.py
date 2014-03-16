@@ -47,7 +47,7 @@ def process_request(request):
 
     form1 = ShipForm(initial={
 
-        'Ship_first' : '',
+        'Ship_first' : u.first_name,
         'Ship_last' : '',
         'street': '',
         'city': '',
@@ -125,9 +125,9 @@ def process_request(request):
         sale = mmod.Sale()
         if commission:
             sale.user_id = u.id
-            # print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+            # print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
         sale.date = datetime.now()
-        sale.subtotal = subtotal
+        sale.sub_total = subtotal
         sale.shipping_cost = 0
         # total = subtotal + shipping_charge
 
@@ -154,6 +154,51 @@ def process_request(request):
 
         sale.receipt_number = 1234
         sale.save()
+
+        physicalProducts =  mmod.Product.objects.filter(active=True) #filter(catalog_inventory_id=prod.id)
+
+        for prod in products:
+            print('>>>>>>>>>>>>>>>>>>' + prod.product_name)
+            quantity = cart[str(prod.id)]
+            print('quantity = ' + str(quantity))
+            for i in range(0,quantity):
+                print('This is product ' + str(i) )
+
+                for pp in physicalProducts:
+                    if pp.catalog_inventory_id == prod.id:
+                        print("Its a match!!!!!!!!!!!!!!!!!!!!!!")
+                        saleItem = mmod.SaleItem()
+                        saleItem.sale_id = sale.id
+                        saleItem.product_id = pp.id
+                        saleItem.save()
+                        break
+
+        # for key in cart:
+        #     quantity = cart[key]
+        #     for prod in products:
+        #         physicalProducts =  mmod.Product.objects.filter(catalog_inventory_id=prod.id)
+        #         for i in range(0,quantity):
+        #             print(i)
+
+
+
+                # for pp in physicalProducts:
+                #     print (pp.serial_number + '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+                #     print (quantity)
+
+
+
+
+
+
+
+                # if prod.id == key:
+                #     for i in range(0,quantity):
+                #         si = mmod.SaleItem()
+                #         si.sale_id = sale.id
+                #         si.prodcut_id = prod.id
+
+
         return HttpResponseRedirect('/catalog/receipt/')
 
             
