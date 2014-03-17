@@ -21,6 +21,7 @@ def process_request(request):
     u = mmod.User.objects.get(id=uid)
     cart = request.session.get('cart', {})
     products = []
+    soldList = []
 
 
     # Flat rate shipping and a var for storing the subtotal
@@ -143,7 +144,7 @@ def process_request(request):
         sale.card_last = card_last
         sale.expDate = card_exp_date
 
-        sale.receipt_number = 1234
+        sale.receipt_number = randint(10000,1000000)
         sale.save()
 
         
@@ -163,6 +164,18 @@ def process_request(request):
                 saleItem.sale_id = sale.id
                 saleItem.product_id = pp[i].id
                 saleItem.save()
+
+                # add each id to a list to set them as sold after a Sale Item object is created
+                soldList.append(pp[i].id)
+
+        cart = {}
+        request.session['cart'] = cart
+
+        # Set each sold Physical Product to false so that it can only be sold once
+        for p in soldList:
+            prod = mmod.Product.objects.get(id=p)
+            prod.active = False
+            prod.save()
 
 
         if commission:
