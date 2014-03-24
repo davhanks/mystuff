@@ -186,7 +186,7 @@ def process_request(request):
             com.amount = com_amount
             com.save()
 
-
+        request.session['sale_id'] = sale.id
 
         return HttpResponseRedirect('/catalog/receipt/')
 

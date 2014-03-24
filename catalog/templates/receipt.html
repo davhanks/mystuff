@@ -12,7 +12,26 @@
 
 <%block name="center">
     <div class = "centerBlockWhite">
-    <br>
-       <div><h2>Thank you for your business!</h2></div>
+    	<div class="receipt_container">
+	        <div><h2>Order Confirmation</h2></div>
+	        <div class="summary">
+	        	<h3>Order Summary</h3>
+	        	<p>Sub-total: $${ sale.sub_total }</p>
+	        	<p>Shipping cost: $${ sale.shipping_cost }</p>
+	        	<p>Reference Number: ${ sale.receipt_number }</p>
+	        </div>
+	        <hr>
+	        <div class="shipping">
+	        	<h3>Shipping Address</h3>
+	        	<p>${ sale.ship_first } ${ sale.ship_last }</p>
+	        	<p>${ sale.ship_street }</p>
+	        	<p>${ sale.ship_city }, ${ sale.ship_state }</p>
+	        	<p>${ sale.ship_zipCode }</p>
+	        </div>
+	        <div>
+
+	        </div>
+
+        </div>
     </div> 
 </%block>
