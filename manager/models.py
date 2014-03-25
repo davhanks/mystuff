@@ -29,7 +29,7 @@ class User(AbstractUser):
     #password #This is stored as a hash. Set with the set_password() method
     #is_superuser # boolean field
     #is_staff #
-    street = models.CharField(max_length=30, blank=True, null=True
+    street = models.CharField(max_length=30, blank=True, null=True)
     street2 = models.CharField(max_length=30, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
     state = models.CharField(max_length=30, blank=True, null=True)
