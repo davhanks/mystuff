@@ -20,7 +20,16 @@ class Store(models.Model):
 
 class User(AbstractUser):
     '''This is the extention of the AbstractUser class defined by django'''
-    street = models.CharField(max_length=30, blank=True, null=True)
+    ## The commented fields are inherited from Django's user class
+
+    #first_name
+    #last_name
+    #username
+    #email
+    #password #This is stored as a hash. Set with the set_password() method
+    #is_superuser # boolean field
+    #is_staff #
+    street = models.CharField(max_length=30, blank=True, null=True
     street2 = models.CharField(max_length=30, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
     state = models.CharField(max_length=30, blank=True, null=True)
@@ -60,7 +69,64 @@ class Product(models.Model):
     is_rental = models.NullBooleanField(blank=True, null=True)
     active = models.NullBooleanField(blank=True, null=True)
 
-class Sale(models.Model):
+class JournalEntry(models.Model):
+    # transaction = models.OneToOneField('Transaction')
+    revenueSource = models.ForeignKey('RevenueSource')
+    date = models.DateTimeField(auto_now_add=True)
+    note = models.CharField(max_length=200,blank=True,null=True)
+
+class AccountEntry(models.Model):
+    GeneralLedgerName = models.ForeignKey('GeneralLedgerName')
+    journalEntry = models.OneToOneField('JournalEntry')
+    amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+
+class GeneralLedgerName(models.Model):
+    name = models.CharField(max_length=50, blank=True, null=True)
+    # Types of ledgers:
+    # Cash
+    # Sales
+    # COGS
+    # Inventory
+
+class Debit(AccountEntry):
+    note = models.CharField(max_length=200,blank=True,null=True)
+
+class Credit(AccountEntry):
+    note = models.CharField(max_length=200,blank=True,null=True)
+
+class GeneralLedgerName():
+    name = models.CharField(max_length=50, blank=True, null=True)
+
+class RevenueSource(models.Model):
+    # transaction = models.ForeignKey('Transaction')
+    amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+
+class ServiceRepair(RevenueSource):
+    employee = models.ForeignKey('Employee')
+    dateStarted = models.DateTimeField(auto_now_add=True)
+    dateComplete = models.DateTimeField(auto_now_add=True)
+    description = models.CharField(max_length=50, blank=True, null=True)
+    labor_hours = models.IntegerField(max_length=10, blank=True, null=True)
+    pickup_date = models.DateTimeField(auto_now_add=True)
+    work_order = models.IntegerField(max_length=10, blank=True, null=True)
+
+class Rental(RevenueSource):
+    datOut = models.DateTimeField(auto_now_add=True)
+    dateIn = models.DateTimeField(auto_now_add=True)
+    dateDue = models.DateTimeField(auto_now_add=True)
+    work_order = models.IntegerField(max_length=10, blank=True, null=True)
+
+class Fee(RevenueSource):
+    rental = models.ForeignKey('Rental')
+    waived = models.NullBooleanField(blank=True, null=True)
+
+class Late(Fee):
+    days_late = models.IntegerField(max_length=10, blank=True, null=True)
+
+class Damage(Fee):
+    description = models.CharField(max_length=50, blank=True, null=True)
+
+class Sale(RevenueSource):
     '''The Sale (Transaction) class'''
     user = models.ForeignKey('User')
     date = models.DateTimeField(auto_now_add=True)

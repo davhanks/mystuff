@@ -8,4 +8,4 @@ def process_request(request):
 	'''Logout'''
 	logout(request)
 
-	return HttpResponseRedirect('/account/')
+	return HttpResponseRedirect('/homepage/')
