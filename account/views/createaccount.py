@@ -7,6 +7,8 @@ from . import templater
 
 
 def process_request(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/homepage/')
     
 
     users = mmod.User.objects.all()

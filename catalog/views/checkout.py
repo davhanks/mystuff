@@ -14,6 +14,8 @@ def process_request(request):
         return HttpResponseRedirect('/homepage/')
     if request.user.is_staff:
         commission = True
+    else:
+        commision = False
 
 
     # run the form
@@ -27,7 +29,12 @@ def process_request(request):
     # Flat rate shipping and a var for storing the subtotal
     subtotal = 0
     shipping_charge = 10.00
+
+    # Amount of commissions for this sale (this is always calculated but not saved if 
+    # it is an online sale)
     com_amount = 0
+
+    COGS = 0
 
 
     # gets the products from the cart
@@ -153,8 +160,18 @@ def process_request(request):
         for prod in products:
             # gets the quantity of the current item
             quantity = cart[str(prod.id)]
+
+            # calculates the commission for each conceptual product times quantity
             prod_com = prod.commission_rate * prod.sale_price * quantity
+
+            # adds that amount to the total commissions for this sal
             com_amount += prod_com
+
+            # calulates the COGS sold for this item times quantity
+            prod_cogs = prod.average_cost * quantity
+
+            # adds that amount to the total COGS for this sale
+            COGS += prod_cogs
 
             # gets the list of all physical items that have not been sold that match the current
             # conceptual inv item and creates a sale item
@@ -177,7 +194,7 @@ def process_request(request):
             prod.active = False
             prod.save()
 
-
+        # if an employee is performing the sale, calculate commission and save it
         if commission:
             com = mmod.Commission()
             com.employee_id = u.id
