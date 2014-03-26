@@ -11,13 +11,38 @@ def process_request(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/manager/login/')
     if not request.user.is_staff:
-        return HttpResponseRedirect('/manager/dashboard')
+        return HttpResponseRedirect('/manager/dashboard/')
         
     products = mmod.Product.objects.all()
+    stores = mmod.Store.objects.all()
 
     template_vars = {
         'products': products,
+        'stores': stores,
 
+    }
+
+    return templater.render_to_response(request, 'orderslist.html', template_vars)
+
+
+def process_request__make_rental(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/manager/login/')
+    if not request.user.is_staff:
+        return HttpResponseRedirect('/manager/dashboard/')
+    
+    product = mmod.Product.objects.get(id=request.urlparams[0])
+    if product.active: 
+        product.is_rental = True
+        product.save()
+    
+
+    products = mmod.Product.objects.all()
+    stores = mmod.Store.objects.all()
+
+    template_vars = {
+        'products': products,
+        'stores': stores,
     }
 
     return templater.render_to_response(request, 'orderslist.html', template_vars)

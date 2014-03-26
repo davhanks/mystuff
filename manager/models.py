@@ -131,7 +131,7 @@ class Damage(Fee):
     description = models.CharField(max_length=50, blank=True, null=True)
 
 class Sale(RevenueSource):
-    '''The Sale (Transaction) class'''
+    '''The Sale class'''
     user = models.ForeignKey('User')
     date = models.DateTimeField(auto_now_add=True)
     sub_total = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)

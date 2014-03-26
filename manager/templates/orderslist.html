@@ -37,7 +37,7 @@
         </div>
     </div>
   
-    <h2>Order History</h2>
+    <h2>Product Order History</h2>
     <button class="btn btn-primary"onclick="showLogout()"><span class = "glyphicon glyphicon-share"></span> Logout</button>
     <table class="table ">
     	<thead>
@@ -45,9 +45,12 @@
     			<th>ID</th>
     			<th>Cat ID</th>
                 <th>Store ID</th>
+                <th>Store Loc</th>
                 <th>Shelf Loc</th>
                 <th>Purchase Date</th>
                 <th>Serial Number</th>
+                <th>Is Rental</th>
+                <th>Action</th>
     		</tr>
     	</thead>
         <tbody>
@@ -56,9 +59,17 @@
                     <td>${ p.id }</td>
                     <td>${ p.catalog_inventory_id }</td>
                     <td>${ p.store_id }</td>
+                    %for s in stores:
+                        %if s.id == p.store_id:
+                            <td>${ s.location }</td>
+                        %endif
+                    %endfor
+                    
                     <td>${ p.shelf_location }</td>
                     <td>${ p.purchase_date }</td>
                     <td>${ p.serial_number }</td>
+                    <td>${ p.is_rental }</td>
+                    <td><a href="/manager/orderslist__make_rental/${ p.id }/"><span class="glyphicon glyphicon-tag"></span></a></td>
                 </tr>
             %endfor
         </tobdy>

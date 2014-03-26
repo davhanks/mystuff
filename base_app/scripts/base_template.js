@@ -34,4 +34,21 @@ $(function() {
 
 	});//click
 
+
+	$('#rental_button').click( function() {
+
+		console.log('hey')
+
+		$('#rental_button').loadmodal({
+			id: 'cart_modal',
+			title: 'MyRentals',
+			url: '/catalog/rentalcart/',
+			width: '700px',
+			
+
+		});//loadmodal
+		
+
+	});//click
+
 });//ready
