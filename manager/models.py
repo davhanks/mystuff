@@ -116,6 +116,10 @@ class Rental(RevenueSource):
     dateDue = models.DateTimeField(auto_now_add=True)
     work_order = models.IntegerField(max_length=10, blank=True, null=True)
 
+class RentalItem(models.Model):
+    rental = models.ForeignKey('Rental')
+    product = models.ForeignKey('Product')
+
 class Fee(RevenueSource):
     rental = models.ForeignKey('Rental')
     waived = models.NullBooleanField(blank=True, null=True)
