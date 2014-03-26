@@ -12,10 +12,9 @@ def process_request(request):
     '''Display the Edit Store form'''
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/homepage/')
+    commission = False
     if request.user.is_staff:
         commission = True
-    else:
-        commision = False
 
 
     # run the form
@@ -127,8 +126,8 @@ def process_request(request):
             # print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
         sale.date = datetime.now()
         sale.sub_total = subtotal
-        sale.shipping_cost = 0
-        # total = subtotal + shipping_charge
+        sale.shipping_cost = 10.00
+        # total = float(subtotal) + shipping_charge
 
 
         sale.tax_ammount = 0
@@ -204,6 +203,7 @@ def process_request(request):
             com.save()
 
         request.session['sale_id'] = sale.id
+        # request.session['total'] = total
 
         return HttpResponseRedirect('/catalog/receipt/')
 

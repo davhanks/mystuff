@@ -14,12 +14,14 @@ def process_request(request):
         return HttpResponseRedirect('/homepage/')
 
     sale = mmod.Sale.objects.get(id=request.session['sale_id'])
+    # total = mmod.Sale.objects.get(id=request.session['total'])
     saleItems = mmod.SaleItem.objects.filter(sale_id=sale.id)
 
   
 
     template_vars = {
         'sale': sale,
+        # 'total': total,
     }
 
     return templater.render_to_response(request, 'receipt.html', template_vars)

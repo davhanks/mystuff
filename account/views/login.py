@@ -29,7 +29,7 @@ def process_request(request):
                     if user.is_staff:
                         return HttpResponse('<script>window.location.href="/manager/dashboard/"; </script>')
                     else:
-                        return HttpResponse('<script>window.location.href="/account/"; </script>')
+                        return HttpResponse('<script>window.location.href="/homepage/"; </script>')
 
 
 

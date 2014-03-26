@@ -13,6 +13,8 @@ def process_request(request):
     '''Display the Edit Store form'''
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/homepage/')
+    if not request.user.is_staff:
+        return HttpResponseRedirect('/manager/dashboard')
 
 
     employees = mmod.User.objects.filter(is_staff=True)
@@ -20,7 +22,8 @@ def process_request(request):
     now = datetime.now()
     begin = now - timedelta(days=30)
 
-    commissions = mmod.Commission.objects.filter(date__gte=begin, date__lte=now)
+    commissions = mmod.Commission.objects.all()
+    # filter(date__gte=begin, date__lte=now)
 
   
 

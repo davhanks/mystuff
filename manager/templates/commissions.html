@@ -30,8 +30,8 @@
 	        					<td>${ emp.first_name } ${ emp.last_name }</td>
 	        				%endif
 	        			%endfor
-	        			<td>$${ com.amount }.00</td>
-	        			<td>${ com.date }</td>
+	        			<td>$${ com.amount }</td>
+	        			<td>${ com.date.strftime('%Y/%m/%d %H:%M') }</td>
 	        		</tr>
 	        	%endfor
 	        	</tbody>
