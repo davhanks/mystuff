@@ -18,6 +18,14 @@
     <a href="/catalog/list/Accessory/" class="btn btn-danger width"><span class = "glyphicon glyphicon-headphones"></span> Accessories</a><br>
 
 
+    
+  </div>
+
+
+</%block>  
+
+<%block name="center">
+    <div class = "centerBlockWhite">
     <form class="navbar-form navbar-left" role="search" method="POST" action="/catalog/userlookup__search/">
         <div class="form-group">
         <input type="text" class="form-control" placeholder="First Name" id="first" name="first">
@@ -26,13 +34,7 @@
         
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
-  </div>
-
-
-</%block>  
-
-<%block name="center">
-    <div class = "centerBlockWhite">
+    
     <br>
         %for u in users:
             <div class="row">

@@ -1,14 +1,6 @@
 ## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
-<%inherit file="base.htm" />
+<%inherit file="base_template.htm" />
 
-
-<%block name="title">
-    <title>MyStuff - Shop</title>
-</%block>
-
-<%block name="css">
-    
-</%block>
 
 <%block name="left_side">
   <div class="sidebar">
@@ -29,25 +21,10 @@
   </div>
 
 
-</%block>  
+</%block>   
 
 <%block name="center">
-    <div class = "centerBlockWhite">
-    <br>
-        %for u in users:
-            <div class="row">
-                <div class="col-md-6">
+  
+  
+</%block> 
 
-                    <div class="thumbnail">
-                        <img class="catalog_tile" src="${ STATIC_URL }catalog/images/" />
-                        <div>
-                            <h3>${ u.first_name }</h3>
-                            <h4>${ u.last_name }</h4>
-                            <a href="/catalog/cart__add/${ u.id }/" class="btn btn-danger"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a> <a href="/catalog/description/${ u.id }" class="btn btn-primary" >Description</a>
-                        </div>
-                    </div><!--thumbnail-->   
-                </div><!--column-->
-            </div>
-        %endfor
-    </div> 
-</%block>

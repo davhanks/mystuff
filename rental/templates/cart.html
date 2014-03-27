@@ -7,30 +7,20 @@
             <div class="row shade">
                 <div class="col-md-2">
                     <div class="img_container">
-                    %for cat in catalog:
-                        %if cat.id == p.catalog_inventory_id:
-                            <img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ cat.image }" />
-                        %endif
-                    %endfor
-                    
+                    <img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ p.image }" />
                     </div>
                 </div>
                 <div class="col-md-2">
-                    %for cat in catalog:
-                        %if cat.id == p.catalog_inventory_id:
-                            <p>Product: ${ cat.product_name }</p>
-                        %endif
-                    %endfor
+                    <p>Product: ${ p.product_name }</p>
                 </div>
                 <div class="col-md-2">
-                    %for cat in catalog:
-                        %if cat.id == p.catalog_inventory_id:
-                            <p>Product: ${ cat.description }</p>
-                        %endif
-                    %endfor
+                    <p>Description: ${ p.description }</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Quantity: ${cart[str(p.id)]}</p>
                 </div>
                 <div class="col-md-2">
-                    <p>Ser Number: ${ p.serial_number }</p>
+                    <p>Price: $${ p.sale_price }</p>
                 </div>
                 <div class="col-md-1">
                     <a class="delete_button btn btn-danger" data-id="${ p.id }"><span class="glyphicon glyphicon-trash"></span></a>
@@ -44,10 +34,10 @@
 
                 </div>
                 <div class="col-md-4">
-                    <a href="/rental/userlookup/" class="btn btn-danger"> Next</a>
+                    <a href="/catalog/checkout/" class="btn btn-danger"> Checkout</a>
                 </div>
                 <div class="col-md-4">
-
+                    <p>Subtotal: ${ subtotal }</p>
                 </div>
             </div>
     </div>
