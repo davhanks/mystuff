@@ -13,7 +13,7 @@ def process_request(request):
     products = []
 
     for key in rentalcart:
-        prod = mmod.Product.objects.get(id__in=key)
+        prod = mmod.Product.objects.get(id=key)
         products.append(prod)
 
 
@@ -30,17 +30,23 @@ def process_request__add(request):
 
     # get cart
     rentalcart = request.session.get('rentalcart', {})
-    product = mmod.Product.objects.get(id__in=request.urlparams[0])
+    product = mmod.Product.objects.get(id=request.urlparams[0])
 
     print(str(product.id) + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
     
+    for key in rentalcart:
+        if key == str(product.id):
+            print("*******************" + str(product.id))
+            print("<<<<<<<<<<<<<<<<<<Already in cart")
+            return HttpResponseRedirect('/catalog/rentals/' + request.urlparams[1] + '/')
     # # if item exists in cart, add 1 else put item in cart with quantity of 1
-    if str(product.id) in rentalcart:
-        print("<<<<<<<<<<<<<<<<<<Already in cart")
-        return HttpResponseRedirect('/catalog/rentals/' + request.urlparams[1] + '/')
-    else:
-        rentalcart[str(product.id)] = product.store_id
-        request.session['rentalcart'] = rentalcart
+
+    # if str(product.id) in rentalcart:
+    #     print("<<<<<<<<<<<<<<<<<<Already in cart")
+    #     return HttpResponseRedirect('/catalog/rentals/' + request.urlparams[1] + '/')
+    # else:
+    rentalcart[str(product.id)] = product.store_id
+    request.session['rentalcart'] = rentalcart
     for key in rentalcart:
         print("key: " + key + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
         print("Value: " + str(rentalcart[key]) + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
