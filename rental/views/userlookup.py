@@ -8,7 +8,7 @@ from . import templater
 
 def process_request(request):
     '''Get products from the DB'''
-    users = mmod.User.objects.filter(active=True)
+    users = mmod.User.objects.filter(is_active=True)
 
 
 
@@ -27,25 +27,25 @@ def process_request__search(request):
     except User.DoesNotExist:
         users = mmod.User.ojects.none()
 
-    if len(products)==0:
+    if len(users)==0:
         try:
-            products = mmod.User.objects.filter(first_name__icontains=request.POST.get('first', '')).filter(last_name__icontains=request.POST.get('last', ''))
+            users = mmod.User.objects.filter(first_name__icontains=request.POST.get('first', '')).filter(last_name__icontains=request.POST.get('last', ''))
         except User.DoesNotExist:
             users = mmod.User.objects.none()
 
-    if len(products)==0:
+    if len(users)==0:
         try:
             users = mmod.User.objects.filter(phone__icontains=request.POST.get('phone', ''))
         except User.DoesNotExist:
             users = mmod.User.objects.none()
 
-    if len(products)==0:
+    if len(users)==0:
         try:
             users = mmod.User.objects.filter(last_name__icontains=request.POST.get('last', ''))
         except User.DoesNotExist:
             users = mmod.User.objects.none()
 
-    if len(products)==0:
+    if len(users)==0:
         try:
             users = mmod.User.objects.filter(first_name__icontains=request.POST.get('first', ''))
         except User.DoesNotExist:

@@ -26,30 +26,38 @@
 
 <%block name="center">
     <div class = "centerBlockWhite">
-    <form class="navbar-form navbar-left" role="search" method="POST" action="/catalog/userlookup__search/">
+    <form class="navbar-form navbar-left" role="search" method="POST" action="/rental/userlookup__search/">
         <div class="form-group">
         <input type="text" class="form-control" placeholder="First Name" id="first" name="first">
         <input type="text" class="form-control" placeholder="Last Name" id="last" name="last">
         <input type="text" class="form-control" placeholder="Phone" id="phone" name="phone">
         
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-danger">Search</button>
     </form>
     
     <br>
-        %for u in users:
-            <div class="row">
-                <div class="col-md-6">
-
-                    <div class="thumbnail">
-                        <img class="catalog_tile" src="${ STATIC_URL }catalog/images/" />
-                        <div>
-                            <h3>${ u.first_name }</h3>
-                            <h4>${ u.last_name }</h4>
-                            <a href="/catalog/cart__add/${ u.id }/" class="btn btn-danger"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a> <a href="/catalog/description/${ u.id }" class="btn btn-primary" >Description</a>
-                        </div>
-                    </div><!--thumbnail-->   
-                </div><!--column-->
-            </div>
-        %endfor
+    <div class="panel">
+        <table class="table">
+            <caption>Users</caption>
+            <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone</th>
+            </tr>
+            </thead>
+            <tbody>
+            %for u in users:
+                <tr>
+                    <td>${ u.first_name }</td>
+                    <td>${ u.last_name }</td>
+                    <td>${ u.phone }</td>
+                    <td><a href="/rental/terms/" class="btn btn-primary">Next</a></td>
+                <tr>
+            %endfor
+            </tbody>
+        </table>
+    </div>
+        
     </div> 
 </%block>
