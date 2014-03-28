@@ -3,7 +3,7 @@
 
 
 <%block name="title">
-	<title>MyStuff - Home</title>
+	<title>MyStuff - Terms</title>
 </%block>
 
 <%block name="css">
@@ -12,7 +12,18 @@
 
 <%block name="center">
   <div class = "centerBlock">
-    <p>This is the terms page</p>
+    <p>Edit Store</p>
+    <div>
+        <form method="POST">
+            <table>
+                <tbody>
+                    ${ form }
+                </tbody>
+            </table>
+            <input class="btn btn-primary" type="submit" value="Save" />
+        </form>
+        <a href="/manager/deletestore//" class="btn btn-danger floatRight"><span class = "glyphicon glyphicon-remove"></span> Delete Store</a><br>
+    </div>
   </div>
   
-</%block>  
+</%block>
