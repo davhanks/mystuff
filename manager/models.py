@@ -68,6 +68,8 @@ class Product(models.Model):
     purchase_date = models.DateField(blank=True,null=True)
     is_rental = models.NullBooleanField(blank=True, null=True)
     active = models.NullBooleanField(blank=True, null=True)
+    times_rented = models.IntegerField(max_length=100, blank=True, null=True)
+    rented_out = models.NullBooleanField(blank=True, null=True)
 
 class JournalEntry(models.Model):
     # transaction = models.OneToOneField('Transaction')

@@ -11,19 +11,58 @@
 </%block>
 
 <%block name="center">
-  <div class = "centerBlock">
-    <p>Edit Store</p>
-    <div>
-        <form method="POST">
-            <table>
-                <tbody>
-                    ${ form }
-                </tbody>
-            </table>
-            <input class="btn btn-primary" type="submit" value="Save" />
-        </form>
-        <a href="/manager/deletestore//" class="btn btn-danger floatRight"><span class = "glyphicon glyphicon-remove"></span> Delete Store</a><br>
+  <div class = "centerBlockWhite">
+    <div class="panel">
+        <h3>Edit Store</h3>
+        <div>
+            <form method="POST">
+                <table>
+                    <tbody>
+                        ${ form }
+                    </tbody>
+                </table>
+                <input class="btn btn-primary centerButton" type="submit" value="Save" />
+            </form>
+        </div>
     </div>
   </div>
+
+    <div class = "centerBlockWhite pushRight">
+        <div class="panel">
+            <h3>Products</h3>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Serial Number</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    %for p in products:
+                        <tr>
+                            <td>1</td>
+                            %for c in catalog:
+                                %if c.id == p.catalog_inventory_id:
+                                    <td>${ c.product_name }</td>
+                                    <td>${ c.description }</td>
+                                %endif
+                            %endfor
+                            
+                            <td>${ p.serial_number }</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    %endfor
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
   
 </%block>

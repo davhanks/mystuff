@@ -19,6 +19,10 @@ def process_request(request):
 
     form = TermsForm()
 
+    # if request.method == 'POST':
+    #     form = TermsForm(request.POST)
+    #     if form.is_valid():
+
 
 
     template_vars = {
@@ -35,6 +39,7 @@ def process_request(request):
   
 class TermsForm(forms.Form):
     '''The Lookup form'''
-    begin = forms.DateField(widget=forms.TextInput(attrs={'class': 'datepicker', 'placeholder':'Begin Date'}))
-    days = forms.CharField(widget=forms.TextInput(attrs={'class': 'datepicker', 'placeholder':'# of Days'}))
+    begin = forms.DateField(widget=forms.TextInput(attrs={'class': 'datepicker formHeight', 'placeholder':'Begin Date'}))
+    days = forms.CharField(widget=forms.TextInput(attrs={'class': 'datepicker formPad', 'placeholder':'# of Days'}))
+    rate = forms.DecimalField(widget=forms.TextInput(attrs={'id': 'rate', 'class':'formPad',  'placeholder':'Rate Per Day'}), decimal_places=2)
     
