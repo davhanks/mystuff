@@ -34,6 +34,7 @@ def process_request__make_rental(request):
     product = mmod.Product.objects.get(id=request.urlparams[0])
     if product.active: 
         product.is_rental = True
+        product.rented_out = False
         product.save()
     
 

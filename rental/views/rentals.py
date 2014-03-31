@@ -13,15 +13,20 @@ def process_request(request):
     
     store = mmod.Store.objects.get(id=request.urlparams[0])
 
+
+
     
     catalog = mmod.CatalogInventory.objects.all()
-    products = mmod.Product.objects.filter(is_rental=True).filter(store_id=store.id)
+    products = mmod.Product.objects.filter(is_rental=True).filter(store_id=store.id).filter(rented_out=False)
     stores = mmod.Store.objects.all()
+
+    length = len(products)
 
     template_vars = {
         'catalog': catalog,
         'products': products,
         'stores': stores,
+        'length': length,
     }
 
     return templater.render_to_response(request, 'rentals.html', template_vars)

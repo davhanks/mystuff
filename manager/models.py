@@ -113,6 +113,7 @@ class ServiceRepair(RevenueSource):
     work_order = models.IntegerField(max_length=10, blank=True, null=True)
 
 class Rental(RevenueSource):
+    user = models.ForeignKey('User')
     datOut = models.DateTimeField(auto_now_add=True)
     dateIn = models.DateTimeField(auto_now_add=True)
     dateDue = models.DateTimeField(auto_now_add=True)

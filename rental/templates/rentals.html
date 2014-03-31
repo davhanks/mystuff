@@ -13,6 +13,7 @@
 <%block name="center">
     <div class = "centerBlockWhite">
     <br>
+    %if length > 0:
         %for p in products:
             <div class="row">
                 <div class="col-md-12">
@@ -33,5 +34,12 @@
                 </div><!--column-->
             </div>
         %endfor
+    %else:
+        <div class="none">
+            <h2>Sorry!</h2>
+            There are currently no products available for rent.
+            ${ length }
+        </div>
+    %endif
     </div> 
 </%block>

@@ -15,7 +15,7 @@ def process_request(request):
 
     
     catalog = mmod.CatalogInventory.objects.all()
-    products = mmod.Product.objects.filter(is_rental=True).filter(store_id=store.id)
+    products = mmod.Product.objects.filter(is_rental=True).filter(store_id=store.id).filter(rented_out=False)
     stores = mmod.Store.objects.all()
 
     template_vars = {
