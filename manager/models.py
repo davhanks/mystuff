@@ -114,9 +114,9 @@ class ServiceRepair(RevenueSource):
 
 class Rental(RevenueSource):
     user = models.ForeignKey('User')
-    datOut = models.DateTimeField(auto_now_add=True)
-    dateIn = models.DateTimeField(auto_now_add=True)
-    dateDue = models.DateTimeField(auto_now_add=True)
+    dateOut = models.DateTimeField(auto_now_add=False)
+    dateIn = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    dateDue = models.DateTimeField(auto_now_add=False)
     work_order = models.IntegerField(max_length=10, blank=True, null=True)
 
 class RentalItem(models.Model):

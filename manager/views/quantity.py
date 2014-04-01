@@ -57,6 +57,7 @@ def process_request(request):
         u.purchase_date = datetime.now().date()
         u.serial_number = random.randrange(1000,99999)
         u.active = True
+        u.is_rental = False
         u.save()
 
     return HttpResponseRedirect('/manager/productlist/')

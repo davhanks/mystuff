@@ -11,6 +11,9 @@ from datetime import datetime
 def process_request(request):
     '''Get products from the DB'''
     user = mmod.User.objects.get(id=request.urlparams[0])
+    request.session['current_user'] = 'None'
+    request.session['current_user'] = user.id
+    request.session['rental'] = 'None'
     rentalcart = request.session.get('rentalcart', {})
     catalog = mmod.CatalogInventory.objects.all()
     products = []
@@ -28,6 +31,9 @@ def process_request(request):
             begin_date = form.cleaned_data['begin_date']
             end_date = form.cleaned_data['end_date']
 
+            print('>>>>>>>>>>>>>>>>>>>>>>>' + str(begin_date))
+            print('>>>>>>>>>>>>>>>>>>>>>>>' + str(end_date))
+
             if end_date < begin_date:
                 error_code = 1
 
@@ -35,9 +41,11 @@ def process_request(request):
                 r = mmod.Rental()
                 r.dateOut = form.cleaned_data['begin_date']
                 r.dateDue = form.cleaned_data['end_date']
+                # r.dateIn = None
                 r.work_order = randint(10000,1000000)
                 r.user_id = user.id
                 r.save()
+                request.session['rental'] = r.id
 
                 for p in products:
                     ri = mmod.RentalItem()
@@ -47,9 +55,7 @@ def process_request(request):
 
                     p.rented_out = True
                     p.save()
-                request.session['rentalcart'] = {}
-                return HttpResponseRedirect('')
-
+            return HttpResponseRedirect('/rental/rentalreceipt')
 
 
     template_vars = {

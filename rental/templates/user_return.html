@@ -1,0 +1,66 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+    <title>MyStuff - Shop</title>
+</%block>
+
+<%block name="css">
+    
+</%block>
+
+
+
+<%block name="center">
+    <div class = "centerBlockWhite">
+        <div class="panel">
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product Id</th>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Serial Number</th>
+                            <th>Rented</th>
+                            <th>Date Out</th>
+                            <th>Date Due</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    %for ri in return_items:
+                        <tr>
+                            <td>${ ri.id }</td>
+                            %for p in products:
+                                %if p.id == ri.product_id:
+                                    %for c in catalog:
+                                        %if p.catalog_inventory_id == c.id:
+                                            <td>${ c.product_name }</td>
+                                            <td>${ c.description }</td>
+                                        %endif
+                                    %endfor
+                                    <td>${ p.serial_number }</td>
+                                    <td>${ p.rented_out }</td>
+                                %endif
+                            %endfor
+                            %for rent in rentals:
+                                %if ri.rental_id == rent.id:
+                                    <td>${ rent.dateOut.strftime('%m/%d/%Y') }</td>
+                                    <td>${ rent.dateDue.strftime('%m/%d/%Y') }</td>
+                                    %if rent.dateDue < now:
+                                        <td>Late</td>
+                                    %else:
+                                        <td>On-time</td>
+                                    %endif
+                                %endif
+                            %endfor
+                        </tr>
+                    %endfor
+                    </tbody>
+                </table>
+            </div>
+        </div>    
+    </div> 
+</%block>
