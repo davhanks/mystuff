@@ -1,14 +1,5 @@
 $(function() {
-    $( ".datepicker" ).datepicker({
-      changeMonth: true,
-      changeYear: true
-    });
-
-    $('.ui-datepicker-calendar:second').addClass("cardDate");
-
-
-
-    $('.datepicker2').datepicker( {
+	$('.datepicker').datepicker( {
 	    changeMonth: true,
 	    changeYear: true,
 	    showButtonPanel: true,
@@ -20,4 +11,5 @@ $(function() {
 	    }
 	});
 
+	
 });

@@ -28,8 +28,16 @@ def process_request(request):
     if request.method == 'POST':
         form = TermsForm(request.POST)
         if form.is_valid():
-            # begin_date = form.cleaned_data['begin_date']
-            # end_date = form.cleaned_data['end_date']
+
+            card_number = form.cleaned_data['card_number']
+            cvn = form.cleaned_data['cvn']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            street = form.cleaned_data['street']
+            city = form.cleaned_data['city']
+            state = form.cleaned_data['state']
+            zipCode = form.cleaned_data['zipCode']
+            exp_date = form.cleaned_data['exp_date']
 
             # print('>>>>>>>>>>>>>>>>>>>>>>>' + str(begin_date))
             # print('>>>>>>>>>>>>>>>>>>>>>>>' + str(end_date))
@@ -79,4 +87,4 @@ class CardForm(forms.Form):
     city = forms.CharField()
     state = forms.CharField()
     zipCode = forms.CharField()
-    exp_date = forms.DateField(widget=forms.TextInput(attrs={'id':'datepicker'}))
+    exp_date = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker'}))
