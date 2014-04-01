@@ -70,6 +70,7 @@ class Product(models.Model):
     active = models.NullBooleanField(blank=True, null=True)
     times_rented = models.IntegerField(max_length=100, blank=True, null=True)
     rented_out = models.NullBooleanField(blank=True, null=True)
+    rental_fee = models.DecimalField(max_length=200,max_digits=10, decimal_places=2, blank=True, null=True)
 
 class JournalEntry(models.Model):
     # transaction = models.OneToOneField('Transaction')

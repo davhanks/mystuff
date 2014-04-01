@@ -25,17 +25,20 @@ def process_request(request):
         if form.is_valid():
             damage = form.cleaned_data['damages']
 
+            charge_amount = form.cleaned_data['charge_amount']
+
             d = mmod.Damage()
             d.rental_id = rental.id
             d.waived = False
             d.description = damage
             d.product_id = product.id
+            d.amount = charge_amount
             d.save()
 
             ri.damage_reported = True
             ri.save()
 
-        # return HttpResponseRedirect('/rental/rental_return/' + rental.id + '/' + user.id + '/')
+        return HttpResponseRedirect('/rental/rental_return/' + str(rental.id) + '/' + str(user.id) + '/')
 
 
     template_vars = {
@@ -51,5 +54,4 @@ def process_request(request):
 class DamageForm(forms.Form):
     '''The damages form'''
     damages = forms.CharField(widget=forms.Textarea(attrs={'id':'damageBox','placeholder':'Damages'}))
-
-
+    charge_amount = forms.DecimalField(max_digits=15, decimal_places=2)

@@ -32,12 +32,19 @@ def process_request__make_rental(request):
         return HttpResponseRedirect('/manager/dashboard/')
     
     product = mmod.Product.objects.get(id=request.urlparams[0])
-    if product.active: 
-        product.is_rental = True
-        product.rented_out = False
-        product.times_rented = 0
-        product.save()
-    
+    if request.method == "POST":
+        if product.active: 
+            product.is_rental = True
+            product.rented_out = False
+            product.times_rented = 0
+
+            if request.POST.get('amount') == '':
+                product.rental_fee = 0
+            else:
+                product.rental_fee = request.POST.get('amount')
+
+            product.save()
+        
 
     products = mmod.Product.objects.all()
     stores = mmod.Store.objects.all()

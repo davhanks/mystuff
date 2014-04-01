@@ -50,6 +50,8 @@
                 <th>Purchase Date</th>
                 <th>Serial Number</th>
                 <th>Is Rental</th>
+                <th>Fee</th>
+                <th>Fee Amount</th>
                 <th>Action</th>
     		</tr>
     	</thead>
@@ -69,7 +71,12 @@
                     <td>${ p.purchase_date }</td>
                     <td>${ p.serial_number }</td>
                     <td>${ p.is_rental }</td>
-                    <td><a href="/manager/orderslist__make_rental/${ p.id }/"><span class="glyphicon glyphicon-tag"></span></a></td>
+                    <td>$${ p.rental_fee }</td>
+                    <form method="POST" action="/manager/orderslist__make_rental/${ p.id }/">
+                    <td><input type="text" class="form-control" initial="0" placeholder="Amount" id="amount" name="amount"></td>
+                    <td><input class="btn btn-danger submitButton" type="submit" value="Save" /></td>
+                    </form>
+                    
                 </tr>
             %endfor
         </tobdy>
