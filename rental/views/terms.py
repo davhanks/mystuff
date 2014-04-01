@@ -54,6 +54,7 @@ def process_request(request):
                     ri.save()
 
                     p.rented_out = True
+                    p.times_rented += 1
                     p.save()
             return HttpResponseRedirect('/rental/rentalreceipt')
 

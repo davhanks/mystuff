@@ -35,6 +35,7 @@ def process_request__make_rental(request):
     if product.active: 
         product.is_rental = True
         product.rented_out = False
+        product.times_rented = 0
         product.save()
     
 
