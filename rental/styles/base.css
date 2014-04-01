@@ -27,3 +27,8 @@ table > caption {
 	padding-top: 10px;
 	margin: 10px;
 }
+
+.submitButton {
+	margin-left: 10px;
+	margin-bottom: 10px;
+}

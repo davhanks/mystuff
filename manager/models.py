@@ -103,44 +103,6 @@ class RevenueSource(models.Model):
     # transaction = models.ForeignKey('Transaction')
     amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
-class ServiceRepair(RevenueSource):
-    employee = models.ForeignKey('Employee')
-    dateStarted = models.DateTimeField(auto_now_add=True)
-    dateComplete = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(max_length=50, blank=True, null=True)
-    labor_hours = models.IntegerField(max_length=10, blank=True, null=True)
-    pickup_date = models.DateTimeField(auto_now_add=True)
-    work_order = models.IntegerField(max_length=10, blank=True, null=True)
-
-class Rental(RevenueSource):
-    user = models.ForeignKey('User')
-    dateOut = models.DateTimeField(auto_now_add=False)
-    dateIn = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    dateDue = models.DateTimeField(auto_now_add=False)
-    work_order = models.IntegerField(max_length=10, blank=True, null=True)
-
-class RentalItem(models.Model):
-    rental = models.ForeignKey('Rental')
-    product = models.ForeignKey('Product')
-
-class Fee(RevenueSource):
-    rental = models.ForeignKey('Rental')
-    waived = models.NullBooleanField(blank=True, null=True)
-
-class Late(Fee):
-    days_late = models.IntegerField(max_length=10, blank=True, null=True)
-
-class Damage(Fee):
-    description = models.CharField(max_length=50, blank=True, null=True)
-
-class Sale(RevenueSource):
-    '''The Sale class'''
-    user = models.ForeignKey('User')
-    date = models.DateTimeField(auto_now_add=True)
-    sub_total = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    shipping_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    tax_ammount = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
-
     ship_first = models.CharField(max_length=200, blank=True, null=True)
     ship_last = models.CharField(max_length=200, blank=True, null=True)
     ship_street = models.CharField(max_length=30, blank=True, null=True)
@@ -160,6 +122,50 @@ class Sale(RevenueSource):
     expDate = models.DateField(blank=True, null=True)
 
     receipt_number = models.CharField(max_length=200, blank=True, null=True)
+
+class ServiceRepair(RevenueSource):
+    employee = models.ForeignKey('Employee')
+    dateStarted = models.DateTimeField(auto_now_add=True)
+    dateComplete = models.DateTimeField(auto_now_add=True)
+    description = models.CharField(max_length=50, blank=True, null=True)
+    labor_hours = models.IntegerField(max_length=10, blank=True, null=True)
+    pickup_date = models.DateTimeField(auto_now_add=True)
+    work_order = models.IntegerField(max_length=10, blank=True, null=True)
+
+class Rental(RevenueSource):
+    user = models.ForeignKey('User')
+    dateOut = models.DateTimeField(auto_now_add=False)
+    dateIn = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    dateDue = models.DateTimeField(auto_now_add=False)
+    returned = models.NullBooleanField(blank=True, null=True)
+    work_order = models.IntegerField(max_length=10, blank=True, null=True)
+
+class RentalItem(models.Model):
+    rental = models.ForeignKey('Rental')
+    product = models.ForeignKey('Product')
+    damage_reported = models.NullBooleanField(blank=True, null=True)
+
+class Fee(RevenueSource):
+    rental = models.ForeignKey('Rental')
+    waived = models.NullBooleanField(blank=True, null=True)
+
+class Late(Fee):
+    days_late = models.IntegerField(max_length=10, blank=True, null=True)
+
+class Damage(Fee):
+    description = models.CharField(max_length=50, blank=True, null=True)
+    product = models.ForeignKey('Product')
+
+
+class Sale(RevenueSource):
+    '''The Sale class'''
+    user = models.ForeignKey('User')
+    date = models.DateTimeField(auto_now_add=True)
+    sub_total = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    shipping_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    tax_ammount = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
+
+    
 
 
 class SaleItem(models.Model):

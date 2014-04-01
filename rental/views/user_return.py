@@ -12,7 +12,7 @@ from django.utils import timezone
 def process_request(request):
     '''Get products from the DB'''
     user = mmod.User.objects.get(id=request.urlparams[0])
-    rentals = mmod.Rental.objects.filter(user_id=user.id)
+    rentals = mmod.Rental.objects.filter(user_id=user.id).exclude(returned=True)
     now = timezone.now()
 
     return_items = []    

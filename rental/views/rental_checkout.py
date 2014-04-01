@@ -10,10 +10,13 @@ from datetime import datetime
 
 def process_request(request):
     '''Get products from the DB'''
-    user = mmod.User.objects.get(id=request.urlparams[0])
-    request.session['current_user'] = 'None'
-    request.session['current_user'] = user.id
-    request.session['rental'] = 'None'
+    user = mmod.User.objects.get(id=request.session['current_user'])
+    number = request.session['rental']
+    rental = mmod.Rental.objects.get(id=number)
+
+    # begin_date = request.session['begin']
+    # end_date = request.session['end']
+
     rentalcart = request.session.get('rentalcart', {})
     catalog = mmod.CatalogInventory.objects.all()
     products = []
@@ -26,7 +29,7 @@ def process_request(request):
     form = CardForm()
 
     if request.method == 'POST':
-        form = TermsForm(request.POST)
+        form = CardForm(request.POST)
         if form.is_valid():
 
             card_number = form.cleaned_data['card_number']
@@ -39,32 +42,26 @@ def process_request(request):
             zipCode = form.cleaned_data['zipCode']
             exp_date = form.cleaned_data['exp_date']
 
-            # print('>>>>>>>>>>>>>>>>>>>>>>>' + str(begin_date))
-            # print('>>>>>>>>>>>>>>>>>>>>>>>' + str(end_date))
-
             # if end_date < begin_date:
             #     error_code = 1
 
-            # if error_code == 0:
-            #     r = mmod.Rental()
-            #     r.dateOut = form.cleaned_data['begin_date']
-            #     r.dateDue = form.cleaned_data['end_date']
-            #     # r.dateIn = None
-            #     r.work_order = randint(10000,1000000)
-            #     r.user_id = user.id
-            #     r.save()
-            #     request.session['rental'] = r.id
+            if error_code == 0:
 
-            #     for p in products:
-            #         ri = mmod.RentalItem()
-            #         ri.rental_id = r.id
-            #         ri.product_id = p.id
-            #         ri.save()
+                rental.bill_street = street
+                rental.bill_city = city
+                rental.bill_state = state
+                rental.bill_zipCode = zipCode
 
-            #         p.rented_out = True
-            #         p.times_rented += 1
-            #         p.save()
-            # return HttpResponseRedirect('/rental/rentalreceipt')
+                rental.creditCardNum = card_number
+                rental.cvn = cvn
+                rental.card_first = first_name
+                rental.card_last = last_name
+                rental.expDate = exp_date
+
+                rental.receipt_number = randint(10000,1000000)
+                rental.save()
+
+                return HttpResponseRedirect('/rental/rentalreceipt/')
 
 
     template_vars = {

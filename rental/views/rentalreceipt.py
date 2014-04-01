@@ -14,6 +14,7 @@ def process_request(request):
     number = request.session['rental']
     rental = mmod.Rental.objects.get(id=number)
     
+    
     rentalcart = request.session.get('rentalcart', {})
     catalog = mmod.CatalogInventory.objects.all()
     products = []

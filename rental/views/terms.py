@@ -24,26 +24,14 @@ def process_request(request):
         products.append(prod)
 
     form = TermsForm()
-    form2 = CardForm()
+    # form2 = CardForm()
 
     if request.method == 'POST':
         form = TermsForm(request.POST)
-        form2 = CardForm(request.POST)
+        # form2 = CardForm(request.POST)
         if form.is_valid():
             begin_date = form.cleaned_data['begin_date']
             end_date = form.cleaned_data['end_date']
-
-            if form2.is_valid():
-                card_number = form.cleaned_data['card_number']
-                cvn = form.cleaned_data['cvn']
-                first_name = form.cleaned_data['first_name']
-                last_name = form.cleaned_data['last_name']
-                street = form.cleaned_data['street']
-                city = form.cleaned_data['city']
-                state = form.cleaned_data['state']
-                zipCode = form.cleaned_data['zipCode']
-                exp_date = form.cleaned_data['exp_date']
-
 
             print('>>>>>>>>>>>>>>>>>>>>>>>' + str(begin_date))
             print('>>>>>>>>>>>>>>>>>>>>>>>' + str(end_date))
@@ -70,13 +58,12 @@ def process_request(request):
                     p.rented_out = True
                     p.times_rented += 1
                     p.save()
-            return HttpResponseRedirect('/rental/rentalreceipt/')
+                return HttpResponseRedirect('/rental/rental_checkout/')
 
 
     template_vars = {
         'user': user,
         'form': form,
-        'form2': form2,
         'products': products,
         'catalog': catalog,
         'error_code': error_code,
@@ -93,15 +80,3 @@ class TermsForm(forms.Form):
     end_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'datepicker formPad', 'placeholder':'End Date'}))
     rate_per_day = forms.DecimalField(widget=forms.TextInput(attrs={'id': 'rate', 'class':'formPad',  'placeholder':'Rate Per Day'}), decimal_places=2)
     
-
-class CardForm(forms.Form):
-    '''The billing address form'''
-    card_number = forms.CharField()
-    cvn = forms.CharField()
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    street = forms.CharField()
-    city = forms.CharField()
-    state = forms.CharField()
-    zipCode = forms.CharField()
-    exp_date = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker2'}))

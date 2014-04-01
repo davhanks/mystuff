@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from homepage.models import *
 from manager import models as mmod
 from . import templater
+from django.contrib.auth import authenticate, login
 
 
 def process_request(request):
@@ -72,9 +73,17 @@ def process_request(request):
                 u.zipCode = zipCode
                 u.phone = phone
                 u.active = True
+                u.is_active = True
                 u.is_Staff = False
                 u.save()
-                return HttpResponseRedirect('/account/index')
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    # the password verified for the user
+                    if user.is_active:
+                        print(">>>>>>>>>>>>>>>>>>>>>>User is valid, active and authenticated")
+                        login(request, user)
+                        return HttpResponseRedirect('/homepage/index/')
+
 
 
             

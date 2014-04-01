@@ -30,6 +30,7 @@
                             <th>Product Name</th>
                             <th>Description</th>
                             <th>Serial Number</th>
+                            <th>Damage</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,10 +44,16 @@
                                             <td>${ c.product_name }</td>
                                             <td>${ c.description }</td>
                                             <td>${ p.serial_number }</td>
+                                            %if not ri.damage_reported:
+                                                <td><a class="btn btn-danger" href="/rental/damages/${ rental.id }/${ user.id }/${ p.id }/">Report</a></td>
+                                            %else:
+                                                <td><span class="label label-warning">Reported</span></td>
+                                            %endif
                                         %endif
                                     %endfor
                                 %endif
                             %endfor
+
                         </tr>
                     %endfor
                     </tbody>

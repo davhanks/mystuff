@@ -19,6 +19,7 @@ def process_request(request):
     rental_items = mmod.RentalItem.objects.filter(rental_id=rental.id)
 
 
+
     template_vars = {
         'user': user,
         'catalog': catalog,
