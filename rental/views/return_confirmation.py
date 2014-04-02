@@ -18,21 +18,22 @@ def process_request(request):
     now = timezone.now()
     rental_items = mmod.RentalItem.objects.filter(rental_id=rental.id)
 
-    late_fee = 5.00
+    late_fee = 0
 
 
 
 
     return_prods = []
 
-    # for ri in rental_items:
-    #     for prod in products:
-    #         if ri.product_id == prod.id:
-    #             return_prods.append(prod)
+    for ri in rental_items:
+        for prod in products:
+            if ri.product_id == prod.id:
+                late_fee += prod.rental_fee
+                return_prods.append(prod)
 
     # for rp in return_prods:
     #     rp.rented_out = False
-    #     rp.save()
+    #     # rp.save()
 
 
     rental.dateIn = now
