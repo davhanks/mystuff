@@ -1,0 +1,61 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - Overdue Rentals</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+<%block name="center">
+  <div class = "centerBlock">
+    <table>
+    	<thead>
+    		<tr>
+    			<th>30 Days Late or Less</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		%for rent in one_month:
+    		<tr>
+    			<td>${ length_one }</td>
+    		</tr>
+    		%endfor
+    	</tbody>
+    </table>
+    <hr>
+    <table>
+    	<thead>
+    		<tr>
+    			<th>30 - 60 Days Late</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		%for rent in two_months:
+    		<tr>
+    			<td>${ length_two }</td>
+    		</tr>
+    		%endfor
+    	</tbody>
+    </table>
+    <hr>
+    <table>
+    	<thead>
+    		<tr>
+    			<th>90+ days Late</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		%for rent in three_months:
+    		<tr>
+    			<td>${ length_three }</td>
+    		</tr>
+    		%endfor
+    	</tbody>
+    </table>
+  </div>
+  
+</%block>  

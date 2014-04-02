@@ -41,12 +41,19 @@ def process_request(request):
         delta = rental.dateIn - rental.dateDue
         amount_days = delta.days
 
-        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-        print(amount_days)
-        amount_days *=late_fee
+        amount_fee = late_fee * amount_days
+
+        l = mmod.Late()
+        l.amount = amount_fee
+        l.rental_id = rental.id
+        l.waived = False
+        l.days_late = amount_days
 
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>')
         print(amount_days)
+        print(amount_fee)
+
+
 
 
 
