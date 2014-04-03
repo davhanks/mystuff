@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from homepage.models import *
 from manager import models as mmod
 from . import templater
-from datetime import datetime
+from datetime import *
 from django.utils import timezone
 
 
@@ -13,7 +13,12 @@ def process_request(request):
     '''Get products from the DB'''
     user = mmod.User.objects.get(id=request.urlparams[0])
     rentals = mmod.Rental.objects.filter(user_id=user.id).exclude(returned=True)
-    now = timezone.now()
+    time = timezone.now()
+
+    now = time - timedelta(days=1)
+
+    print('>>>>>>>>>>>>>>>>>')
+    print(now)
 
     return_items = []    
 

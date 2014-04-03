@@ -78,5 +78,4 @@ class TermsForm(forms.Form):
     '''The Lookup form'''
     begin_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'datepicker formHeight', 'placeholder':'Begin Date'}))
     end_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'datepicker formPad', 'placeholder':'End Date'}))
-    rate_per_day = forms.DecimalField(widget=forms.TextInput(attrs={'id': 'rate', 'class':'formPad',  'placeholder':'Rate Per Day'}), decimal_places=2)
     

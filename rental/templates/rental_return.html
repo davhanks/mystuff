@@ -17,7 +17,7 @@
         <div class="panel">
             <div>
                 <h2>Status: 
-                %if rental.dateDue < now:
+                %if rental.dateDue > now:
                     <span class="label label-danger">Late</span>
                 %else:
                     <span class="label label-success">OK</span>

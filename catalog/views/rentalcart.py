@@ -38,7 +38,7 @@ def process_request__add(request):
         if key == str(product.id):
             print("*******************" + str(product.id))
             print("<<<<<<<<<<<<<<<<<<Already in cart")
-            return HttpResponseRedirect('/catalog/rentals/' + request.urlparams[1] + '/')
+            return HttpResponseRedirect('/rental/rentals/' + request.urlparams[1] + '/')
     # # if item exists in cart, add 1 else put item in cart with quantity of 1
 
     # if str(product.id) in rentalcart:
@@ -52,7 +52,7 @@ def process_request__add(request):
         print("Value: " + str(rentalcart[key]) + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 
 
-    return HttpResponseRedirect('/catalog/rent/')
+    return HttpResponseRedirect('/rental/rentals/' + request.urlparams[1] + '/')
 
 def process_request__remove(request):
 
