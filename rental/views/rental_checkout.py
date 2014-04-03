@@ -26,7 +26,15 @@ def process_request(request):
         prod = mmod.Product.objects.get(id=key)
         products.append(prod)
 
-    form = CardForm()
+    form = CardForm(initial={
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'street': user.street,
+        'city': user.city,
+        'state': user.state,
+        'zipCode': user.zipCode,
+        
+        })
 
     if request.method == 'POST':
         form = CardForm(request.POST)
