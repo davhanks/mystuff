@@ -11,9 +11,14 @@ from django.utils import timezone
 
 def process_request(request):
     '''Get products from the DB'''
-    now = timezone.now()
 
     # now = datetime.datetime.now()
+
+    time = timezone.now()
+
+    now = time
+
+    users = mmod.User.objects.all()
 
     one_month_ago = now - datetime.timedelta(days=30)
     two_months_ago = now - datetime.timedelta(days=60)
@@ -21,7 +26,7 @@ def process_request(request):
 
     one_month = mmod.Rental.objects.filter(dateDue__gte=one_month_ago, dateDue__lte=now).exclude(returned=True) 
     two_months = mmod.Rental.objects.filter(dateDue__gte=two_months_ago, dateDue__lte=one_month_ago).exclude(returned=True)
-    three_months = mmod.Rental.objects.filter(dateDue__gte=three_months_ago, dateDue__lte=two_months_ago).exclude(returned=True)
+    three_months = mmod.Rental.objects.filter(dateDue__lte=two_months_ago).exclude(returned=True)
 
     length_one = len(one_month)
     length_two = len(two_months)
@@ -41,6 +46,7 @@ def process_request(request):
 
 
     template_vars = {
+        'users': users,
         'length_one': length_one,
         'length_two': length_two,
         'length_three': length_three,

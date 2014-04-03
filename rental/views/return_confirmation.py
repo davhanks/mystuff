@@ -15,8 +15,10 @@ def process_request(request):
     catalog = mmod.CatalogInventory.objects.all()
     products = mmod.Product.objects.filter(rented_out=True)
     rental = mmod.Rental.objects.get(id=request.urlparams[0])
-    now = timezone.now()
     rental_items = mmod.RentalItem.objects.filter(rental_id=rental.id)
+
+    time = timezone.now()
+    now = time
 
     late_fee = 0
 

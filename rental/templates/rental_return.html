@@ -18,15 +18,15 @@
             <div>
                 <h2>Status: 
                 %if rental.dateDue > now:
-                    <span class="label label-danger">Late</span>
-                %else:
                     <span class="label label-success">OK</span>
+                %else:
+                    <span class="label label-danger">Late</span>
                 %endif
                 </h2>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Item Id</th>
+                            <th>RI ID</th>
                             <th>Product Name</th>
                             <th>Description</th>
                             <th>Serial Number</th>

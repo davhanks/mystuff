@@ -15,7 +15,7 @@ def process_request(request):
     rentals = mmod.Rental.objects.filter(user_id=user.id).exclude(returned=True)
     time = timezone.now()
 
-    now = time - timedelta(days=1)
+    now = time
 
     print('>>>>>>>>>>>>>>>>>')
     print(now)

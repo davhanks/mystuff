@@ -30,8 +30,8 @@
                     %for rent in rentals:
                         <tr>
                             <td>${ rent.id }</td>
-                            <td>${ rent.dateOut.strftime('%m/%d/%Y') }</td>
-                            <td>${ rent.dateDue.strftime('%m/%d/%Y') }</td>
+                            <td>${ rent.dateOut.strftime('%m/%d/%Y %H:%M') }</td>
+                            <td>${ rent.dateDue.strftime('%m/%d/%Y %H:%M') }</td>
                             %if rent.dateDue >= now:
                                 <td><span class="label label-success">OK</span></td>
                             %else:

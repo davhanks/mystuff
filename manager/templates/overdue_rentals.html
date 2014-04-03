@@ -12,6 +12,7 @@
 
 <%block name="center">
   <div class = "centerBlock">
+  	<h2>30 Days Late or Less</h2>
     <table>
     	<thead>
     		<tr>
@@ -21,12 +22,13 @@
     	<tbody>
     		%for rent in one_month:
     		<tr>
-    			<td>${ length_one }</td>
+    			<td>${ rent.id }</td>
     		</tr>
     		%endfor
     	</tbody>
     </table>
     <hr>
+    <h2>30 - 60 Days Late</h2>
     <table>
     	<thead>
     		<tr>
@@ -42,6 +44,7 @@
     	</tbody>
     </table>
     <hr>
+    <h2>90+ days Late</h2>
     <table>
     	<thead>
     		<tr>
@@ -51,7 +54,7 @@
     	<tbody>
     		%for rent in three_months:
     		<tr>
-    			<td>${ length_three }</td>
+    			<td>${ rent.id }</td>
     		</tr>
     		%endfor
     	</tbody>

@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from homepage.models import *
 from manager import models as mmod
 from . import templater
-from datetime import datetime
+from datetime import *
 from django.utils import timezone
 
 
@@ -15,8 +15,10 @@ def process_request(request):
     catalog = mmod.CatalogInventory.objects.all()
     products = mmod.Product.objects.all()
     rental = mmod.Rental.objects.get(id=request.urlparams[0])
-    now = timezone.now()
     rental_items = mmod.RentalItem.objects.filter(rental_id=rental.id)
+
+    time = timezone.now()
+    now = time
 
 
 
