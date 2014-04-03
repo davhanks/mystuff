@@ -31,9 +31,9 @@ def process_request(request):
                 late_fee += prod.rental_fee
                 return_prods.append(prod)
 
-    # for rp in return_prods:
-    #     rp.rented_out = False
-    #     # rp.save()
+    for rp in return_prods:
+        rp.rented_out = False
+        rp.save()
 
 
     rental.dateIn = now
@@ -58,8 +58,8 @@ def process_request(request):
 
 
 
-    # rental.returned = True
-    # rental.save()
+    rental.returned = True
+    rental.save()
 
 
 
