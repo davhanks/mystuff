@@ -13,49 +13,83 @@
 <%block name="center">
   <div class = "centerBlock">
   	<h2>30 Days Late or Less</h2>
-    <table>
+    <table class="table">
     	<thead>
     		<tr>
-    			<th>30 Days Late or Less</th>
+    			<th>Rental ID</th>
+                <th>User ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
     		</tr>
     	</thead>
     	<tbody>
     		%for rent in one_month:
     		<tr>
     			<td>${ rent.id }</td>
+                %for u in users:
+                    %if u.id == rent.user_id:
+                        <td>${ u.id }</td>
+                        <td>${ u.first_name }</td>
+                        <td>${ u.last_name }</td>
+                    %endif
+                %endfor
     		</tr>
     		%endfor
     	</tbody>
     </table>
     <hr>
     <h2>30 - 60 Days Late</h2>
-    <table>
-    	<thead>
-    		<tr>
-    			<th>30 - 60 Days Late</th>
-    		</tr>
-    	</thead>
-    	<tbody>
-    		%for rent in two_months:
-    		<tr>
-    			<td>${ length_two }</td>
-    		</tr>
-    		%endfor
-    	</tbody>
-    </table>
+    %if not two_months:
+        <h3>No over due rentals</h3>
+    %elseif:
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Rental ID</th>
+                    <th>User ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                %for rent in two_months:
+                <tr>
+                    <td>${ rent.id }</td>
+                    %for u in users:
+                        %if u.id == rent.user_id:
+                            <td>${ u.id }</td>
+                            <td>${ u.first_name }</td>
+                            <td>${ u.last_name }</td>
+                        %endif
+                    %endfor
+                </tr>
+                %endfor
+            </tbody>
+        </table>
+    %endif
     <hr>
     <h2>90+ days Late</h2>
-    <table>
+    <table class="table">
     	<thead>
     		<tr>
-    			<th>90+ days Late</th>
+    			<th>Rental ID</th>
+                <th>User ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
     		</tr>
     	</thead>
     	<tbody>
     		%for rent in three_months:
     		<tr>
-    			<td>${ rent.id }</td>
-    		</tr>
+                <td>${ rent.id }</td>
+                %for u in users:
+                    %if u.id == rent.user_id:
+                        <td>${ u.id }</td>
+                        <td>${ u.first_name }</td>
+                        <td>${ u.last_name }</td>
+                    %endif
+                %endfor
+            </tr>
     		%endfor
     	</tbody>
     </table>
