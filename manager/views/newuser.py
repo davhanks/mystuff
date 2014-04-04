@@ -4,6 +4,10 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from homepage.models import *
 from manager import models as mmod
 from . import templater
+from datetime import datetime
+from django.utils import timezone
+
+now = timezone.now()
 
 
 def process_request(request):
@@ -74,7 +78,13 @@ def process_request(request):
                 u.zipCode = zipCode
                 u.phone = phone
                 u.active = True
+                u.is_staff = is_Staff
                 u.save()
+
+                if u.is_staff:
+                    e = mmod.Employee()
+                    e.user_id = u.id
+                    e.save()
                 return HttpResponseRedirect('/manager/userlist')
 
 

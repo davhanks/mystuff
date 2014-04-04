@@ -126,6 +126,7 @@ class RevenueSource(models.Model):
 
 class ServiceRepair(RevenueSource):
     employee = models.ForeignKey('Employee')
+    customer = models.ForeignKey('User')
     dateStarted = models.DateTimeField(auto_now_add=True)
     dateComplete = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=50, blank=True, null=True)

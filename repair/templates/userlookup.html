@@ -10,13 +10,25 @@
     
 </%block>
 
+<%block name="left_side">
+  <div class="sidebar">
+    <a href="/catalog/list/Camera/" class="btn btn-primary width"><span class = "glyphicon glyphicon-camera"></span> Cameras</a><br>
+    <a href="/catalog/list/Lense/" class="btn btn-success width"><span class = "glyphicon glyphicon-search"></span> Lenses</a><br>
+    <a href="/catalog/list/Equipment/" class="btn btn-warning width"><span class = "glyphicon glyphicon-cog"></span> Equipment</a><br>
+    <a href="/catalog/list/Accessory/" class="btn btn-danger width"><span class = "glyphicon glyphicon-headphones"></span> Accessories</a><br>
 
+
+    
+  </div>
+
+
+</%block>  
 
 <%block name="center">
     <div class = "centerBlockWhite">
     <div class="panel">
         <h2>Search a User</h2>
-        <form class="navbar-form navbar-left" role="search" method="POST" action="/rental/returns__search/">
+        <form class="navbar-form navbar-left" role="search" method="POST" action="/rental/userlookup__search/">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="First Name" id="first" name="first">
                 <input type="text" class="form-control" placeholder="Last Name" id="last" name="last">
@@ -43,7 +55,7 @@
                         <td>${ u.first_name }</td>
                         <td>${ u.last_name }</td>
                         <td>${ u.phone }</td>
-                        <td><a href="/rental/user_return/${ u.id }/" class="btn btn-primary">Next</a></td>
+                        <td><a href="/repair/create_repair/${ u.id }/" class="btn btn-primary">Next</a></td>
                     <tr>
                 %endfor
                 </tbody>
