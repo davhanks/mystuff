@@ -5,7 +5,7 @@ from homepage.models import *
 from manager import models as mmod
 from . import templater
 from random import randint
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 def process_request(request):
@@ -26,6 +26,8 @@ def process_request(request):
     form = TermsForm()
     # form2 = CardForm()
 
+    # dateDue = datetime.datetime.combine(end_date, datetime.time(17, 00))
+
     if request.method == 'POST':
         form = TermsForm(request.POST)
         # form2 = CardForm(request.POST)
@@ -40,9 +42,11 @@ def process_request(request):
                 error_code = 1
 
             if error_code == 0:
+                dateDue = end_date + timedelta(hours=17)
+
                 r = mmod.Rental()
-                r.dateOut = form.cleaned_data['begin_date']
-                r.dateDue = form.cleaned_data['end_date']
+                r.dateOut = begin_date
+                r.dateDue = dateDue
                 # r.dateIn = None
                 r.work_order = randint(10000,1000000)
                 r.user_id = user.id

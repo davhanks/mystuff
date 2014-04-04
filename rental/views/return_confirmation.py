@@ -50,6 +50,7 @@ def process_request(request):
         l.rental_id = rental.id
         l.waived = False
         l.days_late = amount_days
+        l.save()
 
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>')
         print(amount_days)

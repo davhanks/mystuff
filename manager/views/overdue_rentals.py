@@ -11,7 +11,8 @@ from django.utils import timezone
 
 def process_request(request):
     '''Get products from the DB'''
-
+    catalog = mmod.CatalogInventory.objects.all()
+    users = mmod.User.objects.all()
     # now = datetime.datetime.now()
 
     time = timezone.now()
@@ -53,6 +54,8 @@ def process_request(request):
         'one_month': one_month,
         'two_months': two_months,
         'three_months': three_months,
+        'catalog': catalog,
+        'users': users,
     }
 
     return templater.render_to_response(request, 'overdue_rentals.html', template_vars)
