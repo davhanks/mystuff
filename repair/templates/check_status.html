@@ -16,9 +16,24 @@
     <div class = "centerBlockWhite">
         <div class="panel">
             <div>
-                %for s in sr:
-                    <p>${ s.id }</p>
-                %endfor
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Repair ID</th>
+                            <th>Start Date</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    %for s in sr:
+                        <tr>
+                            <td>${ s.id }</td>
+                            <td>${ s.dateStarted }</td>
+                        </tr>
+                    %endfor
+                    </tbody>
+                </table>
             </div>
         </div>    
     </div> 
