@@ -133,6 +133,7 @@ class ServiceRepair(RevenueSource):
     labor_hours = models.IntegerField(max_length=10, blank=True, null=True)
     pickup_date = models.DateTimeField(auto_now_add=True)
     work_order = models.IntegerField(max_length=10, blank=True, null=True)
+    status = models.CharField(max_length=200,blank=True, null=True)
 
 class Rental(RevenueSource):
     user = models.ForeignKey('User')

@@ -1,5 +1,5 @@
 ## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
-<%inherit file="base.htm" />
+<%inherit file="managerBase.htm" />
 
 
 <%block name="title">
@@ -12,6 +12,7 @@
 
 <%block name="center">
   <div class = "centerBlock">
+    <a class="btn btn-primary btn-email" href="/manager/overdue_email/">Send emails</a>
   	<h2>30 Days Late or Less</h2>
     <table class="table">
     	<thead>
