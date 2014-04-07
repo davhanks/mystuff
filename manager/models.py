@@ -37,6 +37,15 @@ class User(AbstractUser):
     country = models.CharField(max_length=200, blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
     active = models.NullBooleanField(blank=True, null=True)
+    security_question = models.CharField(max_length=250, blank=True, null=True)
+    security_answer = models.CharField(max_length=50, blank=True, null=True)
+
+class PasswordReset(models.Model):
+    '''Necessary info to reset the password for a user that has forgotten theirs.'''
+    valid_date = models.DateTimeField(auto_now_add=False)
+    used = models.NullBooleanField(blank=True, null=True)
+    user = models.ForeignKey('User')
+
 
 class Employee(models.Model):
     '''This class has a one-to-one relationship with User'''

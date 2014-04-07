@@ -6,6 +6,7 @@ from manager import models as mmod
 from . import templater
 from datetime import datetime
 from random import randint
+from django.core.mail import send_mail
 
 
 def process_request(request):
@@ -204,6 +205,9 @@ def process_request(request):
 
         request.session['sale_id'] = sale.id
         # request.session['total'] = total
+
+
+        # send_mail('Thank you for Your Purchase', 'Thank you for your purchase at digitalmyworld.com', 'davidkhanks@gmail.com', ['to@example.com'], fail_silently=False)
 
         return HttpResponseRedirect('/catalog/receipt/')
 
