@@ -31,6 +31,7 @@ def process_request(request):
             sr.customer_id = customer.id
             sr.dateStarted = now
             sr.description = description
+            sr.status = status
             sr.save()
 
 
