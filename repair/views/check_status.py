@@ -11,19 +11,20 @@ from django.utils import timezone
 
 def process_request(request):
     '''Get products from the DB'''
-    user = request.user
-    sr = mmod.ServiceRepair.objects.filter(id=user.id)
+    if request.user.is_staff:
+        user = mmod.User.objects.get(id=request.urlparams[0])
+    else:
+        user = request.user
+    sr = mmod.ServiceRepair.objects.filter(customer_id=user.id)
     now = timezone.now()
-    
-
-
-
+    status_list = ["Waiting for Parts","On Hold","In Progress","Finished"]
     
 
 
     template_vars = {
         'user': user,
         'sr': sr,
+        'status_list': status_list,
     }
 
     return templater.render_to_response(request, 'check_status.html', template_vars)

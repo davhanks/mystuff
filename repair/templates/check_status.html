@@ -30,6 +30,17 @@
                         <tr>
                             <td>${ s.id }</td>
                             <td>${ s.dateStarted }</td>
+                            <form method="POST" action="/repair/change_status/${ s.id }/">
+                            <td>
+                                <select name="Status">
+                                <option value="${ s.status }">${ s.status }</option>
+                                <option value="saab">Saab</option>
+                                <option value="fiat">Fiat</option>
+                                <option value="audi">Audi</option>
+                                </select>
+                            </td>
+                            <td><input class="btn btn-danger submitButton" type="submit" value="Save" /></td>
+                            </form>
                         </tr>
                     %endfor
                     </tbody>
