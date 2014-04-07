@@ -49,4 +49,4 @@ def process_request(request):
 class CreateRepairForm(forms.Form):
     '''The Create a repair form'''
     description = forms.CharField(widget=forms.Textarea(attrs={'id':'damageBox','placeholder':'Description of problem'}))
-    status = forms.ChoiceField(widget = forms.Select(), choices = ([('Waiting for parts','Waiting for parts'), ('On Hold','On Hold'),('In Progress','In Progress'),('Finished','Finished'), ]))   
+    status = forms.ChoiceField(widget = forms.Select(), choices = ([('Waiting for Parts','Waiting for Parts'), ('On Hold','On Hold'),('In Progress','In Progress'),('Finished','Finished'), ]))   

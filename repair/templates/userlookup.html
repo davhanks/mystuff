@@ -55,7 +55,8 @@
                         <td>${ u.first_name }</td>
                         <td>${ u.last_name }</td>
                         <td>${ u.phone }</td>
-                        <td><a href="/repair/create_repair/${ u.id }/" class="btn btn-primary">Next</a></td>
+                        <td><a href="/repair/create_repair/${ u.id }/" class="btn btn-primary">New</a></td>
+                        <td><a href="/repair/check_status/${ u.id }/" class="btn btn-warning">Status</a></td>
                     <tr>
                 %endfor
                 </tbody>
