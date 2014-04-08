@@ -136,6 +136,7 @@ class RevenueSource(models.Model):
 class ServiceRepair(RevenueSource):
     employee = models.ForeignKey('Employee')
     customer = models.ForeignKey('User')
+    product_name = models.CharField(max_length=50, blank=True, null=True)
     dateStarted = models.DateTimeField(auto_now_add=True)
     dateComplete = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=50, blank=True, null=True)
@@ -143,6 +144,7 @@ class ServiceRepair(RevenueSource):
     pickup_date = models.DateTimeField(auto_now_add=True)
     work_order = models.IntegerField(max_length=10, blank=True, null=True)
     status = models.CharField(max_length=200,blank=True, null=True)
+    picked_up = models.NullBooleanField(blank=True, null=True)
 
 class Rental(RevenueSource):
     user = models.ForeignKey('User')

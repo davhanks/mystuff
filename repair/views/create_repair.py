@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from homepage.models import *
 from manager import models as mmod
 from . import templater
-from datetime import datetime
+import datetime
 from django.utils import timezone
 
 
@@ -13,7 +13,7 @@ def process_request(request):
     '''Get products from the DB'''
     user = request.user
     customer = mmod.User.objects.get(id=request.urlparams[0])
-    now = timezone.now()
+    now = datetime.datetime.now()
     
     form = CreateRepairForm()
 
@@ -21,6 +21,7 @@ def process_request(request):
     if request.method == 'POST':
         form = CreateRepairForm(request.POST)
         if form.is_valid():
+            product_name = form.cleaned_data['product_name']
             description = form.cleaned_data['description']
             status = form.cleaned_data['status']
 
@@ -32,6 +33,9 @@ def process_request(request):
             sr.dateStarted = now
             sr.description = description
             sr.status = status
+            sr.product_name = product_name
+            sr.picked_up = False
+            sr.labor_hours = 0
             sr.save()
 
 
@@ -48,5 +52,6 @@ def process_request(request):
 
 class CreateRepairForm(forms.Form):
     '''The Create a repair form'''
+    product_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Product Details'}))
     description = forms.CharField(widget=forms.Textarea(attrs={'id':'damageBox','placeholder':'Description of problem'}))
     status = forms.ChoiceField(widget = forms.Select(), choices = ([('Waiting for Parts','Waiting for Parts'), ('On Hold','On Hold'),('In Progress','In Progress'),('Finished','Finished'), ]))   

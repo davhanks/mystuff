@@ -55,8 +55,11 @@
                         <td>${ u.first_name }</td>
                         <td>${ u.last_name }</td>
                         <td>${ u.phone }</td>
-                        <td><a href="/repair/create_repair/${ u.id }/" class="btn btn-primary">New</a></td>
-                        <td><a href="/repair/check_status/${ u.id }/" class="btn btn-warning">Status</a></td>
+                        <td><a href="/repair/create_repair/${ u.id }/" class="btn btn-success">New</a></td>
+                        <td><a href="/repair/check_status/${ u.id }/" class="btn btn-warning">Repair Status</a></td>
+                        <td>
+                        <a href="/repair/repaircart/${ u.id }/" class="btn btn-danger">Cart</a>
+                        </td>
                     <tr>
                 %endfor
                 </tbody>

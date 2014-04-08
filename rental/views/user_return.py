@@ -13,9 +13,8 @@ def process_request(request):
     '''Get products from the DB'''
     user = mmod.User.objects.get(id=request.urlparams[0])
     rentals = mmod.Rental.objects.filter(user_id=user.id).exclude(returned=True)
-    time = timezone.now()
+    now = datetime.now()
 
-    now = time
 
     print('>>>>>>>>>>>>>>>>>')
     print(now)
