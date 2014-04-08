@@ -41,8 +41,6 @@ def process_request(request):
     if request.method == 'POST':
         form = CardForm(request.POST)
         if form.is_valid():
-            ####################################### FIX THIS!!!
-            
 
             for key in repaircart:
                 if repaircart[key] == user.id:
@@ -50,8 +48,6 @@ def process_request(request):
                     repairs.append(sr)
                     remove.append(key)
 
-
-                    
             for r in remove:
                 if repaircart[r] == user.id:
                     del repaircart[r]
@@ -92,8 +88,8 @@ def process_request(request):
                     ServiceRepair.amount = ServiceRepair.labor_hours * 10.5
                     ServiceRepair.save()
 
-                # send_mail('Your repair is completed!', 'Your repair has been picked up', 'davidkhanks@gmail.com',
-                # ['to@example.com'], fail_silently=False)
+                send_mail('DigitalMyWorld Repair', 'Your repair has been picked up!', 'davidkhanks@gmail.com',
+                [user.email], fail_silently=False)
 
                 
                 return HttpResponseRedirect('/repair/userlookup/')
