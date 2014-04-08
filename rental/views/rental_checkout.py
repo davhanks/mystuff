@@ -6,6 +6,7 @@ from manager import models as mmod
 from . import templater
 from random import randint
 from datetime import datetime
+from django.core.mail import send_mail
 
 
 def process_request(request):
@@ -68,6 +69,9 @@ def process_request(request):
 
                 rental.receipt_number = randint(10000,1000000)
                 rental.save()
+
+                send_mail('DigitalMyWorld Rental', 'Thank you for choosing DigitalMyWorld! Your rental is now active.', 'davidkhanks@gmail.com',
+                [user.email], fail_silently=False)
 
                 return HttpResponseRedirect('/rental/rentalreceipt/')
 

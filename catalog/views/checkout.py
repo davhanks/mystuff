@@ -206,8 +206,9 @@ def process_request(request):
         request.session['sale_id'] = sale.id
         # request.session['total'] = total
 
-
-        # send_mail('Thank you for Your Purchase', 'Thank you for your purchase at digitalmyworld.com', 'davidkhanks@gmail.com', ['to@example.com'], fail_silently=False)
+        send_mail('DigitalMyWorld Purchase!', 'Thank you for your purchase!', 'davidkhanks@gmail.com',
+                [u.email], fail_silently=False)
+        
 
         return HttpResponseRedirect('/catalog/receipt/')
 
