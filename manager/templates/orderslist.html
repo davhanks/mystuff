@@ -38,15 +38,14 @@
     </div>
   
     <h2>Product Order History</h2>
-    <button class="btn btn-primary"onclick="showLogout()"><span class = "glyphicon glyphicon-share"></span> Logout</button>
+    <button class="btn btn-primary"onclick="showLogout()"><span class = "glyphicon glyphicon-share"></span> Logout</button> <form method="POST">${ form }</form>
     <table class="table ">
     	<thead>
     		<tr>
     			<th>ID</th>
-    			<th>Cat ID</th>
-                <th>Store ID</th>
+    			<th>Product Name</th>
                 <th>Store Loc</th>
-                <th>Shelf Loc</th>
+                <th>Location</th>
                 <th>Purchase Date</th>
                 <th>Serial Number</th>
                 <th>Is Rental</th>
@@ -59,8 +58,14 @@
             %for p in products:
                 <tr>
                     <td>${ p.id }</td>
-                    <td>${ p.catalog_inventory_id }</td>
-                    <td>${ p.store_id }</td>
+                    <td>
+                    %for cat in catalog:
+                        %if cat.id == p.catalog_inventory_id:
+                            ${ cat.product_name }
+                        %endif
+                    %endfor
+                    
+                    </td>
                     %for s in stores:
                         %if s.id == p.store_id:
                             <td>${ s.location }</td>
@@ -71,10 +76,19 @@
                     <td>${ p.purchase_date }</td>
                     <td>${ p.serial_number }</td>
                     <td>${ p.is_rental }</td>
-                    <td>$${ p.rental_fee }</td>
+                    <td>
+                    %if p.rental_fee == None:
+                        ${ p.rental_fee }
+                    %else:
+                        $${ p.rental_fee }
+                    %endif
+                    </td>
                     <form method="POST" action="/manager/orderslist__make_rental/${ p.id }/">
-                    <td><input type="text" class="form-control" initial="0" placeholder="Amount" id="amount" name="amount"></td>
-                    <td><input class="btn btn-danger submitButton" type="submit" value="Save" /></td>
+                    <td><input type="text" class="form-control form-width" initial="0" placeholder="Amount" id="amount" name="amount"></td>
+                    <td>
+                        <input class="btn btn-danger submitButton" type="submit" value="Save" />
+                        <a class="btn btn-warning" href="/manager/edit_product/${ p.id }/">Edit</a>
+                    </td>
                     </form>
                     
                 </tr>

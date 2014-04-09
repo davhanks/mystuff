@@ -13,12 +13,16 @@ def process_request(request):
     if not request.user.is_staff:
         return HttpResponseRedirect('/manager/dashboard/')
         
+    form = SortForm()
     products = mmod.Product.objects.all()
     stores = mmod.Store.objects.all()
+    catalog = mmod.CatalogInventory.objects.all()
 
     template_vars = {
         'products': products,
         'stores': stores,
+        'catalog': catalog,
+        'form': form,
 
     }
 
@@ -30,6 +34,8 @@ def process_request__make_rental(request):
         return HttpResponseRedirect('/manager/login/')
     if not request.user.is_staff:
         return HttpResponseRedirect('/manager/dashboard/')
+
+    form = SortForm()
     
     product = mmod.Product.objects.get(id=request.urlparams[0])
     if request.method == "POST":
@@ -46,13 +52,19 @@ def process_request__make_rental(request):
 
             product.save()
         
-
+    catalog = mmod.CatalogInventory.objects.all()
     products = mmod.Product.objects.all()
     stores = mmod.Store.objects.all()
 
     template_vars = {
         'products': products,
         'stores': stores,
+        'catalog': catalog,
+        'form': form,
     }
 
     return templater.render_to_response(request, 'orderslist.html', template_vars)
+
+class SortForm(forms.Form):
+    '''The Create a repair form'''
+    sort_by = forms.ChoiceField(widget = forms.Select(), choices = ([('store_id','Store'), ('product_name','Product Name'),('active','Sold'),('purchase_date','Date'), ]))   
