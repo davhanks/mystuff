@@ -14,50 +14,49 @@ def process_request(request):
     if not request.user.is_staff:
         return HttpResponseRedirect('/manager/dashboard')
 
-    #Error code logic is copied from another py file and is commented out to allow
-    #for future error handling. Plans to allow the choice of how many to order at a time
-    #are in the works and this style of error codes will help to mitigate problems
-    # later on.
 
     error_code = 0
     error_mes = ''
     catalogid = request.urlparams[1]
     storeid = request.urlparams[0]
 
-    # form = QuantityForm(initial = {
-    #     'quantity': 1,
+    form = QuantityForm(initial = {
+        'quantity': 1,
 
 
-    #     })
+        })
 
-    # if request.method == 'POST':
-    #     form = QuantityForm(request.POST)
-    #     if form.is_valid():
-    #         quantity = form.cleaned_data['quantity']
+    if request.method == 'POST':
+        form = QuantityForm(request.POST)
+        if form.is_valid():
+            quantity = form.cleaned_data['quantity']
 
+            print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+            print(quantity)
 
-            # if password != retype:
-            #     error_code = 2
-            # for u in users:
-            #     if u.username == username:
-            #         error_code = 1
-            #         break
-
-    if error_code == 1:
-        error_mes = 'This username is already in use'
-    elif error_code == 2:
-        error_mes = 'Passwords must match'
+            for i in range(0, int(quantity)):
+                print(i)
     
-    if error_code == 0:
-    
-        u = mmod.Product()
-        u.catalog_inventory_id = catalogid
-        u.store_id = storeid
-        u.shelf_location = 'Storage Room'
-        u.purchase_date = datetime.now().date()
-        u.serial_number = random.randrange(1000,99999)
-        u.active = True
-        u.is_rental = False
-        u.save()
+                u = mmod.Product()
+                u.catalog_inventory_id = catalogid
+                u.store_id = storeid
+                u.shelf_location = 'Storage Room'
+                u.purchase_date = datetime.now().date()
+                u.serial_number = random.randrange(1000,99999)
+                u.active = True
+                u.is_rental = False
+                u.save()
 
-    return HttpResponseRedirect('/manager/productlist/')
+            return HttpResponseRedirect('/manager/productlist/')
+
+    template_vars = {
+        'form' : form,
+    }
+
+    return templater.render_to_response(request, 'quantity.html', template_vars)
+
+
+
+class QuantityForm(forms.Form):
+    quantity = forms.CharField(label="Quantity", required=True)
+
