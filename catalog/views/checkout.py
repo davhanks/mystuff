@@ -7,6 +7,7 @@ from . import templater
 from datetime import datetime
 from random import randint
 from django.core.mail import send_mail
+import requests
 
 
 def process_request(request):
@@ -16,6 +17,8 @@ def process_request(request):
     commission = False
     if request.user.is_staff:
         commission = True
+
+    error_code = 0
 
 
     # run the form
@@ -119,104 +122,134 @@ def process_request(request):
             card_last = form3.cleaned_data['last_name']
             card_exp_date = form3.cleaned_data['exp_date']
 
-
-        # Create the sale object and all related B.O.s and confirm the order
-        sale = mmod.Sale()
-        sale.user_id = u.id
-        
-            # print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-        sale.date = datetime.now()
-        sale.sub_total = subtotal
-        sale.shipping_cost = 10.00
-        # total = float(subtotal) + shipping_charge
-
-
-        sale.tax_ammount = 0
-
-        sale.ship_first = ship_first
-        sale.ship_last = ship_last
-        sale.ship_street = ship_street
-        sale.ship_city = ship_city
-        sale.ship_state = ship_state
-        sale.ship_zipCode = ship_zipCode
-
-        sale.bill_street = bill_street
-        sale.bill_city = bill_city
-        sale.bill_state = bill_state
-        sale.bill_zipCode = bill_zipCode
-
-        sale.creditCardNum = card_cc_num
-        sale.cvn = card_cvn
-        sale.card_first = card_first
-        sale.card_last = card_last
-        sale.expDate = card_exp_date
-
-        sale.receipt_number = randint(10000,1000000)
-        sale.save()
-
         
 
-        # makes a saleitem for every conceptual item in the cart
-        for prod in products:
-            # gets the quantity of the current item
-            quantity = cart[str(prod.id)]
+        # send the request with the data
+        API_URL = 'http://dithers.cs.byu.edu/iscore/api/v1/charges'
+        API_KEY = 'b6a57a6b718b756064393dd12588130d'
+        r = requests.post(API_URL, data={
+          'apiKey': API_KEY,
+          'currency': 'usd',
+          'amount': '5.99',
+          'type': 'Visa',
+          'number': card_cc_num,
+          'exp_month': 10,
+          'exp_year': 14,
+          'cvc': 411,
+          'name': 'Cosmo Limesandal',
+          'description': 'Charge for cosmo@is411.byu.edu',
+        })
 
-            # calculates the commission for each conceptual product times quantity
-            prod_com = prod.commission_rate * prod.sale_price * quantity
+        # just for debugging, print the response text
+        print(r.text)
 
-            # adds that amount to the total commissions for this sal
-            com_amount += prod_com
+        # parse the response to a dictionary
+        resp = r.json()
+        # print(resp['ID'])
+        if 'error' in resp:
+            # raise forms.ValidationError(resp['error'])
+            error_code = 1
 
-            # calulates the COGS sold for this item times quantity
-            prod_cogs = prod.average_cost * quantity
 
-            # adds that amount to the total COGS for this sale
-            COGS += prod_cogs
+        if error_code == 0:
+            # Create the sale object and all related B.O.s and confirm the order
+            sale = mmod.Sale()
+            sale.user_id = u.id
+            
+                # print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+            sale.date = datetime.now()
+            sale.sub_total = subtotal
+            sale.shipping_cost = 10.00
+            # total = float(subtotal) + shipping_charge
 
-            # gets the list of all physical items that have not been sold that match the current
-            # conceptual inv item and creates a sale item
-            pp = mmod.Product.objects.filter(catalog_inventory_id = prod.id).filter(active=True)
-            for i in range(0,quantity):
-                saleItem = mmod.SaleItem()
-                saleItem.sale_id = sale.id
-                saleItem.product_id = pp[i].id
-                saleItem.save()
 
-                # add each id to a list to set them as sold after a Sale Item object is created
-                soldList.append(pp[i].id)
+            sale.tax_ammount = 0
 
-        cart = {}
-        request.session['cart'] = cart
+            sale.ship_first = ship_first
+            sale.ship_last = ship_last
+            sale.ship_street = ship_street
+            sale.ship_city = ship_city
+            sale.ship_state = ship_state
+            sale.ship_zipCode = ship_zipCode
 
-        # Set each sold Physical Product to false so that it can only be sold once
-        for p in soldList:
-            prod = mmod.Product.objects.get(id=p)
-            prod.active = False
-            prod.save()
+            sale.bill_street = bill_street
+            sale.bill_city = bill_city
+            sale.bill_state = bill_state
+            sale.bill_zipCode = bill_zipCode
 
-        # if an employee is performing the sale, calculate commission and save it
-        if commission:
-            com = mmod.Commission()
-            com.employee_id = u.id
-            com.sale_id = sale.id
-            com.date = datetime.now()
-            com.amount = com_amount
-            com.save()
+            sale.creditCardNum = card_cc_num
+            sale.cvn = card_cvn
+            sale.card_first = card_first
+            sale.card_last = card_last
+            sale.expDate = card_exp_date
 
-        request.session['sale_id'] = sale.id
-        # request.session['total'] = total
+            sale.receipt_number = randint(10000,1000000)
+            sale.save()
 
-        send_mail('DigitalMyWorld Purchase!', 'Thank you for your purchase!', 'davidkhanks@gmail.com',
-                [u.email], fail_silently=False)
-        
+            
 
-        return HttpResponseRedirect('/catalog/receipt/')
+            # makes a saleitem for every conceptual item in the cart
+            for prod in products:
+                # gets the quantity of the current item
+                quantity = cart[str(prod.id)]
+
+                # calculates the commission for each conceptual product times quantity
+                prod_com = prod.commission_rate * prod.sale_price * quantity
+
+                # adds that amount to the total commissions for this sal
+                com_amount += prod_com
+
+                # calulates the COGS sold for this item times quantity
+                prod_cogs = prod.average_cost * quantity
+
+                # adds that amount to the total COGS for this sale
+                COGS += prod_cogs
+
+                # gets the list of all physical items that have not been sold that match the current
+                # conceptual inv item and creates a sale item
+                pp = mmod.Product.objects.filter(catalog_inventory_id = prod.id).filter(active=True)
+                for i in range(0,quantity):
+                    saleItem = mmod.SaleItem()
+                    saleItem.sale_id = sale.id
+                    saleItem.product_id = pp[i].id
+                    saleItem.save()
+
+                    # add each id to a list to set them as sold after a Sale Item object is created
+                    soldList.append(pp[i].id)
+
+            cart = {}
+            request.session['cart'] = cart
+
+            # Set each sold Physical Product to false so that it can only be sold once
+            for p in soldList:
+                prod = mmod.Product.objects.get(id=p)
+                prod.active = False
+                prod.save()
+
+            # if an employee is performing the sale, calculate commission and save it
+            if commission:
+                com = mmod.Commission()
+                com.employee_id = u.id
+                com.sale_id = sale.id
+                com.date = datetime.now()
+                com.amount = com_amount
+                com.save()
+
+            request.session['sale_id'] = sale.id
+            # request.session['total'] = total
+
+            send_mail('DigitalMyWorld Purchase!', 'Thank you for your purchase!', 'davidkhanks@gmail.com',
+                    [u.email], fail_silently=False)
+            
+
+            return HttpResponseRedirect('/catalog/receipt/')
 
             
     template_vars = {
         'form1' : form1,
         'form2' : form2,
         'form3' : form3,
+        'error_code': error_code,
 
     }
 

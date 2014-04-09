@@ -39,6 +39,9 @@
             </table>
             <input class="btn btn-primary" type="submit" value="Confirm" />
         </form>
+        %if error_code == 1:
+            <p>Your credit card info is invalid</p>
+        %endif
         <div>
 
         </div>

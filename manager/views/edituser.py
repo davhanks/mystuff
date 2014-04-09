@@ -28,6 +28,8 @@ def process_request(request):
         'state': u.state,
         'zipCode': u.zipCode,
         'phone': u.phone,
+        'question': u.security_question,
+        'answer': u.security_answer,
         'is_staff': u.is_staff,
     })
     if request.method == 'POST':
@@ -43,6 +45,8 @@ def process_request(request):
             u.state = form.cleaned_data['state']
             u.zipCode = form.cleaned_data['zipCode']
             u.phone = form.cleaned_data['phone']
+            u.security_question = form.cleaned_data['question']
+            u.security_answer = form.cleaned_data['answer']
             u.is_staff = form.cleaned_data['is_staff']
             u.save()
             return HttpResponseRedirect('/manager/userlist/')
@@ -67,4 +71,6 @@ class UserForm(forms.Form):
     state = forms.CharField()
     zipCode = forms.CharField()
     phone = forms.CharField()
+    question = forms.CharField()
+    answer = forms.CharField()
     is_staff = forms.NullBooleanField(widget=forms.RadioSelect(choices=[(1, 'Yes'),(0, 'No')]))

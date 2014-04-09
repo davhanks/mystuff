@@ -29,6 +29,8 @@ def process_request(request):
         'state': '',
         'zipCode': '',
         'phone': '',
+        'question': '',
+        'answer': '',
         'is_Staff': True,
 
         })
@@ -48,6 +50,8 @@ def process_request(request):
             state = form.cleaned_data['state']
             zipCode = form.cleaned_data['zipCode']
             phone = form.cleaned_data['phone']
+            question = form.cleaned_data['question']
+            answer = form.cleaned_data['answer']
             is_Staff = form.cleaned_data['is_Staff']
 
 
@@ -74,6 +78,9 @@ def process_request(request):
                 u.zipCode = zipCode
                 u.phone = phone
                 u.active = True
+                u.security_question = question
+                u.security_answer = answer
+                u.is_staff = is_Staff
                 u.save()
                 return HttpResponseRedirect('/manager/userlist')
 
@@ -105,4 +112,6 @@ class NewUserForm(forms.Form):
     state = forms.CharField()
     zipCode = forms.CharField()
     phone = forms.CharField()
+    question = forms.CharField()
+    answer = forms.CharField()
     is_Staff = forms.BooleanField()

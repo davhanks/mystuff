@@ -12,48 +12,30 @@ from random import randint
 
 def process_request(request):
     
-    user_list = mmod.User.objects.all()
 
-    now = timezone.now()
 
-    valid_date = now + datetime.timedelta(days=1)
-
-    email_list = []
-
-    for u in user_list:
-        email_list.append(u.email)
-
-    form = ResetPasswordForm(initial = {
+    form = CheckEmailForm(initial = {
 
         'email': '',
-        'security_answer': '',
 
         })
 
     if request.method == 'POST':
-        form = ResetPasswordForm(request.POST)
+        form = CheckEmailForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
-            security_answer = form.cleaned_data['security_answer']
-            key = randint(10000,1000000)
 
-            if email in email_list:
-                user = mmod.User.objects.get(email=email)
-                pr = mmod.PasswordReset()
-                pr.valid_date = valid_date
-                pr.used = False
-                pr.user_id = user.id
-                pr.key = key
-                pr.save()
-
-                send_mail('DigitalMyWorld Password Reset', 'Follow this link to reset your password.', 'davidkhanks@gmail.com',
-                [email], fail_silently=False)
-            else:
-                send_mail('DigitalMyWorld Password Reset', 'Your email was not found in our database. Are you sure you typed in the correct email?', 'davidkhanks@gmail.com',
-                [email], fail_silently=False)
+            user_list = mmod.User.objects.all()
 
 
-            return HttpResponseRedirect('/homepage/')
+            for u in user_list:
+                if u.email == email:
+                    return HttpResponseRedirect('/account/security_question/' + str(u.id) + '/')
+
+
+
+
+            
 
 
     template_vars = {
@@ -64,7 +46,6 @@ def process_request(request):
     return templater.render_to_response(request, 'forgot_password.html', template_vars)
 
 
-class ResetPasswordForm(forms.Form):
+class CheckEmailForm(forms.Form):
 
-    email = forms.EmailField()
-    security_answer = forms.CharField()
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'width'}))

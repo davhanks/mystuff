@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from homepage.models import *
 from . import templater
 from django.contrib.auth import authenticate, login
-
+from ldap3 import Server, Connection, AUTH_SIMPLE, STRATEGY_SYNC, GET_ALL_INFO
 
 def process_request(request):
     '''Login form'''
@@ -20,12 +20,27 @@ def process_request(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
+            username = form.cleaned_data['username'] + '@digitalmyworld.local'
+            password = form.cleaned_data['password']
+            try:
+                s = Server('128.187.61.42', port=636, get_info = GET_ALL_INFO)
+                c = Connection(s, user = username, password = password, auto_bind = True)
+                print(s.info)
+
+                result = c.search('o=test', '(objectClass=*)', SEARCH_SCOPE_WHOLE_SUBTREE, attributes=['sn', 'objectClass'])
+                
+                c.unbind()
+            except Exception as e:
+                print(e)
+
+
             user = authenticate(username= form.cleaned_data['username'], password=form.cleaned_data['password'])
+            login(request, user)
             if user is not None:
                 # the password verified for the user
                 if user.is_active:
                     print(">>>>>>>>>>>>>>>>>>>>>>User is valid, active and authenticated")
-                    login(request, user)
+                    
                     if user.is_staff:
                         return HttpResponse('<script>window.location.href="/manager/dashboard/"; </script>')
                     else:

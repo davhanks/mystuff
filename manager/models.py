@@ -28,7 +28,7 @@ class User(AbstractUser):
     #email
     #password #This is stored as a hash. Set with the set_password() method
     #is_superuser # boolean field
-    #is_staff #
+    #is_staff # boolean field
     street = models.CharField(max_length=30, blank=True, null=True)
     street2 = models.CharField(max_length=30, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
@@ -44,6 +44,7 @@ class PasswordReset(models.Model):
     '''Necessary info to reset the password for a user that has forgotten theirs.'''
     valid_date = models.DateTimeField(auto_now_add=False)
     used = models.NullBooleanField(blank=True, null=True)
+    key = models.IntegerField(max_length=100, blank=True, null=True)
     user = models.ForeignKey('User')
 
 
