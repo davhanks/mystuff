@@ -14,19 +14,18 @@
     <div class = "centerBlockWhite">
     <br>
         %for p in products:
-            <div class="row">
-                <div class="col-md-12">
 
+                <div class="container">
                     <div class="thumbnail">
-                        <img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ p.image }" />
-                        <div>
+                        
+                        <img class="catalog_tile_list" src="${ STATIC_URL }catalog/images/${ p.image }" />
+                        <div class="info">
                             <h3>${ p.product_name }</h3>
                             <h4>$${ p.sale_price }</h4>
                             <a href="/catalog/cart__add/${ p.id }/" class="btn btn-danger"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a> <a href="/catalog/description/${ p.id }" class="btn btn-primary" >Description</a>
                         </div>
-                    </div><!--thumbnail-->   
-                </div><!--column-->
-            </div>
+                    </div><!--thumbnail-->
+                </div>
         %endfor
     </div> 
 </%block>

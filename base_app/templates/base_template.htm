@@ -57,10 +57,18 @@
                 
                 %if request.user.is_authenticated():
                   <div>
+
+                  <a id="cart_button" class="btn btn-danger titleFont cartButton"><span class="glyphicon glyphicon-shopping-cart"></span> MyCart</a>
+
                     %if request.user.is_staff:
-                      <a id="rental_button" class="btn btn-primary titleFont cartButton"><span class="glyphicon glyphicon-tag"></span> MyRentals</a>
+                      <a id="rental_button" class="btn btn-warning titleFont cartButton"><span class="glyphicon glyphicon-tag"></span> MyRentals</a>
                     %endif
-                    <a id="cart_button" class="btn btn-danger titleFont cartButton"><span class="glyphicon glyphicon-shopping-cart"></span> MyCart</a> <a href="/account/accountDashboard/" id="account_button" class="btn btn-success titleFont cartButton"><span class="glyphicon glyphicon-user"></span> Account</a> <a href="/manager/logout/"> Logout</a>
+
+                    
+
+                     <a href="/account/accountDashboard/" id="account_button" class="btn btn-success titleFont cartButton"><span class="glyphicon glyphicon-user"></span> Account</a> 
+
+                     <a class="btn btn-primary titleFont cartButton" href="/manager/logout/"> Logout</a>
                   </div>
                 %else:
                   <div>

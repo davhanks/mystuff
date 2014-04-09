@@ -90,25 +90,22 @@ class JournalEntry(models.Model):
 
 class AccountEntry(models.Model):
     GeneralLedgerName = models.ForeignKey('GeneralLedgerName')
-    journalEntry = models.OneToOneField('JournalEntry')
+    journalEntry = models.ForeignKey('JournalEntry')
     amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
 class GeneralLedgerName(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
     # Types of ledgers:
-    # Cash
-    # Sales
-    # COGS
-    # Inventory
+    # 1 Cash
+    # 2 Sales
+    # 3 COGS
+    # 4 Inventory
 
 class Debit(AccountEntry):
     note = models.CharField(max_length=200,blank=True,null=True)
 
 class Credit(AccountEntry):
     note = models.CharField(max_length=200,blank=True,null=True)
-
-class GeneralLedgerName():
-    name = models.CharField(max_length=50, blank=True, null=True)
 
 class RevenueSource(models.Model):
     # transaction = models.ForeignKey('Transaction')

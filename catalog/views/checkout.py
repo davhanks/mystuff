@@ -15,8 +15,17 @@ def process_request(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/homepage/')
     commission = False
+    sales_tax = 0.00
+
+    # get the list of general ledger name objects
+    gln = mmod.GeneralLedgerName.objects.all()
+
+    # if the user is a staff member the sale is taking place in the store therefore
+    # commissions and sales tax need to be accounted for. Otherwise these two values are set
+    # to False and 0.00% respectively
     if request.user.is_staff:
         commission = True
+        sales_tax = 0.0795
 
     error_code = 0
 
@@ -33,10 +42,12 @@ def process_request(request):
     subtotal = 0
     shipping_charge = 10.00
 
+
     # Amount of commissions for this sale (this is always calculated but not saved if 
     # it is an online sale)
     com_amount = 0
 
+    # initialize this variable for later use for the accounting entries for each sale
     COGS = 0
 
 
@@ -46,36 +57,24 @@ def process_request(request):
         products.append(prod)
 
         subtotal += (prod.sale_price * cart[key])
+        COGS += (prod.average_cost * cart[key])
 
-    form1 = ShipForm(initial={
+    form1 = ShipForm(initial = {
+            'ship_first': u.first_name,
+            'ship_last': u.last_name,
+            'ship_street': u.street,
+            'ship_street2': u.street2,
+            'ship_city': u.city,
+            'ship_state': u.state,
+            'ship_zipCode': u.zipCode,
 
-        'Ship_first' : 'stupid face',
-        'Ship_last' : '',
-        'street': '',
-        'city': '',
-        'state': '',
-        'zipCode': '',
+        })
 
-    })
+    form2 = BillForm()
 
-    form2 = BillForm(initial={
+    form3 = CardForm()
 
-    'street': '',
-    'city': '',
-    'state': '',
-    'zipCode': '',
 
-    })
-
-    form3 = CardForm(initial={
-
-    'card_number': '',
-    'cvn' : '',
-    'first_name': '',
-    'last_name': '',
-    'exp_date': '',
-
-    })
     if request.method == 'POST':
         ship_first = ''
         ship_last = ''
@@ -101,18 +100,18 @@ def process_request(request):
 
             ship_first = form1.cleaned_data['ship_first']
             ship_last = form1.cleaned_data['ship_last']
-            ship_street = form1.cleaned_data['street']
-            ship_city = form1.cleaned_data['city']
-            ship_state = form1.cleaned_data['state']
-            ship_zipCode = form1.cleaned_data['zipCode']
+            ship_street = form1.cleaned_data['ship_street']
+            ship_city = form1.cleaned_data['ship_city']
+            ship_state = form1.cleaned_data['ship_state']
+            ship_zipCode = form1.cleaned_data['ship_zipCode']
 
         form2 = BillForm(request.POST)
         if form2.is_valid():
 
-            bill_street = form2.cleaned_data['street']
-            bill_city = form2.cleaned_data['city']
-            bill_state = form2.cleaned_data['state']
-            bill_zipCode = form2.cleaned_data['zipCode']
+            bill_street = form2.cleaned_data['bill_street']
+            bill_city = form2.cleaned_data['bill_city']
+            bill_state = form2.cleaned_data['bill_state']
+            bill_zipCode = form2.cleaned_data['bill_zipCode']
 
         form3 = CardForm(request.POST)
         if form3.is_valid():
@@ -158,12 +157,12 @@ def process_request(request):
             
                 # print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
             sale.date = datetime.now()
+
+            # Line item amounts of the sale
             sale.sub_total = subtotal
-            sale.shipping_cost = 10.00
-            # total = float(subtotal) + shipping_charge
-
-
-            sale.tax_ammount = 0
+            sale.shipping_cost = shipping_charge
+            sale.tax_ammount = float(subtotal) * sales_tax
+            sale.amount = sales_tax + float(shipping_charge) + float(subtotal)
 
             sale.ship_first = ship_first
             sale.ship_last = ship_last
@@ -185,6 +184,45 @@ def process_request(request):
 
             sale.receipt_number = randint(10000,1000000)
             sale.save()
+
+            # Accounting entries follow*************************
+
+            # Journal entry for sale
+            jourEntry = mmod.JournalEntry()
+            jourEntry.revenueSource_id = sale.id
+            jourEntry.date = datetime.now()
+            jourEntry.save()
+
+            # Receipt of cash
+            debitCash = mmod.Debit()
+            debitCash.GeneralLedgerName_id = gln[0].id
+            debitCash.journalEntry_id = jourEntry.id
+            debitCash.amount = sale.sub_total
+            debitCash.save()
+
+            # Credit Sales
+            creditSales = mmod.Credit()
+            creditSales.GeneralLedgerName_id = gln[1].id
+            creditSales.journalEntry_id = jourEntry.id
+            creditSales.amount = sale.sub_total
+            creditSales.save()
+
+            # COGS
+            debitCOGS = mmod.Debit()
+            debitCOGS.GeneralLedgerName_id = gln[2].id
+            debitCOGS.journalEntry_id = jourEntry.id
+            debitCOGS.amount = COGS
+            debitCOGS.save()
+
+            # Credit Inventory
+            creditInventory = mmod.Credit()
+            creditInventory.GeneralLedgerName_id = gln[3]
+            creditInventory.journalEntry_id = jourEntry.id
+            creditInventory.amount = COGS
+            creditInventory.save()
+
+
+
 
             
 
@@ -257,24 +295,28 @@ def process_request(request):
 
 class ShipForm(forms.Form):
     '''The Shipping address form'''
-    ship_first = forms.CharField()
-    ship_last = forms.CharField()
-    street = forms.CharField()
-    city = forms.CharField()
-    state = forms.CharField()
-    zipCode = forms.CharField()
+    ship_first = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'First Name', 'class':'form-size'}))
+    ship_last = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'Last Name', 'class':'form-size'}))
+    ship_street = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'Street', 'class':'form-size'}))
+    ship_street2 = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'Apt or Suite', 'class':'form-size'}))
+    ship_city = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'City', 'class':'form-size'}))
+    ship_state = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'State', 'class':'form-size'}))
+    ship_zipCode = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'Zip Code', 'class':'form-size'}))
 
 class BillForm(forms.Form):
     '''The billing address form'''
-    street = forms.CharField()
-    city = forms.CharField()
-    state = forms.CharField()
-    zipCode = forms.CharField()
+    bill_first = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'First Name', 'class':'form-size'}))
+    bill_last = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'Last Name', 'class':'form-size'}))
+    bill_street = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'Street', 'class':'form-size'}))
+    bill_street2 = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'Apt or Suite', 'class':'form-size'}))
+    bill_city = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'City', 'class':'form-size'}))
+    bill_state = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'State', 'class':'form-size'}))
+    bill_zipCode = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'Zip Code', 'class':'form-size'}))
 
 class CardForm(forms.Form):
     '''The billing address form'''
-    card_number = forms.CharField()
-    cvn = forms.CharField()
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    exp_date = forms.DateField(widget=forms.TextInput(attrs={'id':'datepicker'}))
+    first_name = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'First Name', 'class':'form-size'}))
+    last_name = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'Last Name', 'class':'form-size'}))
+    card_number = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'Card Number', 'class':'form-size'}))
+    cvn = forms.CharField(label = '', widget=forms.TextInput(attrs={'placeholder':'CVN', 'class':'form-size'}))
+    exp_date = forms.DateField(label = '', widget=forms.TextInput(attrs={'id':'datepicker', 'placeholder':'Exp Date', 'class':'form-size'}))

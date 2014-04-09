@@ -27,14 +27,14 @@ def process_request(request):
         form = StatusForm(request.POST)
         if form.is_valid():
             status = form.cleaned_data['change_status']
-            hours_worked = form.cleaned_data['hours_worked']
+            # hours_worked = form.cleaned_data['hours_worked']
 
             # charge_amount = form.cleaned_data['charge_amount']
             if status == 'Finished':
                 sr.dateComplete = now
 
             sr.status = status
-            sr.labor_hours += hours_worked
+            # sr.labor_hours += hours_worked
             sr.save()
 
 
@@ -53,4 +53,4 @@ def process_request(request):
 class StatusForm(forms.Form):
     '''The Create a repair form'''
     change_status = forms.ChoiceField(widget = forms.Select(), choices = ([('Waiting for Parts','Waiting for Parts'), ('On Hold','On Hold'),('In Progress','In Progress'),('Finished','Finished'), ]))   
-    hours_worked = forms.IntegerField()
+    # hours_worked = forms.IntegerField()

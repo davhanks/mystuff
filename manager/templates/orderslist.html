@@ -18,6 +18,17 @@
     <a href="/manager/productlist/" class="btn btn-success width"><span class = "glyphicon glyphicon-camera"></span> Products</a><br>
     <a href="/manager/userlist/" class="btn btn-warning width"><span class = "glyphicon glyphicon-user"></span> Users</a><br>
     <a href="/manager/dashboard/" class="btn btn-danger width"><span class = "glyphicon glyphicon-info-sign"></span> Dashboard</a><br>
+    <div id="sort_form">
+        <h3>Sort By:</h3>
+        <form method="POST" action="/manager/orderslist__sort/">
+            <table>
+                <tbody>
+                    ${ form }
+                </tbody>
+            </table> 
+        <input class="btn btn-primary" type="submit" value="Sort" />
+        </form>
+    </div>
   </div>
   
 </%block>
@@ -38,7 +49,7 @@
     </div>
   
     <h2>Product Order History</h2>
-    <button class="btn btn-primary"onclick="showLogout()"><span class = "glyphicon glyphicon-share"></span> Logout</button> <form method="POST">${ form }</form>
+    <button class="btn btn-primary"onclick="showLogout()"><span class = "glyphicon glyphicon-share"></span> Logout</button>
     <table class="table ">
     	<thead>
     		<tr>

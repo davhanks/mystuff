@@ -18,6 +18,7 @@ def process_request(request):
     stores = mmod.Store.objects.all()
     catalog = mmod.CatalogInventory.objects.all()
 
+
     template_vars = {
         'products': products,
         'stores': stores,
@@ -36,6 +37,9 @@ def process_request__make_rental(request):
         return HttpResponseRedirect('/manager/dashboard/')
 
     form = SortForm()
+    catalog = mmod.CatalogInventory.objects.all()
+    products = mmod.Product.objects.all()
+    stores = mmod.Store.objects.all()
     
     product = mmod.Product.objects.get(id=request.urlparams[0])
     if request.method == "POST":
@@ -52,9 +56,6 @@ def process_request__make_rental(request):
 
             product.save()
         
-    catalog = mmod.CatalogInventory.objects.all()
-    products = mmod.Product.objects.all()
-    stores = mmod.Store.objects.all()
 
     template_vars = {
         'products': products,
@@ -65,6 +66,43 @@ def process_request__make_rental(request):
 
     return templater.render_to_response(request, 'orderslist.html', template_vars)
 
+
+def process_request__sort(request):
+    '''Show the product catalog in the db'''
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/manager/login/')
+    if not request.user.is_staff:
+        return HttpResponseRedirect('/manager/dashboard/')
+        
+    form = SortForm()
+    stores = mmod.Store.objects.all()
+    catalog = mmod.CatalogInventory.objects.all()
+
+    if request.method == "POST":
+        form = SortForm(request.POST)
+        if form.is_valid():
+            sort_by = form.cleaned_data['sort_by']
+            ascending = form.cleaned_data['ascending']
+            query = ''
+
+            if ascending == True:
+                query = sort_by
+            else:
+                query = '-' + sort_by
+
+            products = mmod.Product.objects.order_by(query)
+
+    template_vars = {
+        'products': products,
+        'stores': stores,
+        'catalog': catalog,
+        'form': form,
+
+    }
+
+    return templater.render_to_response(request, 'orderslist.html', template_vars)
+
 class SortForm(forms.Form):
     '''The Create a repair form'''
-    sort_by = forms.ChoiceField(widget = forms.Select(), choices = ([('store_id','Store'), ('product_name','Product Name'),('active','Sold'),('purchase_date','Date'), ]))   
+    sort_by = forms.ChoiceField(label='', widget = forms.Select(), choices = ([('store','Store'), ('serial_number','Serial Number'),('active','Sold'),('purchase_date','Date'),('rental_fee','Fee'),('catalog_inventory','Catalog Product'), ('shelf_location','Shelf Location') ]))
+    ascending = forms.NullBooleanField(label='', widget=forms.RadioSelect(choices=[(1, 'Ascending'),(0, 'Descending')]))

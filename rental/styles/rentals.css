@@ -5,3 +5,13 @@
 	color: red;
 	margin-top: -20px;
 }
+
+.container {
+	display: inline-block;
+	width: 350px;
+	vertical-align: top;
+}
+
+.thumbnail {
+	min-height: 450px;
+}

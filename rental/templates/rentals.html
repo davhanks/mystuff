@@ -15,8 +15,7 @@
     <br>
     %if length > 0:
         %for p in products:
-            <div class="row">
-                <div class="col-md-12">
+                <div class="container">
 
                     <div class="thumbnail">
                         %for c in catalog:
@@ -32,7 +31,7 @@
                         </div>
                     </div><!--thumbnail-->   
                 </div><!--column-->
-            </div>
+
         %endfor
     %else:
         <div class="none">

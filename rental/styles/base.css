@@ -6,6 +6,14 @@
  overflow: auto;
 }
 
+.divBackground {
+	background-color: rgba(255,255,255,0.9);
+}
+
+.sidebar {
+	background-color: rgba(255,255,255,0.9);
+}
+
 input {
 	margin-top: 5px;
 }

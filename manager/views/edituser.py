@@ -40,7 +40,7 @@ def process_request(request):
             u.last_name = form.cleaned_data['last_name']
             u.email = form.cleaned_data['email']
             u.street = form.cleaned_data['street']
-            u.street2 = form.cleaned_data['street']
+            u.street2 = form.cleaned_data['street2']
             u.city = form.cleaned_data['city']
             u.state = form.cleaned_data['state']
             u.zipCode = form.cleaned_data['zipCode']

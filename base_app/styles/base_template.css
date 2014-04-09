@@ -5,6 +5,7 @@
 
 html { 
   background: url(/static/base_app/images/veniceBridge.jpg) no-repeat center center fixed; 
+  background-color: rgba(255,255,255,0.7);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -28,6 +29,11 @@ header {
 
 .modal-open {
  overflow: auto;
+}
+
+#bodyshade {
+/*	background-color: rgba(255,255,255,0.7);
+	min-height: 960px;*/
 }
 
 #confirmation {

@@ -1,0 +1,18 @@
+.container {
+	display: inline-block;
+	width: 350px;
+	vertical-align: top;
+}
+
+.thumbnail {
+	min-height: 450px;
+}
+
+.info {
+	display: inline-block;
+	vertical-align: bottom;
+}
+.catalog_tile_list {
+	width: 300px;
+	min-height: 310px;
+}
