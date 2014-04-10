@@ -50,7 +50,7 @@ def process_request__make_rental(request):
                 product.times_rented = 0
 
             if request.POST.get('amount') == '':
-                product.rental_fee = 0
+                product.rental_fee = 1
             else:
                 product.rental_fee = request.POST.get('amount')
 

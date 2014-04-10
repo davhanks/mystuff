@@ -94,6 +94,7 @@
                         $${ p.rental_fee }
                     %endif
                     </td>
+                    %if p.active == True:
                     <form method="POST" action="/manager/orderslist__make_rental/${ p.id }/">
                     <td><input type="text" class="form-control form-width" initial="0" placeholder="Amount" id="amount" name="amount"></td>
                     <td>
@@ -101,6 +102,11 @@
                         <a class="btn btn-warning" href="/manager/edit_product/${ p.id }/">Edit</a>
                     </td>
                     </form>
+                    %else:
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    %endif
                     
                 </tr>
             %endfor

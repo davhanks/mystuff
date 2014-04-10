@@ -177,7 +177,8 @@ class Sale(RevenueSource):
     shipping_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     tax_ammount = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
 
-    
+class Loan(RevenueSource):
+    note = models.CharField(max_length=200,blank=True,null=True)
 
 
 class SaleItem(models.Model):

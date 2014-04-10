@@ -9,6 +9,120 @@ import random
 
 def process_request(request):
 	'''populate_db'''
+	# Assets
+
+	# id 1
+	gln = mmod.GeneralLedgerName()
+	gln.name = 'Cash'
+	gln.save()
+
+	# id 2
+	gln = mmod.GeneralLedgerName()
+	gln.name = 'Sales'
+	gln.save()
+
+	# id 3
+	gln = mmod.GeneralLedgerName()
+	gln.name = 'COGS'
+	gln.save()
+
+	# id 4
+	gln = mmod.GeneralLedgerName()
+	gln.name = 'Inventory'
+	gln.save()
+
+	#id 5
+	gln = mmod.GeneralLedgerName()
+	gln.name = 'Accounts Receivable'
+	gln.save()
+
+	#id 6
+	gln = mmod.GeneralLedgerName()
+	gln.name = 'Other Current Assets'
+	gln.save()
+
+	#id 7
+	gln = mmod.GeneralLedgerName()
+	gln.name = 'Long-Term Assets'
+	gln.save()
+
+	# Liabilities
+
+	# id 8
+	gln = mmod.GeneralLedgerName()
+	gln.name = 'Accounts Payable'
+	gln.save()
+
+	# id 9
+	gln = mmod.GeneralLedgerName()
+	gln.name = 'Salaries Payable'
+	gln.save()
+
+	# id 10
+	gln = mmod.GeneralLedgerName()
+	gln.name = 'Long-Term Debt'
+	gln.save()
+
+	# Equity
+
+	#id 11
+	gln = mmod.GeneralLedgerName()
+	gln.name = 'Captial Stock'
+	gln.save()
+
+	#id 12
+	gln = mmod.GeneralLedgerName()
+	gln.name = 'Retained Earnings'
+	gln.save()
+
+
+	# Initial Accounting Entries
+	revSrc = mmod.Loan()
+	revSrc.amount = 300000.00
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit cash for amount of loan
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit long-term debt for amount of loan
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 10
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	################################################
+
+	revSrc = mmod.Loan()
+	revSrc.amount = 100000.00
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit cash for amount of investment
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit CS for amount of investment
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 11
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
 
 	s = mmod.Store()
 	s.name = 'Sandy'
@@ -20,6 +134,31 @@ def process_request(request):
 	s.phone = '(801) 555-1234'
 	s.active = True
 	s.save()
+
+
+	revSrc = mmod.Loan()
+	revSrc.amount = 200000.00
+	revSrc.note = 'Purchase of Sandy location Building'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 7
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
 
 	# Start Product
 	c = mmod.CatalogInventory()
@@ -46,6 +185,30 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 	c = mmod.CatalogInventory()
@@ -71,6 +234,31 @@ def process_request(request):
 	u.is_rental = False
 	u.save()
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 	c = mmod.CatalogInventory()
 	c.product_name = 'Sony a350'
 	c.description = 'DSLR'
@@ -93,6 +281,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
 
 	c = mmod.CatalogInventory()
 	c.product_name = 'San Disk 2G SD Card'
@@ -117,6 +330,31 @@ def process_request(request):
 	u.is_rental = False
 	u.save()
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 	c = mmod.CatalogInventory()
 	c.product_name = 'Cannon 50x Zoom Lense'
 	c.description = '50x Zoom Lense for Cannon Cameras'
@@ -139,6 +377,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
 
 	# Start EQUIPMENT #################################################################
 	c = mmod.CatalogInventory()
@@ -164,6 +427,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 	# Start Product
@@ -192,6 +480,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 	# Start Product
 	c = mmod.CatalogInventory()
 	c.product_name = 'Kata cc 192 Compact Case'
@@ -216,6 +529,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 	
@@ -245,6 +583,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 		# Start Product
 	c = mmod.CatalogInventory()
 	c.product_name = 'Manfrotto MVH500A Tripod and Bag'
@@ -269,6 +632,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 	# Start Product
@@ -297,7 +685,30 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
 
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
 
 	# Start Product
 	c = mmod.CatalogInventory()
@@ -325,6 +736,30 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
 
 	# Start Product
 	c = mmod.CatalogInventory()
@@ -350,6 +785,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -379,6 +839,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 	# Start Product
 	c = mmod.CatalogInventory()
 	c.product_name = 'Revo ST-1000 Pro Video Stabilizer'
@@ -405,6 +890,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 		# Start Product
 	c = mmod.CatalogInventory()
 	c.product_name = 'GlideCam HD2000 Stabilizer System'
@@ -429,6 +939,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -458,6 +993,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 
 		# Start Product
 	c = mmod.CatalogInventory()
@@ -485,7 +1045,30 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
 
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
 
 		# Start Product
 	c = mmod.CatalogInventory()
@@ -513,7 +1096,30 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
 
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
 
 		# Start Product
 	c = mmod.CatalogInventory()
@@ -543,7 +1149,30 @@ def process_request(request):
 
 
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
 
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
 
 
 
@@ -584,6 +1213,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 			# Start Product
 	c = mmod.CatalogInventory()
 	c.product_name = 'SanDisk 32 GB SDHC Extreme Class 10'
@@ -611,7 +1265,30 @@ def process_request(request):
 	# END
 
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
 
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
 
 		# Start Product
 	c = mmod.CatalogInventory()
@@ -637,6 +1314,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 			# Start Product
@@ -665,6 +1367,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 			# Start Product
 	c = mmod.CatalogInventory()
 	c.product_name = 'SanDisk 32GB microSDHC Memory Card Ultra Class 10 UHS-I with microSD Adapter'
@@ -689,6 +1416,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 			# Start Product
@@ -716,6 +1468,32 @@ def process_request(request):
 	u.is_rental = False
 	u.save()
 	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 				# Start Product
 	c = mmod.CatalogInventory()
 	c.product_name = 'Watson NP-F975 Lithium-Ion Battery Pack (7.4V, 7800mAh)'
@@ -742,6 +1520,32 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
+
 							# Start Product
 	c = mmod.CatalogInventory()
 	c.product_name = 'Watson VW-VBG6 Lithium-Ion Battery Pack (7.4V, 4800mAh)'
@@ -766,6 +1570,32 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 							# Start Product
@@ -794,6 +1624,32 @@ def process_request(request):
 	u.save()
 	# END
 
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 								# Start Product
 	c = mmod.CatalogInventory()
 	c.product_name = 'Pearstone High-Speed HDMI to HDMI Cable with Ethernet - Black, 6 ft' 
@@ -820,6 +1676,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 									# Start Product
 	c = mmod.CatalogInventory()
 	c.product_name = 'Pearstone 1.5 ft Swiveling HDMI to Mini HDMI Cable' 
@@ -844,6 +1725,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -873,6 +1779,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 								# Start Product
 	c = mmod.CatalogInventory()
 	c.product_name = 'Teradek VidiU On-Camera Wireless Streaming Video Encoder' 
@@ -897,6 +1828,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -926,6 +1882,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 								# Start Product
 	c = mmod.CatalogInventory()
 	c.product_name = 'Teradek Cube 255 HDMI Encoder with WiFi' 
@@ -950,6 +1931,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -983,6 +1989,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 	c = mmod.CatalogInventory()
 	c.product_name = 'Canon EOS Rebel T3i DSLR Camera with EF-S 18-55mm IS II Lens Kit' 
 	c.description = '18MP APS-C CMOS sensor'
@@ -1006,6 +2037,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1034,6 +2090,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 
 	c = mmod.CatalogInventory()
 	c.product_name = 'Canon EOS 70D DSLR Camera' 
@@ -1058,6 +2139,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1086,6 +2192,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 
 	c = mmod.CatalogInventory()
 	c.product_name = 'Nikon D7100 DSLR Camera with 18-140mm VR DX Lens' 
@@ -1110,6 +2241,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1139,7 +2295,30 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
 
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
 
 	c = mmod.CatalogInventory()
 	c.product_name = 'Canon EOS 5D Mark III DSLR Camera' 
@@ -1164,6 +2343,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 	c = mmod.CatalogInventory()
@@ -1191,6 +2395,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 
 	c = mmod.CatalogInventory()
 	c.product_name = 'Nikon D3200 DSLR Camera with 18-55mm and 55-200mm Lenses (Black)' 
@@ -1215,6 +2444,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1244,6 +2498,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 	c = mmod.CatalogInventory()
 	c.product_name = 'Sony Cyber-shot DSC-RX10 Digital Camera' 
 	c.description = '20.2MP 1" exmor R BSI CMOS sensor, Carl Zeiss 24-200mm f/2.8 lens (35mm Eq)'
@@ -1267,6 +2546,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1295,6 +2599,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 	c = mmod.CatalogInventory()
 	c.product_name = 'Sony Alpha a7 Mirrorless Digital Camera with FE 28-70mm f/3.5-5.6 OSS Lens' 
 	c.description = '24.3MP APS-C exmor APS HD CMOS sensor, fast hybrid autofocus; 5 fps burst rate'
@@ -1320,6 +2649,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 	c = mmod.CatalogInventory()
 	c.product_name = 'Sony Cyber-shot DSC-TX30 Digital Camera (Black)' 
 	c.description = '18.2MP exmor R CMOS sensor, touch screen back'
@@ -1343,6 +2697,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1378,6 +2757,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 	c = mmod.CatalogInventory()
 	c.product_name = 'Canon EF 75-300mm f/4-5.6 III Lens' 
 	c.description = 'Aperture range: f/4-45'
@@ -1401,6 +2805,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1429,6 +2858,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 
 	c = mmod.CatalogInventory()
 	c.product_name = 'Canon EF 70-200mm f/4L IS USM Lens' 
@@ -1453,6 +2907,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1481,6 +2960,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 
 	c = mmod.CatalogInventory()
 	c.product_name = 'Nikon AF-S Nikkor 16-35mm f/4G ED VR Wide Angle Zoom Lens' 
@@ -1505,6 +3009,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1532,6 +3061,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1562,7 +3116,30 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
 
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
 
 	c = mmod.CatalogInventory()
 	c.product_name = 'Nikon AF-S NIKKOR 28-300mm f/3.5-5.6G ED VR Zoom Lens' 
@@ -1587,6 +3164,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1615,6 +3217,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 
 	c = mmod.CatalogInventory()
 	c.product_name = 'Sony 55-300mm f/4.5-5.6 DT Alpha A-Mount Telephoto Zoom Lens' 
@@ -1639,6 +3266,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1667,6 +3319,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 
 	c = mmod.CatalogInventory()
 	c.product_name = 'Sony 70-400mm f/4-5.6 G Alpha A-Mount Telephoto Zoom Lens' 
@@ -1691,6 +3368,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1719,6 +3421,31 @@ def process_request(request):
 	u.save()
 	# END
 
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+	# END
+
 
 	c = mmod.CatalogInventory()
 	c.product_name = 'Sony 70-400mm f/4-5.6 G2 Telephoto Zoom Lens' 
@@ -1743,6 +3470,31 @@ def process_request(request):
 	u.active = True
 	u.is_rental = False
 	u.save()
+	# END
+
+	###############################################################
+	revSrc = mmod.Loan()
+	revSrc.amount = c.average_cost
+	revSrc.note = 'Prodcut Purchase'
+	revSrc.save()
+
+	journ = mmod.JournalEntry()
+	journ.revenueSource_id = revSrc.id
+	journ.save()
+
+	# debit lta for amount of store
+	ent = mmod.Debit()
+	ent.GeneralLedgerName_id = 4
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
+
+	# credit cash for amount of store
+	ent = mmod.Credit()
+	ent.GeneralLedgerName_id = 1
+	ent.journalEntry_id = journ.id
+	ent.amount = revSrc.amount
+	ent.save()
 	# END
 
 
@@ -1784,21 +3536,7 @@ def process_request(request):
 	u.is_superuser = True
 	u.save()
 
-	gln = mmod.GeneralLedgerName()
-	gln.name = 'Cash'
-	gln.save()
 
-	gln = mmod.GeneralLedgerName()
-	gln.name = 'Sales'
-	gln.save()
-
-	gln = mmod.GeneralLedgerName()
-	gln.name = 'COGS'
-	gln.save()
-
-	gln = mmod.GeneralLedgerName()
-	gln.name = 'Inventory'
-	gln.save()
 
 	return HttpResponseRedirect('/manager/dashboard/')
 

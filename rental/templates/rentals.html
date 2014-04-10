@@ -27,7 +27,11 @@
                         <div>
                             <h3>Serial Number: ${ p.serial_number }</h3>
                             
-                            <a href="/catalog/rentalcart__add/${ p.id }/${ p.store_id }/" class="btn btn-primary"><span class="glyphicon glyphicon-tag"></span> Add to Cart</a> <a href="/catalog/description/" class="btn btn-success" >Description</a>
+                            %if not request.user.is_staff:
+                                <p>Call ${ store.phone } to rent this product</p>
+                            %else:
+                            <a href="/catalog/rentalcart__add/${ p.id }/${ p.store_id }/" class="btn btn-primary"><span class="glyphicon glyphicon-tag"></span> Add to Cart</a>
+                            %endif
                         </div>
                     </div><!--thumbnail-->   
                 </div><!--column-->

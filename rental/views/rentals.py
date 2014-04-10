@@ -7,9 +7,7 @@ from . import templater
 
 def process_request(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/manager/login/')
-    if not request.user.is_staff:
-        return HttpResponseRedirect('/manager/dashboard/')
+        return HttpResponseRedirect('/homepage/')
     
     store = mmod.Store.objects.get(id=request.urlparams[0])
 
@@ -26,6 +24,7 @@ def process_request(request):
         'catalog': catalog,
         'products': products,
         'stores': stores,
+        'store': store,
         'length': length,
     }
 

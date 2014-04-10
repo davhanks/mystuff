@@ -9,9 +9,8 @@ from . import templater
 def process_request(request):
     '''Show the product catalog in the db'''
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/manager/login/')
-    if not request.user.is_staff:
-        return HttpResponseRedirect('/manager/dashboard/')
+        return HttpResponseRedirect('/homepage/')
+
         
     products = mmod.Product.objects.all()
     stores = mmod.Store.objects.all()

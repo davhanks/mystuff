@@ -10,6 +10,11 @@ def process_request(request):
     '''Get products from the DB'''
     users = mmod.User.objects.filter(is_active=True)
 
+    user = request.user
+
+    if not user.is_staff:
+        return HttpResponseRedirect('/rental/user_return/user.id/')
+
 
 
 

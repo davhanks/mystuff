@@ -20,6 +20,8 @@ def process_request(request):
     catalogid = request.urlparams[1]
     storeid = request.urlparams[0]
 
+    catProd = mmod.CatalogInventory.objects.get(id=catalogid)
+
     form = QuantityForm(initial = {
         'quantity': 1,
 
@@ -46,6 +48,31 @@ def process_request(request):
                 u.active = True
                 u.is_rental = False
                 u.save()
+
+                ###############################################################
+                revSrc = mmod.Loan()
+                revSrc.amount = catProd.average_cost
+                revSrc.note = 'Product Purchase'
+                revSrc.save()
+
+                journ = mmod.JournalEntry()
+                journ.revenueSource_id = revSrc.id
+                journ.save()
+
+                # debit lta for amount of store
+                ent = mmod.Debit()
+                ent.GeneralLedgerName_id = 4
+                ent.journalEntry_id = journ.id
+                ent.amount = revSrc.amount
+                ent.save()
+
+                # credit cash for amount of store
+                ent = mmod.Credit()
+                ent.GeneralLedgerName_id = 1
+                ent.journalEntry_id = journ.id
+                ent.amount = revSrc.amount
+                ent.save()
+                # END
 
             return HttpResponseRedirect('/manager/productlist/')
 

@@ -1,0 +1,12 @@
+i {
+	font-size: 20px;
+}
+
+.borderright {
+	border-width: 2px;
+	border-right-style: solid;
+}
+
+.margin {
+	margin-left: 10px;
+}
