@@ -10,6 +10,7 @@ from django.core.mail import send_mail
 import requests
 
 
+
 def process_request(request):
     '''Display the Edit Store form'''
     if not request.user.is_authenticated():
@@ -108,6 +109,8 @@ def process_request(request):
         form2 = BillForm(request.POST)
         if form2.is_valid():
 
+            bill_first = form2.cleaned_data['bill_first']
+            bill_last = form2.cleaned_data['bill_last']
             bill_street = form2.cleaned_data['bill_street']
             bill_city = form2.cleaned_data['bill_city']
             bill_state = form2.cleaned_data['bill_state']
@@ -121,7 +124,13 @@ def process_request(request):
             card_last = form3.cleaned_data['last_name']
             card_exp_date = form3.cleaned_data['exp_date']
 
+        charge_amount = sales_tax + float(shipping_charge) + float(subtotal)
+        rest_charge = str(charge_amount)
+
+        full_name = bill_first + ' ' + bill_last
         
+        # Test Number: 4732817300654
+        # Test CVN: 411
 
         # send the request with the data
         API_URL = 'http://dithers.cs.byu.edu/iscore/api/v1/charges'
@@ -129,14 +138,14 @@ def process_request(request):
         r = requests.post(API_URL, data={
           'apiKey': API_KEY,
           'currency': 'usd',
-          'amount': '5.99',
+          'amount': rest_charge,
           'type': 'Visa',
           'number': card_cc_num,
           'exp_month': 10,
           'exp_year': 14,
           'cvc': 411,
-          'name': 'Cosmo Limesandal',
-          'description': 'Charge for cosmo@is411.byu.edu',
+          'name': full_name,
+          'description': 'Charge for: ' + full_name,
         })
 
         # just for debugging, print the response text
@@ -162,7 +171,7 @@ def process_request(request):
             sale.sub_total = subtotal
             sale.shipping_cost = shipping_charge
             sale.tax_ammount = float(subtotal) * sales_tax
-            sale.amount = sales_tax + float(shipping_charge) + float(subtotal)
+            sale.amount = charge_amount
 
             sale.ship_first = ship_first
             sale.ship_last = ship_last

@@ -7,6 +7,7 @@ from . import templater
 from random import randint
 from datetime import datetime
 from django.core.mail import send_mail
+import requests
 
 
 def process_request(request):
@@ -22,9 +23,7 @@ def process_request(request):
     remove = []
     user = mmod.User.objects.get(id=request.urlparams[0])
     now = datetime.now()
-
-    
-
+    total_repair_fee = 0
 
     error_code = 0
 
@@ -56,16 +55,50 @@ def process_request(request):
 
             card_number = form.cleaned_data['card_number']
             cvn = form.cleaned_data['cvn']
+            exp_date = form.cleaned_data['exp_date']
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             street = form.cleaned_data['street']
             city = form.cleaned_data['city']
             state = form.cleaned_data['state']
             zipCode = form.cleaned_data['zipCode']
-            exp_date = form.cleaned_data['exp_date']
+            
+            for ServiceRepair in repairs:
+                total_repair_fee += ServiceRepair.labor_hours
 
-            # if end_date < begin_date:
-            #     error_code = 1
+            charge_amount = total_repair_fee * 10.5
+            rest_charge = str(charge_amount)
+
+            full_name = first_name + ' ' + last_name
+            
+            # Test Number: 4732817300654
+            # Test CVN: 411
+
+            # send the request with the data
+            API_URL = 'http://dithers.cs.byu.edu/iscore/api/v1/charges'
+            API_KEY = 'b6a57a6b718b756064393dd12588130d'
+            r = requests.post(API_URL, data={
+              'apiKey': API_KEY,
+              'currency': 'usd',
+              'amount': rest_charge,
+              'type': 'Visa',
+              'number': card_number,
+              'exp_month': 10,
+              'exp_year': 14,
+              'cvc': int(cvn),
+              'name': full_name,
+              'description': 'Charge for: ' + full_name,
+            })
+
+            # just for debugging, print the response text
+            print(r.text)
+
+            # parse the response to a dictionary
+            resp = r.json()
+            # print(resp['ID'])
+            if 'error' in resp:
+                # raise forms.ValidationError(resp['error'])
+                error_code = 1
 
             if error_code == 0:
                 for ServiceRepair in repairs:

@@ -13,7 +13,7 @@
 <%block name="center">
   <div class = "centerBlockWhite">
     <div class="panel">
-        <h3>Edit Store</h3>
+        <h3>Rental Checkout</h3>
         <div>
             <form method="POST">
                 <table>
@@ -21,12 +21,21 @@
                         ${ form }
                     </tbody>
                 </table>
+                <table>
+                <tbody>
+                    ${ form2 }
+                </tbody>
+            </table>
                 <input class="btn btn-primary centerButton" type="submit" value="Save" />
             </form>
         </div>
         <div class="error">
-            ${ error_code }
-            ${ user.first_name }
+        %if error_code == 1:
+            <p>Error: The start date is after the end date</p>
+        %elif error_code == 2:
+            <p>Your credit card info is invalid<p>
+        %endif
+
         </div>
     </div>
 

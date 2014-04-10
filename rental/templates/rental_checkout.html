@@ -25,7 +25,9 @@
             </form>
         </div>
         <div class="error">
-            ${ error_code }
+            %if error_code == 1:
+                <p>Your credit card info is invalid</p>
+            %endif
 
         </div>
     </div>
