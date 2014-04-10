@@ -216,7 +216,7 @@ def process_request(request):
 
             # Credit Inventory
             creditInventory = mmod.Credit()
-            creditInventory.GeneralLedgerName_id = gln[3]
+            creditInventory.GeneralLedgerName_id = gln[3].id
             creditInventory.journalEntry_id = jourEntry.id
             creditInventory.amount = COGS
             creditInventory.save()
