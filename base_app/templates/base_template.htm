@@ -46,10 +46,16 @@
             
             <div class="col-md-4">
               <div class="menuBtns">
-                <a href="/index" class="btn btn-primary">Home</a>
-                <a href="/about" class="btn btn-success">About Us</a>
-                <a href="/contact" class="btn btn-warning">Contact</a>
-                <a href="/manager/productlist/" class="btn btn-danger">Manager</a>
+                <a href="/catalog/list/all/" class="btn btn-primary"><span class = "glyphicon glyphicon-camera"></span> Shop</a>
+                <a href="/rental/rent/" class="btn btn-success"><span class = "glyphicon glyphicon-tag"></span> Rent</a>
+                %if not request.user.is_authenticated():
+                  <a href="/account/createaccount/" class="btn btn-warning"><span class = "glyphicon glyphicon-shopping-cart"></span> Create Account</a>
+                %elif request.user.is_staff:
+                  <a href="/repair/userlookup/" class="btn btn-warning"><span class = "glyphicon glyphicon-wrench"></span> Repairs</a>
+                %else:
+                    <a href="/repair/check_status/" class="btn btn-warning"><span class = "glyphicon glyphicon-wrench"></span> Repairs</a>
+                %endif
+                <a href="/manager/logout/" class="btn btn-danger"><span class = "glyphicon glyphicon-share"></span> Logout</a>
               </div>
             </div>
 
@@ -100,7 +106,7 @@
 
 
 
-  
+
 
   <!--<footer>
     <div class="divBackground addHeight">
