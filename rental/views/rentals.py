@@ -10,10 +10,6 @@ def process_request(request):
         return HttpResponseRedirect('/homepage/')
     
     store = mmod.Store.objects.get(id=request.urlparams[0])
-
-
-
-    
     catalog = mmod.CatalogInventory.objects.all()
     products = mmod.Product.objects.filter(is_rental=True).filter(store_id=store.id).filter(rented_out=False)
     stores = mmod.Store.objects.all()
