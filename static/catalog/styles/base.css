@@ -1,0 +1,20 @@
+.modal {
+ overflow-y: auto;
+}
+
+.modal-open {
+ overflow: auto;
+}
+
+.divBackground {
+	background-color: rgba(255,255,255,0.9);
+}
+
+.sidebar {
+	background-color: rgba(255,255,255,0.9);
+}
+
+.centerBlock {
+	background-color: rgba(255,255,255,1);
+	color: #000;
+}

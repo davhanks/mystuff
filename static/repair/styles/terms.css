@@ -1,0 +1,29 @@
+.panel {
+	background-color: rgba(255,255,255,1);
+	margin: 10px;
+	padding: 10px;
+	min-height: 200px;
+}
+
+.centerButton {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+}
+
+.pushRight {
+	margin-left: 20px;
+}
+
+/*.formHeight {
+	height: 30px;
+}
+
+.formPad {
+	margin-top: 10px;
+	height: 30px;
+}
+
+label {
+	margin-top: 10px;
+}*/

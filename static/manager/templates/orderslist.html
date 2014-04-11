@@ -1,0 +1,118 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="managerBase.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - Home</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+<%block name="left_side">
+<div class="col-md-2">
+  <div class="sidebar">
+
+    <a href="/manager/storelist/" class="btn btn-primary width"><span class = "glyphicon glyphicon-home"></span> Stores</a><br>
+    <a href="/manager/productlist/" class="btn btn-success width"><span class = "glyphicon glyphicon-camera"></span> Products</a><br>
+    <a href="/manager/userlist/" class="btn btn-warning width"><span class = "glyphicon glyphicon-user"></span> Users</a><br>
+    <a href="/manager/dashboard/" class="btn btn-danger width"><span class = "glyphicon glyphicon-info-sign"></span> Dashboard</a><br>
+    <div id="sort_form">
+        <h3>Sort By:</h3>
+        <form method="POST" action="/manager/orderslist__sort/">
+            <table>
+                <tbody>
+                    ${ form }
+                </tbody>
+            </table> 
+        <input class="btn btn-primary margin_bot" type="submit" value="Sort" />
+        </form>
+    </div>
+  </div>
+</div>  
+</%block>
+
+<%block name="center">
+<div class="col-md-10">
+  <div class = "centerBlock">
+
+    <div id="logout">
+        <div class="confirmPadding">
+            <h3>Logout</h3>
+            <p>Are you sure?</p>
+        </div>
+        <div id="confirmation-btn">
+
+            <a href="/manager/logout/" class="btn btn-primary"><span class = "glyphicon glyphicon-share"></span> Confirm</a>
+            <button class = "btn btn-danger"onclick="hideLogout()"><span class = "glyphicon glyphicon-remove"></span> Cancel</button>
+        </div>
+    </div>
+  
+    <h2>Product Order History</h2>
+    <button class="btn btn-primary"onclick="showLogout()"><span class = "glyphicon glyphicon-share"></span> Logout</button>
+    <table class="table ">
+    	<thead>
+    		<tr>
+    			<th>ID</th>
+    			<th>Product Name</th>
+                <th>Store Loc</th>
+                <th>Location</th>
+                <th>Purchase Date</th>
+                <th>Serial Number</th>
+                <th>Is Rental</th>
+                <th>Fee</th>
+                <th>Fee Amount</th>
+                <th>Action</th>
+    		</tr>
+    	</thead>
+        <tbody>
+            %for p in products:
+                <tr>
+                    <td>${ p.id }</td>
+                    <td>
+                    %for cat in catalog:
+                        %if cat.id == p.catalog_inventory_id:
+                            ${ cat.product_name }
+                        %endif
+                    %endfor
+                    
+                    </td>
+                    %for s in stores:
+                        %if s.id == p.store_id:
+                            <td>${ s.location }</td>
+                        %endif
+                    %endfor
+                    
+                    <td>${ p.shelf_location }</td>
+                    <td>${ p.purchase_date }</td>
+                    <td>${ p.serial_number }</td>
+                    <td>${ p.is_rental }</td>
+                    <td>
+                    %if p.rental_fee == None:
+                        ${ p.rental_fee }
+                    %else:
+                        $${ p.rental_fee }
+                    %endif
+                    </td>
+                    %if p.active == True:
+                    <form method="POST" action="/manager/orderslist__make_rental/${ p.id }/">
+                    <td><input type="text" class="form-control form-width" initial="0" placeholder="Amount" id="amount" name="amount"></td>
+                    <td>
+                        <input class="btn btn-danger submitButton" type="submit" value="Save" />
+                        <a class="btn btn-warning" href="/manager/edit_product/${ p.id }/">Edit</a>
+                    </td>
+                    </form>
+                    %else:
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    %endif
+                    
+                </tr>
+            %endfor
+        </tobdy>
+    </table>
+  </div>
+</div>  
+</%block>  

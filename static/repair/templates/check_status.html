@@ -1,0 +1,79 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+    <title>MyStuff - Shop</title>
+</%block>
+
+<%block name="css">
+    
+</%block>
+
+
+
+<%block name="center">
+<div class="col-md-10">
+    <div class = "centerBlockWhite">
+        <div class="panel">
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Repair ID</th>
+                            <th>Product Name</th>
+                            <th>Start Date</th>
+                            <th>Status</th>
+                            <th>Total Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    %for s in sr:
+                        <tr>
+                            <td>${ s.id }</td>
+                            <td>${ s.product_name }</td>
+                            <td>${ s.dateStarted.strftime('%m/%d/%Y %H:%M') }</td>
+                            <td class="status">
+                            %if s.status == 'On Hold':
+                                <span class="label label-danger">
+                            %elif s.status == 'In Progress':
+                                <span class="label label-warning">
+                            %elif s.status == 'Waiting for Parts':
+                                <span class="label label-primary">
+                            %else:
+                                <span class="label label-success">
+                            %endif
+                                ${ s.status }
+                                <span>
+                            </td>
+                            <td>${ s.labor_hours }</td>
+                            %if request.user.is_staff:
+                            <td>
+                                <form method="POST" action="/repair/check_status/${ user.id }/${ s.id }/">
+                                ${ form }
+                                <td><input class="btn btn-danger submitButton" type="submit" value="Update" /></td>
+                                </form>
+                            </td>
+                            %endif
+                            <td>
+                            %if s.status == 'Finished':
+                                <a class="btn btn-success btn-checkout" href="/repair/repaircart__add/${ user.id }/${ s.id }/"><span class="glyphicon glyphicon-ok"></span> Add to Cart</a>
+                            %endif
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            
+                        </tr>
+                    %endfor
+                    </tbody>
+                </table>
+                %if request.user.is_staff:
+                <a class="btn btn-success btn-checkout btn-all" href="/repair/repaircart__add/${ user.id }/all/"><span class="glyphicon glyphicon-check"></span> Add All</a>
+                %endif
+            </div>
+        </div>    
+    </div>
+</div> 
+</%block>

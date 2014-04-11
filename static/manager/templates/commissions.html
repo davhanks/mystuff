@@ -1,0 +1,43 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="managerBase.htm" />
+
+
+<%block name="title">
+    <title>MyStuff - Commissions</title>
+</%block>
+
+<%block name="css">
+    
+</%block>
+
+<%block name="center">
+<div class="col-md-10">
+    <div class = "centerBlock">
+
+	        <div><h2>Commissions</h2></div>
+	        <table class="table">
+	        	<thead>
+	        		<tr>
+		        		<th>Employee</th>
+		        		<th>amount</th>
+		        		<th>date</th>
+		        	</tr>
+	        	</thead>
+	        	<tbody>
+	        	%for com in commissions:
+	        		<tr>
+	        			%for emp in employees:
+	        				%if emp.id == com.employee_id:
+	        					<td>${ emp.first_name } ${ emp.last_name }</td>
+	        				%endif
+	        			%endfor
+	        			<td>$${ com.amount }</td>
+	        			<td>${ com.date.strftime('%Y/%m/%d %H:%M') }</td>
+	        		</tr>
+	        	%endfor
+	        	</tbody>
+	        </table>
+
+    </div>
+</div> 
+</%block>

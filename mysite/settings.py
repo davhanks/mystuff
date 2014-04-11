@@ -101,7 +101,7 @@ INSTALLED_APPS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'C:\mystuff/database/db.sqlite3',
+        'NAME': 'C:\\Database413\\db.sqlite3',
         # 'NAME':'Server',
         # 'ENGINE':'django.db.backends.postgressql_psychopg2',
         # 'USER':'db_user',

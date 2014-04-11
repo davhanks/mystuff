@@ -1,0 +1,21 @@
+input {
+	margin-top: 5px;
+}
+
+h2 {
+	margin-left: 10px;
+}
+
+button {
+	margin-top: 5px;
+}
+
+table > caption {
+	font-weight: bold;
+	text-decoration: underline;
+}
+.panel {
+	background-color: rgba(255,255,255,1);
+	padding-top: 10px;
+	margin: 10px;
+}

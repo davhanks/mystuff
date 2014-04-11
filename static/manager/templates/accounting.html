@@ -1,0 +1,129 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="managerBase.htm" />
+
+
+<%block name="title">
+    <title>MyStuff - Home</title>
+</%block>
+
+<%block name="css">
+    
+</%block>
+
+
+
+
+<%block name="center">
+<div class="col-md-10">
+  <div class = "centerBlock">
+    <div id="logout">
+          <div class="confirmPadding">
+              <h3>Logout</h3>
+              <p>Are you sure?</p>
+          </div>
+          <div id="confirmation-btn">
+
+              <a href="/manager/logout/" class="btn btn-primary"><span class = "glyphicon glyphicon-share"></span> Confirm</a>
+              <button class = "btn btn-danger"onclick="hideLogout()"><span class = "glyphicon glyphicon-remove"></span> Cancel</button>
+          </div>
+      </div>
+    <h2>
+      Balance Sheet
+    </h2>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <th><i>Assets</i></th><td class="borderright">----------------------------------</td><th><i>Liabilities</i></th><td>----------------------------------</td>
+          </tr>
+          <tr>
+            <td>Cash</td><td class="borderright">$${ cash }</td><td>Acc Payable</td><td>$${ AP }</td>
+          </tr>
+          <tr>
+            <td>Acc Rec.</td><td class="borderright">$${ AR }</td><td>Sal Payable</td><td>$${ salaries }</td>
+          </tr>
+          <tr>
+            <td>Inventory</td><td class="borderright">$${ inv }</td><td>Long Term Debt</td><td>$${ ltd }</td>
+          </tr>
+          <tr>
+            <td>Other</td><td class="borderright">$${ other }</td><td>Total</td><td>$${ total_liabilities }</td>
+          </tr>
+          <tr>
+            <td>Long Term Assets</td><td class="borderright">$${ lta }</td><th><i>Equity</i></th><td>----------------------------------</td>
+          </tr>
+          <tr>
+            <td>Total</td><td class="borderright">$${ total_assets }</td><td>Common Stock</td><td>$${ CS }</td>
+          </tr>
+          <tr>
+            <th></th><td class="borderright"></td><td>Retained Earnings</td><td>$${ RE }</td>
+          </tr>
+          <tr>
+            <td></td><td class="borderright"></td><td>Total</td><td>$${ total_equity }</td>
+          </tr>
+          <tr>
+            <td>----------------------------------</td><td class="borderright">----------------------------------</td>
+            <td>----------------------------------</td><td>----------------------------------</td>
+          </tr>
+          <tr>
+            <th><i>Total Assets</i></th><td>$${ total_assets }</td><th><i>Total L & E</i></th><td>$${ total_equity + total_liabilities }</td>
+          </tr>
+
+      </tbody>
+    </table>
+    <a class="btn btn-success" href="/manager/accounting/"><span class="glyphicon glyphicon-usd"></span> Accounting</a>
+    <button class="btn btn-danger"onclick="showLogout()"><span class = "glyphicon glyphicon-share"></span> Logout</button>
+  </div>
+
+  <div class="centerBlock margin">
+    <h2>
+      Income Statement
+    </h2>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <th>Sales Revenue</th><td>${ sales }</td>
+          </tr>
+          <tr>
+            <th>COGS</th><td>${ COGS }</td>
+          </tr>
+          <tr>
+            <th>Gross Margin</th><td>${ sales - COGS }</td>
+          </tr>
+          <tr>
+            <th>Operating Expenses</th><td>$0</td>
+          </tr>
+          <tr>
+            <th>General Expenses</th><td>$0</td>
+          </tr>
+          <tr>
+            <th>Other Expenses</th><td>$0</td>
+          </tr>
+          <tr>
+            <th>Total Expenses</th><td>$0</td>
+          </tr>
+          <tr>
+            <th>----------------------</th><td>----------------------</td>
+          </tr>
+          <tr>
+            <th>Net Income</th><td>${ sales - COGS }</td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</%block>  

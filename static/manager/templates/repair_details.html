@@ -1,0 +1,87 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="managerBase.htm" />
+
+
+<%block name="title">
+    <title>MyStuff - Home</title>
+</%block>
+
+<%block name="css">
+    
+</%block>
+
+
+
+
+<%block name="center">
+<div class="col-md-10">
+  <div class = "centerBlock">
+    <div id="logout">
+          <div class="confirmPadding">
+              <h3>Logout</h3>
+              <p>Are you sure?</p>
+          </div>
+          <div id="confirmation-btn">
+
+              <a href="/manager/logout/" class="btn btn-primary"><span class = "glyphicon glyphicon-share"></span> Confirm</a>
+              <button class = "btn btn-danger"onclick="hideLogout()"><span class = "glyphicon glyphicon-remove"></span> Cancel</button>
+          </div>
+      </div>
+    <h2>
+      Current Repairs:
+    </h2>
+
+    <table class="table">
+      <thead>
+        <th>Employee</th>
+        <th>Customer</th>
+        <th>Product Name</th>
+        <th>Date Started</th>
+        <th>Date Completed</th>
+        <th>Total Hours</th>
+        <th>Status</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+      %for r in finished_repairs:
+          <tr>
+            <td>${ r.employee_id }</td>
+            <td>${ r.customer_id }</td>
+            <td>${ r.product_name }</td>
+            <td>${ r.dateStarted.strftime('%m/%d/%Y %H:%M') }</td>
+            <td>${ r.dateComplete.strftime('%m/%d/%Y %H:%M') }</td>
+            <td>${ r.labor_hours }</td>
+            <td><span class="label label-success">${ r.status }</span></td>
+          </tr>
+      %endfor
+      %for r in repairs:
+          <tr>
+            <td>${ r.employee_id }</td>
+            <td>${ r.customer_id }</td>
+            <td>${ r.product_name }</td>
+            <td>${ r.dateStarted.strftime('%m/%d/%Y %H:%M') }</td>
+            <td>Not completed</td>
+            <td>${ r.labor_hours }</td>
+            <td class="status">
+            %if r.status == 'On Hold':
+                <span class="label label-danger">
+            %elif r.status == 'In Progress':
+                <span class="label label-warning">
+            %elif r.status == 'Waiting for Parts':
+                <span class="label label-primary">
+            %else:
+                <span class="label label-success">
+            %endif
+                ${ r.status }
+                <span>
+            </td>
+            <td><a class="btn btn-danger" href="/manager/repair_work/${ r.id }/">Repair</a></td>
+          </tr>
+      %endfor
+      </tbody>
+    </table>
+    <a class="btn btn-warning" href="/repair/userlookup/"><span class="glyphicon glyphicon-wrench"></span> Repair Lookup</a>
+    <a class="btn btn-success" href="/manager/repair_email/"><span class="glyphicon glyphicon-envelope"></span> Send Mail</a>
+  </div>
+</div>  
+</%block>  

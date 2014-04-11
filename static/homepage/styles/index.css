@@ -1,0 +1,263 @@
+/*All the the custom navbar css (bootstrap hack) */
+.navbar_container {
+  margin-left: auto;
+  margin-right: auto;
+/*  min-width: 500px;*/
+  max-width: 450px;
+
+}
+
+@media (max-width: 767px) {
+  .navbar_pic {
+    position: relative;
+    left: -170px;
+  }
+}
+
+.dropdown-menu > li > a {
+display: block;
+padding: 3px 20px;
+clear: both;
+font-weight: normal;
+line-height: 1.428571429;
+color: #0D66B3;
+white-space: nowrap;
+}
+
+.green {
+  color:;
+}
+
+.black {
+  background-color: black
+
+}
+
+.custom_nav {
+  border-style: none;
+  border-radius: 0px;
+  background-color: rgba(255, 255, 255, 0.4);
+
+
+
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #0D66B3;
+}
+
+.navbar_pic > img{
+  padding-left: 10px;
+  padding-top: 5px;
+/*  padding-bottom: 0px;*/
+  max-height: 56px;
+
+  position: relative;
+  left: 5px;
+}
+
+.drop_padding {
+  padding:10px 10px 10px 10px;
+  width: 260px;
+  height: 55px;
+}
+
+.custom-form-submit-button {
+  margin-top: 10px;
+}
+
+.form-field {
+  margin-bottom: 10px;
+}
+
+.nav_expander {
+  margin-top: 6px;
+}
+
+.navbar-default .navbar-toggle {
+border-color: #0D66B3;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+background-color: #0D66B3;
+}
+
+
+.section_panel{
+  background-color: #e8e8e8;  
+  background-position: center top;
+  background-repeat: no-repeat;
+  box-shadow: 10px 10px 50px rgba(0, 0, 0, .6);
+  text-align: center;
+  position: relative;
+}
+	
+
+.section_panel_white {
+  background-color: #ffffff;  
+  background-position: center top;
+  background-repeat: no-repeat;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, .6);
+  text-align: center;
+  position: relative;
+}
+
+.section_panel_green {
+  background-color:  rgba(0, 0, 0, 0.5); 
+  background-position: center top;
+  background-repeat: no-repeat;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, .6);
+  text-align: center;
+  position: relative;
+}
+
+
+
+.section_panel_grey {
+  background-color: rgba(255,255,255,0.8);
+  background-position: center top;
+  background-repeat: no-repeat;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, .6);
+  text-align: center;
+  position: relative;
+}
+
+
+#section_panel_1 {
+  background-image: url('${ STATIC_URL }base_app/images/trees_lake.jpg');
+  height: 700px;
+  background-size: 100% 1254px;
+
+}
+
+#section_panel_1 .box_container {
+  margin: 0 10%;
+  text-align: center;
+}
+
+#section_panel_1 .container_panel {
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 180px;
+  margin-bottom: 200px;
+
+ /* background-color: rgba(255,255,255,0.6);*/
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+/*  max-height: 280px;
+  max-width: 370px;*/
+  min-height: 280px;
+  min-width: 480px;
+
+}
+
+
+.container_panel .your_text {
+  margin-top: 80px;
+  font-size: 3.5em;
+  color: #ffffff;
+  text-shadow: 2.5px 2.5px #000000;
+}
+
+.container_panel .space {
+	margin-left: 30px;
+	margin-right: 30px;
+	width: 120px;
+	height: 45px;
+	font-size: 1.5em;
+}
+
+#section_panel_2 .box_container {
+  margin: 0 10%;
+  text-align: center;
+}
+
+
+#section_panel_2 .turnkey {
+  margin-top: 60px;
+  min-width: 350px;
+  max-width: 550px;
+  margin-right: 60px;
+}
+
+
+
+.graytext {
+  color: rgba(0,0,0,0.7);
+  font-size: 1.4em;
+}
+
+#section_panel_3 .container_panel {
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+  margin: 50px;
+  border-width: 2px;
+  border-color: #000;
+  margin-top: 180px; 
+  margin-bottom: 200px; 
+
+  background-color:rgba(255,255,255,.7);
+ /* padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;*/
+
+  max-height: 315px;
+  max-width: 300px;
+  min-height: 315px;
+  min-width: 300px;
+
+}
+
+
+#section_panel_3 .space {
+	margin-left: 30px;
+	margin-right: 30px;
+	width: 120px;
+	height: 45px;
+	font-size: 1.5em;
+}
+
+.glyph{
+	font-size: 10em;
+	color: #20AA73;
+}
+
+.glyphblue{
+	font-size: 10em;
+	color: #3ab0e2;
+}
+
+.glyphred{
+	font-size: 10em;
+	color: #e96656;
+}
+
+.btn-margin {
+	margin-top: -120px;
+}
+
+.btn-marginterm {
+	margin-top: -120px;
+}
+
+li{
+	list-style: none;
+	text-align: center;
+	display: inline;
+	margin: 20px;
+
+
+
+}
+
+.centerlist{
+	margin-top: 10px;
+
+}
+

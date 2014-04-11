@@ -1,0 +1,52 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base_template.htm" />
+
+<%block name="header">
+	<div class="divBackground space">
+      <div class="row">
+        <div class="col-md-1">
+          <img src="${ STATIC_URL }base_app/images/rsz_camera.png"/>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="menuBtns">
+            <a href="/index" class="btn btn-primary">Home</a>
+            <a href="/about" class="btn btn-success">About Us</a>
+            <a href="/contact" class="btn btn-warning">Contact</a>
+            <a href="/terms" class="btn btn-danger">Terms</a>
+          </div>
+        </div>
+
+        <div class="col-md-1 col-md-offset-5">
+
+        </div>
+
+
+
+        
+      </div>
+    </div>
+</%block>
+
+<%block name="left_side">
+
+  <div class="sidebar">
+
+    <a href="" class="btn btn-primary width"><span class = "glyphicon glyphicon-home"></span> Stores</a><br>
+    <a href="" class="btn btn-success width"><span class = "glyphicon glyphicon-camera"></span> Products</a><br>
+    <a href="" class="btn btn-warning width"><span class = "glyphicon glyphicon-user"></span> Users</a><br>
+    <a href="" class="btn btn-danger width"><span class = "glyphicon glyphicon-info-sign"></span> Dashboard</a><br>
+  </div>
+  
+</%block> 
+
+<%block name="center">
+  
+  
+</%block> 
+
+<%block name="footer">
+  
+  
+</%block>
+

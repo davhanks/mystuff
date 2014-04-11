@@ -1,0 +1,48 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+    <title>MyStuff - Rent</title>
+</%block>
+
+<%block name="css">
+    
+</%block>
+
+<%block name="left_side">
+<div class="col-md-2">
+  <div class="sidebar">
+    <a href="/" class="btn btn-primary width"><span class = "glyphicon glyphicon-home"></span> Home</a><br>
+    <a href="/catalog/rent/" class="btn btn-success width"><span class = "glyphicon glyphicon-search"></span> Rentals</a><br>
+    <a href="/catalog/list/Equipment/" class="btn btn-warning width"><span class = "glyphicon glyphicon-cog"></span> Returns</a><br>
+    <a href="/catalog/list/Accessory/" class="btn btn-danger width"><span class = "glyphicon glyphicon-headphones"></span> Accessories</a><br>
+
+
+  </div>
+
+</div>
+</%block> 
+
+<%block name="center">
+<div class="col-md-10">
+    <div class = "centerBlockWhite">
+    <br>
+        %for s in stores:
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="thumbnail">
+                        <img class="catalog_tile" src="${ STATIC_URL }catalog/images/stores/${ s.location }.gif" />
+                        <div>
+                            <h3>${ s.city }, ${ s.state }</h3>
+                            <a href="/rental/rentals/${ s.id }/" class="btn btn-danger"><span class="glyphicon glyphicon-tag"></span> See Rentals</a> 
+                            <a href="" class="btn btn-primary" >Description</a>
+                        </div>
+                    </div><!--thumbnail-->   
+                </div><!--column-->
+            </div>
+        %endfor
+    </div>
+</div>
+</%block>

@@ -1,0 +1,80 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - Terms</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+<%block name="center">
+  <div class = "centerBlockWhite">
+    <div class="panel">
+        <h3>Rental Checkout</h3>
+        <div>
+            <form method="POST">
+                <table>
+                    <tbody>
+                        ${ form }
+                    </tbody>
+                </table>
+                <table>
+                <tbody>
+                    ${ form2 }
+                </tbody>
+            </table>
+                <input class="btn btn-primary centerButton" type="submit" value="Save" />
+            </form>
+        </div>
+        <div class="error">
+        %if error_code == 1:
+            <p>Error: The start date is after the end date</p>
+        %elif error_code == 2:
+            <p>Your credit card info is invalid<p>
+        %endif
+
+        </div>
+    </div>
+
+  </div>
+
+    <div class = "centerBlockWhite pushRight">
+        <div class="panel">
+            <h3>Products</h3>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Serial Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    %for p in products:
+                        <tr>
+                            <td>1</td>
+                            %for c in catalog:
+                                %if c.id == p.catalog_inventory_id:
+                                    <td>${ c.product_name }</td>
+                                    <td>${ c.description }</td>
+                                %endif
+                            %endfor
+                            
+                            <td>${ p.serial_number }</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    %endfor
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  
+</%block>

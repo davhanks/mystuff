@@ -1,0 +1,21 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+    <title>MyStuff - Shop</title>
+</%block>
+
+<%block name="css">
+    
+</%block>
+
+<%block name="center">
+<div class="col-md-10">
+    <div class = "centerBlockWhite">
+    <br>
+        <h2>Are you sure?</h2>
+       <div><a href="/account/deleteaccount/" class="btn btn-danger">Delete Account</a> <a href="/homepage/" class="btn btn-primary">Nevermind</a></div>
+    </div> 
+</div>
+</%block>

@@ -1,0 +1,39 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+    <title>MyStuff - Shop</title>
+</%block>
+
+<%block name="css">
+    
+</%block>
+
+<%block name="center">
+<div class="col-md-10">
+    <div class = "centerBlockWhite">
+    	<div class="receipt_container">
+	        <div><h2>Order Confirmation</h2></div>
+	        <div class="summary">
+	        	<h3>Order Summary</h3>
+	        	<p>Sub-total: $${ sale.sub_total }</p>
+	        	<p>Shipping cost: $${ sale.shipping_cost }</p>
+	        	<p>Reference Number: ${ sale.receipt_number }</p>
+	        </div>
+	        <hr>
+	        <div class="shipping">
+	        	<h3>Shipping Address</h3>
+	        	<p>${ sale.ship_first } ${ sale.ship_last }</p>
+	        	<p>${ sale.ship_street }</p>
+	        	<p>${ sale.ship_city }, ${ sale.ship_state }</p>
+	        	<p>${ sale.ship_zipCode }</p>
+	        </div>
+	        <div>
+
+	        </div>
+
+        </div>
+    </div>
+</div> 
+</%block>

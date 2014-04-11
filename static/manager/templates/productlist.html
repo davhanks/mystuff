@@ -1,0 +1,82 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="managerBase.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - Products</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+
+
+<%block name="center">
+<div class="col-md-10">
+  <div class = "centerBlock">
+
+  <div id="confirmation">
+        <div class="confirmPadding">
+            <h3>Create Product?</h3>
+            <p>Pressing Confirm will create a new catolog product with a unique ID. Are you sure?</p>
+        </div>
+        <div id="confirmation-btn">
+
+            <a href="/manager/editcatproduct/new/" class="btn btn-success"><span class = "glyphicon glyphicon-plus"></span> Confirm</a>
+            <button class = "btn btn-danger"onclick="hideConfirm()"><span class = "glyphicon glyphicon-remove"></span> Cancel</button>
+        </div>
+    </div>
+
+    <div id="logout">
+        <div class="confirmPadding">
+            <h3>Logout</h3>
+            <p>Are you sure?</p>
+        </div>
+        <div id="confirmation-btn">
+
+            <a href="/manager/logout/" class="btn btn-primary"><span class = "glyphicon glyphicon-share"></span> Confirm</a>
+            <button class = "btn btn-danger"onclick="hideLogout()"><span class = "glyphicon glyphicon-remove"></span> Cancel</button>
+        </div>
+    </div>
+
+    <h2>Catalog</h2>
+    <button class = "btn btn-success"onclick="showConfirm()"><span class = "glyphicon glyphicon-plus"></span> Create product</button>
+    <a href="/manager/orderinventorystore/" class="btn btn-warning"><span class = "glyphicon glyphicon-camera"></span> Order Inventory</a>
+    <a href="/manager/orderslist/" class="btn btn-danger"><span class = "glyphicon glyphicon-list-alt"></span> Order History</a>
+    <button class="btn btn-primary"onclick="showLogout()"><span class = "glyphicon glyphicon-share"></span> Logout</button>
+    <table class="table ">
+    	<thead>
+    		<tr>
+    			<th>ID</th>
+    			<th>Product Name</th>
+                <th>Description</th>
+                <th>Manufacturer</th>
+                <th>Average Cost</th>
+                <th>Commission Rate</th>
+                <th>Category</th>
+                <th>SKU</th>
+                <th>Order</th>
+                <th>Action</th>
+    		</tr>
+    	</thead>
+        <tbody>
+            %for p in products:
+                <tr>
+                    <td>${ p.id }</td>
+                    <td>${ p.product_name }</td>
+                    <td>${ p.description }</td>
+                    <td>${ p.manufacturer }</td>
+                    <td>${ p.average_cost }</td>
+                    <td>${ p.commission_rate }</td>
+                    <td>${ p.product_category }</td>
+                    <td>${ p.sku }</td>
+                    <td><a href="/manager/orderinventorystore/${ p.id }/" class="btn btn-danger"><span class = "glyphicon glyphicon-arrow-right"></span> Order</a></td>
+                    <td><a href="/manager/editcatproduct/${ p.id }/" class="btn btn-danger"><span class = "glyphicon glyphicon-wrench"></span> Edit</a></td>
+                </tr>
+            %endfor
+        </tobdy>
+    </table>
+  </div>
+</div>  
+</%block>  

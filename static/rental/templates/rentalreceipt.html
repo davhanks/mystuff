@@ -1,0 +1,53 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - Receipt</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+<%block name="center">
+<div class="col-md-10">
+    <div class = "centerBlockWhite">
+        <div class="panel">
+           <h3>Products</h3>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Serial Number</th>
+                            <th>Date Out</th>
+                            <th>Date Due</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    %for p in products:
+                        <tr>
+                            <td>1</td>
+                            %for c in catalog:
+                                %if c.id == p.catalog_inventory_id:
+                                    <td>${ c.product_name }</td>
+                                    <td>${ c.description }</td>
+                                %endif
+                            %endfor
+                            
+                            <td>${ p.serial_number }</td>
+                            <td>${ rental.dateOut.strftime('%m/%d/%Y') }</td>
+                            <td>${ rental.dateDue.strftime('%m/%d/%Y') }</td>
+                            <td></td>
+                        </tr>
+                    %endfor
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>  
+</%block>

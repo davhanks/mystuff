@@ -1,0 +1,50 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+    <title>MyStuff - Shop</title>
+</%block>
+
+<%block name="css">
+    
+</%block>
+
+<%block name="center">
+<div class="col-md-10">
+    <div class = "centerBlockWhite">
+    <br>
+    %if length > 0:
+        %for p in products:
+                <div class="container">
+
+                    <div class="thumbnail">
+                        %for c in catalog:
+                            %if c.id == p.catalog_inventory_id:
+                                <img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ c.image }" />
+                            %endif
+                        %endfor
+                        
+                        <div>
+                            <h3>Serial Number: ${ p.serial_number }</h3>
+                            
+                            %if not request.user.is_staff:
+                                <p>Call ${ store.phone } to rent this product</p>
+                            %else:
+                            <a href="/catalog/rentalcart__add/${ p.id }/${ p.store_id }/" class="btn btn-primary"><span class="glyphicon glyphicon-tag"></span> Add to Cart</a>
+                            %endif
+                        </div>
+                    </div><!--thumbnail-->   
+                </div><!--column-->
+
+        %endfor
+    %else:
+        <div class="none">
+            <h2>Sorry!</h2>
+            There are currently no products available for rent.
+            ${ length }
+        </div>
+    %endif
+    </div>
+</div> 
+</%block>

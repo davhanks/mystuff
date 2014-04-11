@@ -1,0 +1,32 @@
+.container {
+	display: inline-block;
+	width: 320px;
+	vertical-align: top;
+}
+
+.thumbnail {
+	min-height: 300px;
+}
+
+.info {
+	display: inline-block;
+	vertical-align: bottom;
+	width:350;
+	text-align: center;
+	margin-left: 40px;
+}
+.catalog_tile_list {
+	width: 150px;
+	min-height: 155px;
+}
+
+.centerBlockWhite {
+	width: 90%;
+	background-color:rgba(0,0,0,0.5);
+
+}
+
+.main-container {
+	margin: 0 10%;
+	text-align: center;
+}

@@ -1,0 +1,150 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - Home</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+<%block name="header">
+
+    
+</%block>
+
+<%block name="left_side">
+
+</%block> 
+
+
+
+
+<%block name="center">
+
+<div id="section_panel_1" >
+
+
+<div class="navbar_container">
+
+
+    <nav class="navbar navbar-default custom_nav" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="centerlist">
+            </li>
+            <li><a href="/catalog/list/all/">Catalog</a></li>
+              %if request.user.is_authenticated():
+                <li><a href="/account/accountDashboard/">MyAccount</a></li>
+              %else:
+                <li><a id="login_button">Login</a></li>
+                <li><a href="/account/createaccount/">Create Account</a></li>
+              %endif
+              %if request.user.is_authenticated():
+              <li><a id="cart_button"><span class="glyphicon glyphicon-shopping-cart"></span>MyCart</a></li>
+              %endif
+
+
+           </ul>
+        </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+</div><!-- Navbar container-->
+
+
+
+
+
+
+        
+        <div class="box_container">
+
+          <div class="container_panel">
+            <div class="your_text">
+              <p>Your digital world is ready.</p>
+            </div>
+              <a class="btn btn-primary space" href="/catalog/list/all/">Products</a> <a class="btn btn-danger space" href="/catalog/list/all/">Services</a>
+        
+          </div>
+
+</div>
+
+<div id="section_panel_2" class="section_panel_white" >
+
+    <div class="box_container">
+          <div class="container_panel">
+            <div class="turnkey">
+              <h1>Because life deserves to be captured.</h1>
+                 <p class="graytext">Digital My Life is a wave photographic passion. Meyer Photography is your one stop shop for your camera needs. </p>
+                <a href="/catalog/list/all/" class="btn btn-success">View Catalog</a>
+            </div>
+          </div>
+
+      <div class="container_panel">
+        <img src='${ STATIC_URL }base_app/images/redcam2.png'/>
+      </div>
+    </div>
+</div>
+
+
+
+<div id="section_panel_3" class="section_panel_green" >
+
+    <div class="box_container">
+              <div class="container_panel">
+                <div class="turnkey">
+
+                     <span class="glyphicon glyphicon-list-alt glyph"><br>
+                     <hr ="soften">
+                     <h3>Terms.</h3>
+                    <a href="/homepage/terms/" class="btn btn-success btn-marginterm">View Terms</a>
+                </div>
+              </div>
+
+              <div class="container_panel">
+                <div class="turnkey">
+                  
+                     <span class="glyphicon glyphicon-info-sign glyphred"><br>
+                     <hr ="soften">
+                     <h3>About Us.</h3>
+                    <a href="/homepage/about/" class="btn btn-danger btn-margin">About Us</a>
+                   
+                </div>
+              </div>
+
+              <div class="container_panel">
+                <div class="turnkey">
+                   <span class="glyphicon glyphicon-send glyphblue"><br>
+                   <hr ="soften">
+                    <h3>Newsletter.</h3>
+                    <a href="/homepage/newsletter/" class="btn btn-primary btn-margin">View Newsletter</a>  
+                   
+                </div>
+              </div>
+    </div>
+
+</div>
+
+
+
+ 
+
+
+
+
+
+
+
+</%block>  

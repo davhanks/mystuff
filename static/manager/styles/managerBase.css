@@ -1,0 +1,16 @@
+.navdark{
+	background-color: background-color:rgba(44,53,57,0.9);
+}
+
+.navcustom {
+background-color: rgba(51, 51, 51, 0.9);
+color: #fff;
+}
+
+li > a {
+	color: #fff;
+}
+
+a.navbar-brand {
+	color: #fff;
+}
