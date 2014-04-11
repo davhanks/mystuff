@@ -38,7 +38,7 @@
   
   <header>
     <%block name="header">
-      <nav class="navbar navbar-inverse" role="navigation">
+      <nav class="navbar navcustom" role="navigation">
         <div class="container-fluid">
         
           <div class="navbar-header">
@@ -48,7 +48,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">DigitalMyWorld</a>
+            <a class="navbar-brand" href="/homepage/index">DigitalMyWorld</a>
           </div>
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -59,16 +59,16 @@
               %if request.user.is_authenticated():
                 <li><a href="/account/accountDashboard/">MyAccount</a></li>
               %else:
-                <a id="login_button"><span class="glyphicon glyphicon-arrow-right"></span> Login</a>
+                <li><a id="login_button">Login</a></li>
               %endif
               %if request.user.is_authenticated():
               <li><a id="cart_button"><span class="glyphicon glyphicon-shopping-cart"></span> MyCart</a></li>
               %endif
             </ul>
 
-                <form class="navbar-form navbar-right" role="search">
+                <form class="navbar-form navbar-right" role="search" method="POST" action="/catalog/list__search/">
                   <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" placeholder="Search" id="search" name="search">
                   </div>
                   <button type="submit" class="btn btn-default">Search</button>
                 </form>
@@ -80,7 +80,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employee Actions <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                       <li><a href="/repair/userlookup">Repairs</a></li>
-                      <li><a href="/rentals/rent/">Rental Items</a></li>
+                      <li><a href="/rental/rent/">Rental Items</a></li>
                       <li class="divider"></li>
                       <li><a href="/manager/dashboard/">Dashbboard</a></li>
                     </ul>
@@ -97,8 +97,6 @@
 
 
 
-                 
-            
 
 
 
@@ -142,10 +140,7 @@
 
 
 
-
-
-
-
+<!--
 
         <div class="divBackground space">
           <div class="row">
@@ -193,7 +188,7 @@
             </div> 
           </div>
         </div>
-      
+      -->
     </header>
   
 	

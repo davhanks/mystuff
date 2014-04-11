@@ -10,9 +10,10 @@
 	
 </%block>
 
- <%block name="header">
+<%block name="header">
+
     
-  </%block>
+</%block>
 
 <%block name="left_side">
 
@@ -24,12 +25,55 @@
 <%block name="center">
 
 <div id="section_panel_1" >
+
+
+<div class="navbar_container">
+
+
+    <nav class="navbar navbar-default custom_nav" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="centerlist">
+            </li>
+            <li><a href="/catalog/list/all/">Catalog</a></li>
+              %if request.user.is_authenticated():
+                <li><a href="/account/accountDashboard/">MyAccount</a></li>
+              %else:
+                <li><a id="login_button">Login</a></li>
+                <li><a href="/account/createaccount/">Create Account</a></li>
+              %endif
+              %if request.user.is_authenticated():
+              <li><a id="cart_button"><span class="glyphicon glyphicon-shopping-cart"></span>MyCart</a></li>
+              %endif
+
+
+           </ul>
+        </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+</div><!-- Navbar container-->
+
+
+
+
+
+
         
         <div class="box_container">
 
           <div class="container_panel">
             <div class="your_text">
-              <p>Your digital World is ready.</p>
+              <p>Your digital world is ready.</p>
             </div>
               <a class="btn btn-primary space" href="/catalog/list/all/">Products</a> <a class="btn btn-danger space" href="/catalog/list/all/">Services</a>
         
@@ -75,7 +119,7 @@
                      <span class="glyphicon glyphicon-info-sign glyphred"><br>
                      <hr ="soften">
                      <h3>About Us.</h3>
-                    <a href="/homepage/about/" class="btn btn-success btn-margin">View Terms</a>
+                    <a href="/homepage/about/" class="btn btn-danger btn-margin">About Us</a>
                    
                 </div>
               </div>
@@ -85,7 +129,7 @@
                    <span class="glyphicon glyphicon-send glyphblue"><br>
                    <hr ="soften">
                     <h3>Newsletter.</h3>
-                    <a href="/homepage/newsletter/" class="btn btn-success btn-margin">View Terms</a>  
+                    <a href="/homepage/newsletter/" class="btn btn-primary btn-margin">View Newsletter</a>  
                    
                 </div>
               </div>

@@ -1,3 +1,88 @@
+/*All the the custom navbar css (bootstrap hack) */
+.navbar_container {
+  margin-left: auto;
+  margin-right: auto;
+/*  min-width: 500px;*/
+  max-width: 450px;
+
+}
+
+@media (max-width: 767px) {
+  .navbar_pic {
+    position: relative;
+    left: -170px;
+  }
+}
+
+.dropdown-menu > li > a {
+display: block;
+padding: 3px 20px;
+clear: both;
+font-weight: normal;
+line-height: 1.428571429;
+color: #0D66B3;
+white-space: nowrap;
+}
+
+.green {
+  color:;
+}
+
+.black {
+  background-color: black
+
+}
+
+.custom_nav {
+  border-style: none;
+  border-radius: 0px;
+  background-color: rgba(255, 255, 255, 0.4);
+
+
+
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #0D66B3;
+}
+
+.navbar_pic > img{
+  padding-left: 10px;
+  padding-top: 5px;
+/*  padding-bottom: 0px;*/
+  max-height: 56px;
+
+  position: relative;
+  left: 5px;
+}
+
+.drop_padding {
+  padding:10px 10px 10px 10px;
+  width: 260px;
+  height: 55px;
+}
+
+.custom-form-submit-button {
+  margin-top: 10px;
+}
+
+.form-field {
+  margin-bottom: 10px;
+}
+
+.nav_expander {
+  margin-top: 6px;
+}
+
+.navbar-default .navbar-toggle {
+border-color: #0D66B3;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+background-color: #0D66B3;
+}
+
+
 .section_panel{
   background-color: #e8e8e8;  
   background-position: center top;
@@ -160,3 +245,19 @@
 .btn-marginterm {
 	margin-top: -120px;
 }
+
+li{
+	list-style: none;
+	text-align: center;
+	display: inline;
+	margin: 20px;
+
+
+
+}
+
+.centerlist{
+	margin-top: 10px;
+
+}
+

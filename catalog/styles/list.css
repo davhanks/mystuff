@@ -1,18 +1,27 @@
 .container {
 	display: inline-block;
-	width: 350px;
+	width: 320px;
 	vertical-align: top;
 }
 
 .thumbnail {
-	min-height: 450px;
+	min-height: 300px;
 }
 
 .info {
 	display: inline-block;
 	vertical-align: bottom;
+	width:350;
+	text-align: center;
+	margin-left: 40px;
 }
 .catalog_tile_list {
-	width: 300px;
-	min-height: 310px;
+	width: 150px;
+	min-height: 155px;
+}
+
+.centerBlockWhite {
+	width: 90%;
+	background-color:rgba(0,0,0,0.5);
+
 }
