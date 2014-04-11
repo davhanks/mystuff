@@ -1,0 +1,30 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="managerBase.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - Home</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+<%block name="center">
+<div class="col-md-10">
+  <div class = "centerBlock">
+    <p>Edit Store</p>
+    <div>
+        <form method="POST">
+            <table>
+                <tbody>
+                    ${ form }
+                </tbody>
+            </table>
+            <input class="btn btn-primary" type="submit" value="Save" />
+        </form>
+        <a href="/manager/deletestore/${ id }/" class="btn btn-danger floatRight"><span class = "glyphicon glyphicon-remove"></span> Delete Store</a><br>
+    </div>
+  </div>
+</div>  
+</%block>

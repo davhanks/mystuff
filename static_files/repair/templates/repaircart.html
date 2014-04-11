@@ -1,0 +1,43 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+    <title>MyStuff - Shop</title>
+</%block>
+
+<%block name="css">
+    
+</%block>
+
+
+
+<%block name="center">
+<div class="col-md-10">
+    <div class = "centerBlockWhite">
+        <div class="panel">
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Repair ID</th>
+                            <th>Date In</th>
+                            <th>Date Complete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    %for r in repairs:
+                        <tr>
+                            <td>${ r.id }</td>
+                            <td>${ r.dateStarted.strftime('%m/%d/%Y %H:%M') }</td>
+                            <td>${ r.dateComplete.strftime('%m/%d/%Y %H:%M') }</td>
+                        </tr>
+                    %endfor
+                    </tbody>
+                </table>
+                <a class="btn btn-success" href="/repair/repair_checkout/${ user.id }/">Checkout</a>
+            </div>
+        </div>    
+    </div>
+</div> 
+</%block>

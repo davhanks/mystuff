@@ -1,0 +1,25 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base_template.htm" />
+
+<%block name="left_side">
+<div class="col-md-2">
+  <div class="sidebar">
+    <a href="/catalog/list/all/" class="btn btn-primary width"><span class = "glyphicon glyphicon-camera"></span> Shop</a><br>
+    <a href="/rental/rent/" class="btn btn-success width"><span class = "glyphicon glyphicon-tag"></span> Rent</a><br>
+    %if not request.user.is_authenticated():
+    	<a href="/account/createaccount/" class="btn btn-warning width"><span class = "glyphicon glyphicon-shopping-cart"></span> Create Account</a><br>
+    %elif request.user.is_staff:
+    	<a href="/repair/userlookup/" class="btn btn-warning width"><span class = "glyphicon glyphicon-wrench"></span> Repairs</a><br>
+    %else:
+        <a href="/repair/check_status/" class="btn btn-warning width"><span class = "glyphicon glyphicon-wrench"></span> Repairs</a><br>
+    %endif
+    <a href="/manager/logout/" class="btn btn-danger width"><span class = "glyphicon glyphicon-share"></span> Logout</a><br>
+  </div>
+</div>  
+</%block> 
+
+<%block name="center">
+  
+  
+</%block> 
+

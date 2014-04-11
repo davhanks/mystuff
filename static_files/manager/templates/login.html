@@ -1,0 +1,35 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="managerBase.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - Home</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+<%block name="left_side">
+    
+</%block>
+
+<%block name="center">
+<div class="col-md-10">
+  <div class = "centerBlock">
+    <p>Login</p>
+    <div>
+        <form method="POST">
+            <table>
+                <tbody>
+                    ${ form }
+                </tbody>
+            </table>
+            <input class="btn btn-primary" type="submit" value="Login" />
+        </form>
+        <a href="/manager/forgotpassword">Forgot your Password?</a>
+    </div>
+    
+  </div>
+</div>  
+</%block>  

@@ -1,0 +1,47 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="managerBase.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - Home</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+ 
+
+<%block name="center">
+<div class="col-md-10">
+  <div class = "centerBlock">
+    <h2>User List</h2>
+    <a href="/manager/newuser/" class="btn btn-primary"><span class = "glyphicon glyphicon-user"></span> Create User</a>
+    <a href="/manager/logout/" class="btn btn-primary"><span class = "glyphicon glyphicon-share"></span> Logout</a>
+    <table class="table ">
+    	<thead>
+    		<tr>
+    			<th>ID</th>
+    			<th>Hire Date</th>
+                <th>Termination Date</th>
+                <th>Salary</th>
+                <th>Action</th>
+    		</tr>
+    	</thead>
+        <tbody>
+        %for e in emps:
+            <tr>
+                <td>${ e.id }</td>
+                <td>${ e.hire_date }</td>
+                <td>${ e.termination_date }</td>
+                <td>${ e.salary }</td>
+                <td>${ e.active }</td>
+                <!--<td><a href="/manager/edituser/${ e.id }" class="btn btn-danger"><span class = "glyphicon glyphicon-wrench"></span> Edit</a></td>
+                <td><a href="/manager/editemployee/${ e.id }" class="btn btn-danger"><span class = "glyphicon glyphicon-wrench"></span> Edit Employee</a></td>-->
+            </tr>
+        %endfor
+        </tobdy>
+    </table>
+  </div>
+</div>  
+</%block>  

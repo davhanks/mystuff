@@ -1,0 +1,54 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base_ajax_template.htm" />
+
+<%block name="content">
+    <div>
+        %for p in products:
+            <div class="row shade">
+                <div class="col-md-2">
+                    <div class="img_container">
+                    %for cat in catalog:
+                        %if cat.id == p.catalog_inventory_id:
+                            <img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ cat.image }" />
+                        %endif
+                    %endfor
+                    
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    %for cat in catalog:
+                        %if cat.id == p.catalog_inventory_id:
+                            <p>Product: ${ cat.product_name }</p>
+                        %endif
+                    %endfor
+                </div>
+                <div class="col-md-2">
+                    %for cat in catalog:
+                        %if cat.id == p.catalog_inventory_id:
+                            <p>Product: ${ cat.description }</p>
+                        %endif
+                    %endfor
+                </div>
+                <div class="col-md-2">
+                    <p>Ser Number: ${ p.serial_number }</p>
+                </div>
+                <div class="col-md-1">
+                    <a class="delete_button btn btn-danger" data-id="${ p.id }"><span class="glyphicon glyphicon-trash"></span></a>
+                </div>
+            </div>
+
+            <hr>
+        %endfor
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <a href="/catalog/userlookup/" class="btn btn-danger"> Next</a>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
+    </div>
+</%block>

@@ -1,0 +1,67 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+    <title>MyStuff - Shop</title>
+</%block>
+
+<%block name="css">
+    
+</%block>
+
+
+
+<%block name="center">
+<div class="col-md-10">
+    <div class = "centerBlockWhite">
+        <div class="panel">
+            <div>
+                <h2>Status: 
+                %if rental.dateDue > now:
+                    <span class="label label-success">OK</span>
+                %else:
+                    <span class="label label-danger">Late</span>
+                %endif
+                </h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>RI ID</th>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Serial Number</th>
+                            <th>Damage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    %for ri in rental_items:
+                        <tr>
+                            <td>${ ri.id }</td>
+                            %for p in products:
+                                %if p.id == ri.product_id:
+                                    %for c in catalog:
+                                        %if c.id == p.id:
+                                            <td>${ c.product_name }</td>
+                                            <td>${ c.description }</td>
+                                            <td>${ p.serial_number }</td>
+                                            %if not ri.damage_reported:
+                                                <td><a class="btn btn-danger" href="/rental/damages/${ rental.id }/${ user.id }/${ p.id }/">Report</a></td>
+                                            %else:
+                                                <td><span class="label label-warning">Reported</span></td>
+                                            %endif
+                                        %endif
+                                    %endfor
+                                %endif
+                            %endfor
+
+                        </tr>
+                    %endfor
+                    </tbody>
+                </table>
+                <a href="/rental/return_confirmation/${ rental.id }/${ user.id }/" class="btn btn-primary submitButton">Return All</a>
+            </div>
+        </div>    
+    </div>
+</div> 
+</%block>

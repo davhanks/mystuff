@@ -1,0 +1,56 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+    <title>MyStuff - Shop</title>
+</%block>
+
+<%block name="css">
+    
+</%block>
+
+<%block name="left_side">
+<div class="col-md-2">
+  <div class="sidebar">
+    <a href="/catalog/list/Camera/" class="btn btn-primary width"><span class = "glyphicon glyphicon-camera"></span> Cameras</a><br>
+    <a href="/catalog/list/Lense/" class="btn btn-success width"><span class = "glyphicon glyphicon-search"></span> Lenses</a><br>
+    <a href="/catalog/list/Equipment/" class="btn btn-warning width"><span class = "glyphicon glyphicon-cog"></span> Equipment</a><br>
+    <a href="/catalog/list/Accessory/" class="btn btn-danger width"><span class = "glyphicon glyphicon-headphones"></span> Accessories</a><br>
+
+
+    <form class="navbar-form navbar-left" role="search" method="POST" action="/catalog/userlookup__search/">
+        <div class="form-group">
+        <input type="text" class="form-control" placeholder="First Name" id="first" name="first">
+        <input type="text" class="form-control" placeholder="Last Name" id="last" name="last">
+        <input type="text" class="form-control" placeholder="Phone" id="phone" name="phone">
+        
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+
+</div>
+</%block>  
+
+<%block name="center">
+<div class="col-md-10">
+    <div class = "centerBlockWhite">
+    <br>
+        %for u in users:
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="thumbnail">
+                        <img class="catalog_tile" src="${ STATIC_URL }catalog/images/" />
+                        <div>
+                            <h3>${ u.first_name }</h3>
+                            <h4>${ u.last_name }</h4>
+                            <a href="/catalog/cart__add/${ u.id }/" class="btn btn-danger"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a> <a href="/catalog/description/${ u.id }" class="btn btn-primary" >Description</a>
+                        </div>
+                    </div><!--thumbnail-->   
+                </div><!--column-->
+            </div>
+        %endfor
+    </div>
+</div> 
+</%block>

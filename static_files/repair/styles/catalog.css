@@ -1,0 +1,7 @@
+.thumbnail > img {
+
+	max-width:269px;
+    max-height:269px;
+    width: auto;
+    height: auto;
+}

@@ -1,0 +1,77 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="managerBase.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - Stores</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+<%block name="center">
+<div class="col-md-10">
+  <div class = "centerBlock">
+    <div id="confirmation">
+        <div class="confirmPadding">
+            <h3>Create Store?</h3>
+            <p>Pressing Confirm will create a new store with a unique ID. Are you sure?</p>
+        </div>
+        <div id="confirmation-btn">
+
+            <a href="/manager/editstore/new/" class="btn btn-primary"><span class = "glyphicon glyphicon-home"></span> Confirm</a>
+            <button class = "btn btn-danger"onclick="hideConfirm()"><span class = "glyphicon glyphicon-remove"></span> Cancel</button>
+        </div>
+    </div>
+
+    <div id="logout">
+        <div class="confirmPadding">
+            <h3>Logout</h3>
+            <p>Are you sure?</p>
+        </div>
+        <div id="confirmation-btn">
+
+            <a href="/manager/logout/" class="btn btn-primary"><span class = "glyphicon glyphicon-share"></span> Confirm</a>
+            <button class = "btn btn-danger"onclick="hideLogout()"><span class = "glyphicon glyphicon-remove"></span> Cancel</button>
+        </div>
+    </div>
+
+    <h2>Stores List</h2>
+
+    <button class = "btn btn-primary"onclick="showConfirm()"><span class = "glyphicon glyphicon-home"></span> Create Store</button>
+    <button class="btn btn-primary"onclick="showLogout()"><span class = "glyphicon glyphicon-share"></span> Logout</button>
+    
+    <table class="table ">
+    	<thead>
+    		<tr>
+    			<th>ID</th>
+    			<th>Name</th>
+                <th>Location</th>
+                <th>Street</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Phone</th>
+    			<th>Actions</th>
+    		</tr>
+    	</thead>
+        <tbody>
+            %for s in stores:
+                <tr>
+                    <td>${ s.id }</td>
+                    <td>${ s.name }</td>
+                    <td>${ s.location }</td>
+                    <td>${ s.street }</td>
+                    <td>${ s.city }</td>
+                    <td>${ s.state }</td>
+                    <td>${ s.zipCode }</td>
+                    <td>${ s.phone }</td>
+                    <td><a href="/manager/editstore/${ s.id }" class="btn btn-danger"><span class = "glyphicon glyphicon-wrench"></span> Edit</a></td>
+                </tr>
+            %endfor
+        </tobdy>
+    </table>
+  </div>
+</div>  
+</%block>  

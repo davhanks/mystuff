@@ -1,0 +1,20 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base_template.htm" />
+
+
+<%block name="left_side">
+<div class="col-md-2">
+  <div class="sidebar">
+    <a href="/homepage/" class="btn btn-primary width"><span class = "glyphicon glyphicon-home"></span> Home</a><br>
+    <a href="/account/changepassword/" class="btn btn-success width"><span class = "glyphicon glyphicon-link"></span> Change Password</a><br>
+    <a href="/account/editaccount/" class="btn btn-warning width"><span class = "glyphicon glyphicon-shopping-cart"></span> Edit Info</a><br>
+    <a href="/account/deleteconfirm/" class="btn btn-danger width"><span class = "glyphicon glyphicon-share"></span> Delete Account</a><br>
+  </div>
+</div>
+</%block> 
+
+<%block name="center">
+  
+  
+</%block> 
+

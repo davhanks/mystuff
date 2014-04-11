@@ -1,0 +1,59 @@
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+    <title>MyStuff - Shop</title>
+</%block>
+
+<%block name="css">
+    
+</%block>
+
+
+<%block name="center">
+<div class="col-md-10">
+    <div class = "centerBlockWhite">
+    <div class="panel">
+        <h2>Search a User</h2>
+        <form class="navbar-form navbar-left" role="search" method="POST" action="/repair/userlookup__search/">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="First Name" id="first" name="first">
+                <input type="text" class="form-control" placeholder="Last Name" id="last" name="last">
+                <input type="text" class="form-control" placeholder="Phone" id="phone" name="phone">
+                
+                <button type="submit" class="btn btn-danger">Search</button>
+            </div>
+        </form>
+    <br>
+    <br>
+        <div class="panel">
+            <table class="table">
+                <caption>Users</caption>
+                <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone</th>
+                </tr>
+                </thead>
+                <tbody>
+                %for u in users:
+                    <tr>
+                        <td>${ u.first_name }</td>
+                        <td>${ u.last_name }</td>
+                        <td>${ u.phone }</td>
+                        <td><a href="/repair/create_repair/${ u.id }/" class="btn btn-success">New</a></td>
+                        <td><a href="/repair/check_status/${ u.id }/" class="btn btn-warning">Repair Status</a></td>
+                        <td>
+                        <a href="/repair/repaircart/${ u.id }/" class="btn btn-danger">Cart</a>
+                        </td>
+                    <tr>
+                %endfor
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+</%block>
