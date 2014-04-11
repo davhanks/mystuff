@@ -13,7 +13,7 @@ def process_request(request):
     subtotal = 0
 
     for key in cart:
-        prod = mmod.CatalogInventory.objects.get(id__in=key)
+        prod = mmod.CatalogInventory.objects.get(id=key)
         products.append(prod)
 
         subtotal += (prod.sale_price * cart[key])
