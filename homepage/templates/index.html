@@ -10,31 +10,97 @@
 	
 </%block>
 
+ <%block name="header">
+    
+  </%block>
+
 <%block name="left_side">
 
 </%block> 
 
+
+
+
 <%block name="center">
-    <div class = "centerBlockWhite">
-        <div class="content_holder">
-            <h2>Welcome to MyStuff</h2>
-            <h3>Meet my photography needs</h3>
 
-            <div class="row">
-            	<div class="col-md-4">
-            		<img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ prods[0].image }"/>
-            	</div>
-            	<div class="col-md-4">
-            		<img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ prods[1].image }"/>
-            	</div>
-            	<div class="col-md-4">
-            		<img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ prods[2].image }"/>
-            	</div>
-            </div><!--row-->
-            <a href="/catalog/list/all/" class="btn btn-success">Shop now!</a>
-        </div><!--content_holder-->
+<div id="section_panel_1" >
+        
+        <div class="box_container">
 
+          <div class="container_panel">
+            <div class="your_text">
+              <p>Your digital World is ready.</p>
+            </div>
+              <a class="btn btn-primary space" href="/catalog/list/all/">Products</a> <a class="btn btn-danger space" href="/catalog/list/all/">Services</a>
+        
+          </div>
 
+</div>
+
+<div id="section_panel_2" class="section_panel_white" >
+
+    <div class="box_container">
+          <div class="container_panel">
+            <div class="turnkey">
+              <h1>Because life deserves to be captured.</h1>
+                 <p class="graytext">Digital My Life is a wave photographic passion. Meyer Photography is your one stop shop for your camera needs. </p>
+                <a href="/catalog/list/all/" class="btn btn-success">View Catalog</a>
+            </div>
+          </div>
+
+      <div class="container_panel">
+        <img src='${ STATIC_URL }base_app/images/redcam2.png'/>
+      </div>
     </div>
-  
+</div>
+
+
+
+<div id="section_panel_3" class="section_panel_green" >
+
+    <div class="box_container">
+              <div class="container_panel">
+                <div class="turnkey">
+
+                     <span class="glyphicon glyphicon-list-alt glyph"><br>
+                     <hr ="soften">
+                     <h3>Terms.</h3>
+                    <a href="/homepage/terms/" class="btn btn-success btn-marginterm">View Terms</a>
+                </div>
+              </div>
+
+              <div class="container_panel">
+                <div class="turnkey">
+                  
+                     <span class="glyphicon glyphicon-info-sign glyphred"><br>
+                     <hr ="soften">
+                     <h3>About Us.</h3>
+                    <a href="/homepage/about/" class="btn btn-success btn-margin">View Terms</a>
+                   
+                </div>
+              </div>
+
+              <div class="container_panel">
+                <div class="turnkey">
+                   <span class="glyphicon glyphicon-send glyphblue"><br>
+                   <hr ="soften">
+                    <h3>Newsletter.</h3>
+                    <a href="/homepage/newsletter/" class="btn btn-success btn-margin">View Terms</a>  
+                   
+                </div>
+              </div>
+    </div>
+
+</div>
+
+
+
+ 
+
+
+
+
+
+
+
 </%block>  
