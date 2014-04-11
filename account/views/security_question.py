@@ -51,7 +51,7 @@ def process_request(request):
                 pr.key = key
                 pr.save()
 
-                send_mail('DigitalMyWorld Password Reset', 'Go to localhost:8000/account/code_reset/ and enter your key: ' + str(key), 'davidkhanks@gmail.com',
+                send_mail('DigitalMyWorld Password Reset', 'Go to http://www.digitalmyworld.com and enter your key: ' + str(key), 'davidkhanks@gmail.com',
                 [email], fail_silently=False)
             # else:
             #     send_mail('DigitalMyWorld Password Reset', 'Your email was not found in our database. Are you sure you typed in the correct email?', 'davidkhanks@gmail.com',
