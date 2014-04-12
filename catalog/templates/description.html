@@ -17,14 +17,17 @@
            
         <div>
             <div class="thumbnail">
-                <img class="catalog_tile" src="${ STATIC_URL }catalog/images/${ product.image }" />
+                <img id="zoom" class="catalog_tile" src="${ STATIC_URL }catalog/images/${ product.image }" data-zoom-image="${ STATIC_URL }catalog/images/${ product.image }" />
 
             <div>
                 <h3>${ product.product_name }</h3>
                 <h4>${ product.sale_price }</h4>
                 <p>Quantity in stock: ${ amount }</p>
                 <p>Description: ${ product.description }</p>
+                <p> Manufacturer: ${product.manufacturer} </P>
+                <p> Category: ${product.product_category} </P>
                 <a href="/catalog/cart__add/${ product.id }/" class="btn btn-danger"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a> <a href="/catalog/list/all/" class="btn btn-primary" > Products</a>
+
 
             </div>
 

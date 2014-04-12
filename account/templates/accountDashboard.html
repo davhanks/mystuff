@@ -37,12 +37,34 @@
         </div> 
     </div>
 
-    <!--<div class="row">
+    <div class="row">
         <div class="col-md-5">
             <div class="centerBlock" >
-                <p>Test</p>
+                <h2>Active Repairs</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Description of Problem</th>
+                            <th>Current Hours Worked</th>
+                            <th>Status</th>
+                            <th>Date Started</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    %for r in repairs:
+                        <tr>
+                            <td>${ r.product_name }</td>
+                            <td>${ r.description }</td>
+                            <td>${ r.labor_hours }</td>
+                            <td>${ r.status }</td>
+                            <td>${ r.dateStarted.strftime('%m/%d/%Y %H:%M') }</td>
+                        </tr>
+                    %endfor
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>-->
+    </div>
 </div>
 </%block>  

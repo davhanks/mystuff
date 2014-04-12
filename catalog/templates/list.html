@@ -1,4 +1,4 @@
-## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+ ## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
 <%inherit file="base.htm" />
 
 
@@ -25,6 +25,7 @@
                             <h3>${ p.product_name }</h3>
                             <h4>$${ p.sale_price }</h4>
                             <a href="/catalog/cart__add/${ p.id }/" class="btn btn-danger"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a> <a href="/catalog/description/${ p.id }" class="btn btn-primary" >Description</a>
+
                         </div>
                     </div><!--thumbnail-->
                 </div>

@@ -1,0 +1,27 @@
+
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - About Us</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+<%block name="center">
+  <div class = "centerBlock">
+  	<p><h2>MyStuff Services</h2></p>
+<br>
+<p><span class="lead">Rentals,</span> Need a piece of equipment for your project? MyStuff has a wide variety of rental products at a very reasonable price. Products must be rented at a minimum of 4 hours and maximum of 5 days. Rental fees do apply. Please see our rentals page for more details.</p>
+<br>
+<p><span class="lead">Repairs</span> We offer a repair service for cameras, lenses, and camera accessories. Fees do apply. See our repairs page for more details.</p>
+<br>
+<p><span class="lead">Want some fresh baked bread? </span> Fresh colonial era bread is being make everyday by one of our employees. This makes our stores smell good all day. Come in and try it.</p>
+<br>
+<img class="newsletter_pic" src="${ STATIC_URL }homepage/images/services.jpg"/>
+  </div>
+  
+</%block>  

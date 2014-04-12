@@ -10,11 +10,14 @@ def process_request(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/manager/login/')
     user = request.user
+
+    repairs = mmod.ServiceRepair.objects.filter(customer_id=user.id).exclude(picked_up=True)
             
 
 
     template_vars = {
         'user' : user,
+        'repairs': repairs,
     }
 
     return templater.render_to_response(request, 'accountDashboard.html', template_vars)

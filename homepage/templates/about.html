@@ -26,5 +26,23 @@
     not only can be used by the world&apos;s best photographers, but also that can remain low cost.</p>
 <br>
   </div>
-  
+<div class="centerBlock">
+ <div class="storeholder">
+ <h2>Stores</h2>
+ 	%for s in stores:
+ 		<div>
+ 			<p>${ s.location } store</p>
+
+			<p>${ s.street }</p>
+
+			<p>${ s.city }, ${ s.state } ${ s.zipCode }</p>
+      <p>Phone: ${ s.phone }</p>
+
+			<p></p>
+ 		</div>
+ 		<hr>
+ 	%endfor
+
+ </div>
+</div>
 </%block>  

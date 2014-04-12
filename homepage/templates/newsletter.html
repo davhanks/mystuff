@@ -1,0 +1,27 @@
+
+## Mako can find this base file because it's in the settings.py -> MAKO_TEMPLATES_DIRS list
+<%inherit file="base.htm" />
+
+
+<%block name="title">
+	<title>MyStuff - About Us</title>
+</%block>
+
+<%block name="css">
+	
+</%block>
+
+<%block name="center">
+  <div class = "centerBlock">
+  	<p><h2>April 2014 Newsletter</h2></p>
+<br>
+<p>Dear MyStuff Customer, <br><br> Welcome to our new online store! We hope that your needs are met through our wide variety of product offerings. We are committed to offer quality products and services that will improve your photography skills no matter how experienced you are. Our passion for all things photography has brought us from our humble beginnings to where we are today. With our low prices and knowledgable staff, we hope to establish a customer relationship that will expand your personal portfolio.</p>
+<br>
+<p>Be on the lookout for our weekly photography classes that will begin next month. Check back soon for the sign-up link that will featured on the MyStuff homepage.</p>
+<br>
+<p>Sincerely,<br>Marshall Romney<br>MyStuff Manager</p>
+<br>
+<img class="newsletter_pic" src="${ STATIC_URL }homepage/images/marshall.jpg" />
+  </div>
+  
+</%block>  
