@@ -48,4 +48,4 @@ def process_request(request):
 
 class CheckEmailForm(forms.Form):
 
-    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'width'}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'width1'}))

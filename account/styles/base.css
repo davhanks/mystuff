@@ -25,3 +25,10 @@ html{
 	background: url(/static/base_app/images/cam2.png) no-repeat center center fixed; 
 
 }
+
+.width {
+margin-top: 5px;
+margin-left: auto;
+margin-right: auto;
+width: 96%;
+}
